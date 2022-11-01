@@ -1,0 +1,14 @@
+version: "3.4" 
+services:
+  hexaicon:
+    container_name: "hexaicon"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8008:80"
+    working_dir: /var/www/html/
+    volumes:
+      - ./:/var/www/html/
+      - ./php.ini:/usr/local/etc/php/php.ini
+    # restart: always
