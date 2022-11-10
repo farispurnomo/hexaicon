@@ -75,6 +75,29 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
+	'hostname' => '151.106.116.205',
+	'username' => 'u374482453_hexauser',
+	'password' => '!0g;@+Vp0PBu',
+	'database' => 'u374482453_hexaicon',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE,
+	'db_information_schema'=>'information_schema'
+);
+
+$db['local'] = array(
+	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
