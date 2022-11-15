@@ -11,16 +11,24 @@
                         <div class="mb-5">
                             <div class="d-flex">
                                 <div class="me-2">
-                                    <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/174855.png') ?>" alt="">
+                                    <a href="">
+                                        <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/meta-icon.png') ?>" alt="">
+                                    </a>
                                 </div>
                                 <div class="mx-2">
-                                    <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/174855.png') ?>" alt="">
+                                    <a href="">
+                                        <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/174855.png') ?>" alt="">
+                                    </a>
                                 </div>
                                 <div class="mx-2">
-                                    <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/1312139.png') ?>" alt="">
+                                    <a href="">
+                                        <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/1312139.png') ?>" alt="">
+                                    </a>
                                 </div>
                                 <div class="mx-2">
-                                    <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/733579.png') ?>" alt="">
+                                    <a href="">
+                                        <img draggable="false" class="img-fluid" width="35" src="<?= base_url('public/images/733579.png') ?>" alt="">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -61,35 +69,36 @@
                     <div class="text-white">Service</div>
                     <ul>
                         <li class="text-white">
-                            <a href="" class="text-decoration-none text-white">FAQ</a>
+                            <a href="<?= base_url('faq') ?>" class="text-decoration-none text-white">FAQ</a>
                         </li>
                         <li class="text-white">
-                            <a href="" class="text-decoration-none text-white">About Us</a>
+                            <a href="<?= base_url('about_us') ?>" class="text-decoration-none text-white">About Us</a>
                         </li>
                         <li class="text-white">
-                            <a href="" class="text-decoration-none text-white">Contact Us</a>
+                            <a href="<?= base_url('contact_us') ?>" class="text-decoration-none text-white">Contact Us</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <hr class="m-0" style="border: 4px solid #cb356b; opacity: 1; border-radius: 10px;">
+    <hr class="m-0" style="border: 2px solid #cb356b; opacity: 1; border-radius: 10px;">
     <div class="row">
         <div class="col-12 px-5">
             <div class="row">
                 <div class="col-md-6 text-white py-3">
                     &copy; 2022 Hexaicons Teams
                 </div>
-                <div class="col-md-6 text-end py-3">
-                    <a href="" class="text-white text-decoration-none px-3">
+                <div class="col-md-6 text-center text-md-end py-3">
+                    <a href="<?= base_url('privacy_policy') ?>" class="text-white text-decoration-none px-3">
                         Privacy Policy
                     </a>
-                    <a href="" class="text-white text-decoration-none px-3">
+                    <a href="<?= base_url('terms_of_service') ?>" class="text-white text-decoration-none px-3">
                         Terms of Service
                     </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

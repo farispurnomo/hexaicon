@@ -1,14 +1,17 @@
 <main>
-
     <section class="container-fluid">
         <div class="row min-vh-100 align-items-center" id="home-section">
             <div class="col-md-4 order-2 order-md-1 text-white">
-                <h2>BOOST</h2>
-                <h3>Your Design and Creativity</h3>
-                <div>Make your project look elegant and professional and save time on your design</div>
-                <a href="">
-                    Explore <img draggable="false" src="<?= base_url('public/images/arrow-right-circle.png') ?>" alt="">
-                </a>
+                <div class="p-md-5">
+                    <h2>BOOST</h2>
+                    <h3>Your Design and Creativity</h3>
+                    <h5 class="mb-5">Make your project look elegant and professional and save time on your design</h5>
+                    <a href="">
+                        <div>
+                            <span>Explore</span> <img class="img-fluid" draggable="false" src="<?= base_url('public/images/arrow-right-circle.png') ?>" alt="">
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-md-8 order-1 order-md-2">
                 <img draggable="false" src="<?= base_url('public/images/Market launch-pana 1.png') ?>" alt="" class="img-fluid">
@@ -18,12 +21,12 @@
 
     <section class="container">
         <div class="row min-vh-100" id="feature-section">
-            <article class="col-12 text-center">
-                <h2>The smartest for <span class="text-danger">creatives like you</span></h2>
-                <div>Whether you're looking for icons, you'll find the perfect assets on Hexaicons</div>
+            <article class="col-12 text-center py-5">
+                <h2 class="fw-bold mb-3">The smartest for <span class="text-danger">creatives like you</span></h2>
+                <h5>Whether you're looking for icons, you'll find the perfect <br /> assets on Hexaicons</h5>
             </article>
             <article class="col-12">
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-md-3 text-center">
                         <div class="box-card mx-xxl-3">
                             <div class="box-icon">
@@ -80,28 +83,28 @@
             </article>
             <article class="col-12">
                 <div class="mt-5 text-center">
-                    <div>Trusted by thousand users from 175+ companies in the worlds</div>
-            
+                    <h5 class="mb-3">Trusted by thousand users from 175+ companies in the worlds</h5>
+
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 align-self-center">
                             <img draggable="false" src="<?= base_url('public/images/image 5.png') ?>" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 align-self-center">
                             <img draggable="false" src="<?= base_url('public/images/Group.png') ?>" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 align-self-center">
                             <img draggable="false" src="<?= base_url('public/images/logodetik-01 1.png') ?>" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 align-self-center">
                             <img draggable="false" src="<?= base_url('public/images/logo-liputan6 1.png') ?>" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 align-self-center">
                             <img draggable="false" src="<?= base_url('public/images/logo-cnnindo 1.png') ?>" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 align-self-center">
                             <img draggable="false" src="<?= base_url('public/images/image 8.png') ?>" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 align-self-center">
                             <img draggable="false" src="<?= base_url('public/images/logo-forbes 1.png') ?>" alt="" class="img-fluid">
                         </div>
                     </div>
@@ -125,15 +128,48 @@
     </section>
 
     <section class="container-fluid">
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-12">
                 <div class="text-center">
-                    <h2>Pricing & Plans</h2>
-                    <div>
-                        Choose your subscription plan
-                    </div>
+                    <h2 class="fw-bold">Pricing & Plans</h2>
+                    <h5>Choose your subscription plan</h5>
                 </div>
             </div>
+        </div>
+        <div class="row justify-content-center">
+            <?php
+            foreach ($subscriptions as $key => $subscription) :
+                $is_last = $key + 1 == count($subscriptions);
+            ?>
+                <div class="col-md-3 d-flex align-items-stretch">
+                    <div class="card-pricing <?= ($is_last ? '' : 'card-pricing-light') ?>">
+                        <div class="card-pricing-content">
+                            <div class="card-pricing-body">
+                                <div class="mb-3 h5 fw-bold"><?= $subscription->name ?></div>
+                                <div class="mb-3 h2 fw-bold"><?= number_format($subscription->total_price) ?></div>
+                                <div class="mb-3"><?= $subscription->description ?></div>
+                                <div class="mb-5 px-3">
+                                    <?php foreach ($subscription->items as $item) : ?>
+                                        <div class="mb-3">
+                                            <?php if ($is_last) : ?>
+                                                <img src="<?= base_url('public/images/check-circle-yellow.png') ?>" alt="">
+                                            <?php else : ?>
+                                                <img src="<?= base_url('public/images/check-circle.png') ?>" alt="">
+                                            <?php endif ?>
+
+                                            <span><?= $item->name ?></span>
+                                        </div>
+                                    <?php endforeach ?>
+                                </div>
+                            </div>
+                            <div class="card-pricing-footer">
+                                <div class="small mb-1"><?= $subscription->note ?></div>
+                                <button class="btn">Get Started</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
         </div>
     </section>
 
@@ -159,13 +195,59 @@
     <section class="container-fluid" id="integrated-section">
         <div class="row min-vh-100">
             <div class="col-md-6 align-self-center">
-                <h4>Integrates seamlessly with your <span class="text-danger">Favorite Tools</span></h4>
-                <div>
-                    We has plugins and integrations for several popular design and developer tools.
-                </div>
+                <h2 class="fw-bold">Integrates seamlessly with <br />your <span class="text-danger">Favorite Tools</span></h2>
+                <h5>
+                    We has plugins and integrations for several <br /> popular design and developer tools.
+                </h5>
             </div>
-            <div class="col-md-6">
-
+            <div class="col-md-6 align-self-center">
+                <div class="row">
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/after-effect-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/xd-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/wordpress-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/figma-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/ai-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/npm-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/penpot-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/canva-icon.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-item-stretch p-3 p-xxl-5">
+                        <div class="bg-card-icon">
+                            <img src="<?= base_url('public/images/image 20.png') ?>" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -178,7 +260,7 @@
             <div class="col-12 position-absolute h-100 w-100">
                 <div class="row h-100 w-100 align-content-center">
                     <div class="col-md-10 text-white">
-                        <h3>UPGRADE TO PRO</h3>
+                        <h3 class="fw-bold">UPGRADE TO PRO</h3>
                         <div>Empower your teams with our additional features</div>
                     </div>
                     <div class="col-md-2">

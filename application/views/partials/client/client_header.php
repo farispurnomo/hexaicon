@@ -1,16 +1,14 @@
-<nav class="navbar navbar-expand-sm">
+<nav class="navbar navbar-expand-md sticky-top navbar-light bg-danger bg-hi-primary" id="main-navbar">
     <div class="container-fluid">
-        <a href="" class="navbar-brand">
+        <a href="<?= base_url('/') ?>" class="navbar-brand">
             <img draggable="false" width="130" class="img-fluid" src="<?= base_url('public/images/main-logo.png') ?>" alt="">
         </a>
 
-        <button id="button-menu-toggle" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar-menu" aria-controls="main-navbar-menu" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="main-navbar">
+        <div class="collapse navbar-collapse" id="main-navbar-menu">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;" id="navbar-menu">
                 <li class="nav-item">
                     <a class="nav-link text-white" href="">Discover</a>
@@ -25,12 +23,13 @@
                     <a class="nav-link text-white" href="">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login</a>
+                    <a class="nav-link btn btn-login" href="<?= base_url('login') ?>">Login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -58,7 +57,7 @@
                                     </div> -->
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="email" name="email" class="form-control" placeholder="email"use>
+                                    <input type="email" name="email" class="form-control" placeholder="email" use>
                                     <label for="floatingInput">Email address</label>
                                 </div>
                                 <div class="form-floating mb-3">
@@ -79,36 +78,36 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="Register">
-                    <form id="form_register">
-                                <div class="form-floating mb-3" id="alert_register">
-                                    <!-- <div class="alert alert-danger" role="alert">
+                        <form id="form_register">
+                            <div class="form-floating mb-3" id="alert_register">
+                                <!-- <div class="alert alert-danger" role="alert">
                                         A simple success alert—check it out!
                                     </div> -->
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="email" name="email" class="form-control" placeholder="email">
-                                    <label for="floatingInput">Email address</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
-                                    <label for="floatingPassword">Password</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" name="kon_password" class="form-control"placeholder="Confirmation Password">
-                                    <label for="floatingPassword">Confirmation Password</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="name" class="form-control" placeholder="Name">
-                                    <label for="floatingInput">Name</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="telpon" class="form-control" placeholder="Phone">
-                                    <label for="floatingPassword">Phone</label>
-                                </div>
-                                <div class="d-grid">
-                                    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="button" id="btn_register">Register</button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" name="email" class="form-control" placeholder="email">
+                                <label for="floatingInput">Email address</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" class="form-control" placeholder="Password">
+                                <label for="floatingPassword">Password</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" name="kon_password" class="form-control" placeholder="Confirmation Password">
+                                <label for="floatingPassword">Confirmation Password</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="name" class="form-control" placeholder="Name">
+                                <label for="floatingInput">Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="telpon" class="form-control" placeholder="Phone">
+                                <label for="floatingPassword">Phone</label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="button" id="btn_register">Register</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

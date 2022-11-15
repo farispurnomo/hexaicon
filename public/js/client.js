@@ -1,12 +1,12 @@
-
 const headerHandle = function () {
     const init = function () {
-        const window_height = $(window).height();
+        // const window_height = $(window).height();
+        const window_height = $('#main-navbar').height();
 
         $(window).scroll(function () {
             const scroll_top = $(this).scrollTop();
             // $('nav').toggleClass('sticky-top bg-hi-primary', scroll_top > window_height);
-            $('nav').toggleClass('navbar-down', scroll_top > window_height);
+            $('#main-navbar').toggleClass('navbar-down', scroll_top > window_height);
         });
     };
 
@@ -16,7 +16,8 @@ const headerHandle = function () {
 }();
 
 $(function () {
-    headerHandle.init();
+    // headerHandle.init();
+
     // console.log('oke');
     $('#btn_login').click(function () {
         $.ajax({
