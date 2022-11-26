@@ -21,6 +21,9 @@ class Subscription extends CI_Controller
             'transaction_details' => array(
                 'order_id' => rand(),
                 'gross_amount' => 10000,
+            ),
+            'callback'  => array(
+                'finish'    => base_url('subscription/pending')
             )
         );
 

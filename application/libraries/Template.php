@@ -65,7 +65,7 @@ class Template
                 ++$count;
             }
             usort($result, function ($a, $b) {
-                return $a['order'] <=> $b['order'];
+                return $a['order'] > $b['order'];
             });
             return $result;
         };
@@ -162,7 +162,7 @@ class Template
         //     'sidebar_menu' => $this->render_navigation_sidebar($menus)
         // ];
 
-        $extend                     = $data['extend_view'] ?? 'layouts/app';
+        $extend                     = $data['extend_view'] ?: 'layouts/app';
         $template_data['content']   = $this->CI->load->view($view, $data, true);
         $this->CI->load->view($extend, $template_data, $return);
     }

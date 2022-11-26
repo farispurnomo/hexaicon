@@ -1,13 +1,29 @@
-const headerHandle = function () {
-    const init = function () {
-        // const window_height = $(window).height();
-        const window_height = $('#main-navbar').height();
+// const headerHandle = function () {
+//     const init = function () {
+//         // const window_height = $(window).height();
+//         const window_height = $('#main-navbar').height();
 
-        $(window).scroll(function () {
-            const scroll_top = $(this).scrollTop();
-            // $('nav').toggleClass('sticky-top bg-hi-primary', scroll_top > window_height);
-            $('#main-navbar').toggleClass('navbar-down', scroll_top > window_height);
-        });
+//         $(window).scroll(function () {
+//             const scroll_top = $(this).scrollTop();
+//             // $('nav').toggleClass('sticky-top bg-hi-primary', scroll_top > window_height);
+//             $('#main-navbar').toggleClass('navbar-down', scroll_top > window_height);
+//         });
+//     };
+
+//     return {
+//         init: () => init()
+//     }
+// }();
+
+const mainApp = function () {
+    const initWowJs = function () {
+        new WOW({
+            animateClass: 'animate__animated'
+        }).init();
+    };
+
+    const init = function () {
+        initWowJs();
     };
 
     return {
@@ -17,6 +33,7 @@ const headerHandle = function () {
 
 $(function () {
     // headerHandle.init();
+    mainApp.init();
 
     // console.log('oke');
     $('#btn_login').click(function () {
@@ -33,7 +50,7 @@ $(function () {
                     `+ res.msg + `
                 </div> `)
                     setTimeout(function () {
-                        window.location.replace(base_url+'admin/dashboard');
+                        window.location.replace(base_url + 'admin/dashboard');
                         // window.location.reload(base_url+'admin/dashboard');
                     }, 1500);
                 } else {
