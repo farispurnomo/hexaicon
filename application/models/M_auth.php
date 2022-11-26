@@ -13,20 +13,19 @@ class M_auth extends CI_Model
     }
     public function insert($post = [])
     {
+        $passsword = password_hash($post['password'],PASSWORD_DEFAULT);
         
         $this->db->where('name','Users');
         $role = $this->db->get('core_roles')->row()->id;
         $this->db->set("name",$this->db->escape_str($post['name']));
         $this->db->set("email",$this->db->escape_str($post['email']));
-        $this->db->set("password",password_hash($post['password'],PASSWORD_DEFAULT));
+        $this->db->set("password",$passsword);
         $this->db->insert('users');
         
         $this->db->set("user_id",$this->db->insert_id());
-        $this->db->set("name",$this->db->escape_str($post['name']));
         $this->db->set("email",$this->db->escape_str($post['email']));
-        $this->db->set("password",password_hash($post['password'],PASSWORD_DEFAULT));
+        $this->db->set("password",$passsword);
         $this->db->set("role_id",$role);
-        $this->db->set("telp",$post['telpon']);
         $this->db->insert($this->table);
         return $this->db->affected_rows();
     }
