@@ -36,7 +36,7 @@ const menuIconDiscover = function () {
                                 html += `
                                     <li>
                                         <div data-keyword="${icon.name}" role="button">
-                                            <img width="32" class="img-fluid" src="${icon.url_image}" alt="">
+                                            <img draggable="false" width="32" class="img-fluid" src="${icon.url_image}" alt="">
                                             <span>${makeBold(icon.name, keyword)}</span>
                                         </div>
                                     </li>
@@ -70,12 +70,13 @@ const menuIconDiscover = function () {
             },
             blur: function () {
                 setTimeout(function () {
-                    $('.search-section').removeClass('open');
+                    $('.search-section').removeClass('open').css('z-index', 'unset');
                     removeBackdrop();
                 }, 500)
             },
             focus: function () {
-                openBackdrop()
+                $('.search-section').css('z-index', '1051');
+                openBackdrop();
             }
         });
 
@@ -102,8 +103,11 @@ const menuIconDiscover = function () {
             success: function (response) {
                 if (response.status == 200) {
                     renderCategories(response.data.categories);
+
                     renderIconStyle(response.data.icon_styles);
-                    renderFilterData(response.data.icon_trends);
+                    renderIconset(response.data.icon_sets);
+
+                    renderFilterData(response.data.icon_popular);
                 }
             },
             error: function () {
@@ -118,15 +122,17 @@ const menuIconDiscover = function () {
             icons.forEach((icon) => {
                 html += `
                 <div class="col-4 text-center p-3">
-                    <img class="img-fluid" src="${icon.url_image}" />
+                    <img draggable="false" class="img-fluid" src="${icon.url_image}" />
                 </div>`;
             });
             return html;
         };
 
-        let html = '';
-        styles.forEach((style) => {
-            html += `
+        let html = '<div class="text-center">Data not available</div>';
+        if (styles.length) {
+            html = '';
+            styles.forEach((style) => {
+                html += `
                 <div class="col-md-3 p-3">
                     <a href="" class="text-black text-decoration-none">
                         <div class="bg-white rounded">
@@ -140,46 +146,219 @@ const menuIconDiscover = function () {
                     </a>
                 </div>
             `;
-        });
+            });
+        }
         $('#icon-styles').html(html)
     };
 
-    const renderCategories = function (categories) {
+    const renderCategories = function (categories = []) {
         let html = '<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5">';
-        categories.forEach((category) => {
-            html += `
-                <div class="col p-3">
-                    <a href="" class="text-decoration-none">
-                        <div class="icon-category">
-                            <div class="row align-items-center">
-                                <div class="col-4">
-                                    <img class="img-fluid" src="${category.url_image}" />
+        if (categories.length) {
+            categories.forEach((category) => {
+                html += `
+                        <div class="col-6 col p-3">
+                            <a href="" class="text-decoration-none">
+                                <div class="icon-category">
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-4 text-center">
+                                            <img draggable="false" class="img-fluid" src="${category.url_image}" />
+                                        </div>
+                                        <div class="col-xl-8 text-center text-xl-start fw-bold">
+                                            ${category.name}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-8 fw-bold">
-                                    ${category.name}
+                            </a>
+                        </div>
+                    `;
+            });
+
+            html += `
+                    <div class="col p-3">
+                        <a href="" class="text-decoration-none">
+                            <div class="icon-category bg-hi-primary justify-content-center">
+                                <div class="row align-items-center">
+                                    <div class="col-12 fw-bold text-center h4">
+                                        All <br/> Categories
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+        }
+        html += '</div>';
+        $('#discover-icon-categories').html(html);
+    }
+
+    const renderIconset = function (sets) {
+        let html = '<div class="text-center">Data not available</div>';
+        if (sets.length) {
+            const set_1 = function () {
+
+                const renderIcons = function (icons) {
+                    let result = '';
+                    // for (let i = 0, n = icons.length; i < n; i++) {
+                    for (let i = 0, n = 20; i < n; i++) {
+                        const element = icons[i];
+                        if (element) {
+                            result += `
+                                <div class="text-center p-3 d-flex align-items-center justify-content-center">
+                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                </div>
+                            `;
+                        }
+                    }
+                    return result;
+                };
+
+                let result = '';
+                if (sets[0]) {
+                    result = `
+                        <div class="bg-white icon-set-content position-relative">
+                            <div class="row row-cols-4 row-cols-md-5 h-100">
+                                ${renderIcons(sets[0].icons)}
+                            </div>
+                            <div class="text-center footer footer-hi-primary">
+                                <div class="d-flex justify-content-center align-items-center h4">
+                                    ${sets[0].name}
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-            `;
-        });
+                `;
+                }
+                return result;
+            };
 
-        html += `
-            <div class="col p-3">
-                <a href="" class="text-decoration-none">
-                    <div class="icon-category bg-hi-primary justify-content-center">
-                        <div class="row align-items-center">
-                            <div class="col-12 fw-bold text-center h4">
-                                All <br/> Categories
+            const set_2 = function () {
+
+                const renderIcons = function (icons) {
+                    let result = '';
+                    // for (let i = 0, n = icons.length; i < n; i++) {
+                    for (let i = 0, n = 20; i < n; i++) {
+                        const element = icons[i];
+                        if (element) {
+                            result += `
+                                <div class="text-center p-3">
+                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                </div>
+                            `;
+                        }
+                    }
+                    return result;
+                };
+
+                let result = '';
+                if (sets[1]) {
+                    result = `
+                    <div class="col-12 p-3">
+                        <div class="bg-white icon-set-content">
+                            <div class="row row-cols-4 row-cols-md-5">
+                                ${renderIcons(sets[1].icons)}
+                            </div>
+                            <div class="text-center footer footer-hi-primary">
+                                <div class="d-flex justify-content-center align-items-center h4">
+                                    ${sets[1].name}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </a>
-            </div>
-        `;
-        html += '</div>';
-        $('#icon-categories').html(html);
+                `;
+                }
+                return result;
+            };
+
+            const set_3 = function () {
+
+                const renderIcons = function (icons) {
+                    let result = '';
+                    for (let i = 0; i < 9; i++) {
+                        const element = icons[i];
+                        if (element) {
+                            result += `
+                                <div class="col-4 text-center p-3">
+                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                </div>
+                            `;
+                        }
+                    }
+                    return result;
+                };
+
+                let result = '';
+                if (sets[2]) {
+                    result = `
+                    <div class="col-md-6 p-3">
+                        <div class="bg-white icon-set-content">
+                            <div class="row">
+                                ${renderIcons(sets[2].icons)}
+                            </div>
+                            <div class="text-center footer footer-hi-grey">
+                                <div class="d-flex justify-content-center align-items-center h4">
+                                    ${sets[2].name}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                }
+                return result;
+            };
+
+            const set_4 = function () {
+                const renderIcons = function (icons) {
+                    let result = '';
+                    for (let i = 0; i < 9; i++) {
+                        const element = icons[i];
+                        if (element) {
+                            result += `
+                                <div class="col-4 text-center p-3">
+                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                </div>
+                            `;
+                        }
+                    }
+                    return result;
+                };
+
+                let result = '';
+                if (sets[3]) {
+                    result = `
+                    <div class="col-md-6 p-3">
+                        <div class="bg-white icon-set-content">
+                            <div class="row">
+                                ${renderIcons(sets[3].icons)}
+                            </div>
+                            <div class="text-center footer footer-hi-grey">
+                                <div class="d-flex justify-content-center align-items-center h4">
+                                    ${sets[3].name}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                }
+                return result;
+            };
+
+            html = `
+                <div class="col-md-6 p-3">
+                    ${set_1()}
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="row">
+                        ${set_2()}
+                    </div>
+                    <div class="row">
+                        ${set_3()}
+                        ${set_4()}
+                    </div>
+                </div>
+            `;
+        }
+
+        $('#discover-icon-sets').html(html);
     }
 
     const renderFilterData = function (icons) {
@@ -189,7 +368,7 @@ const menuIconDiscover = function () {
             return;
         }
 
-        let html = '<div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 row-cols-xxl-6">';
+        let html = '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xxl-6">';
         icons.forEach(icon => {
             const url = helper.getBaseUrl() + 'icon_style/index/' + icon.id;
             html += `
@@ -197,7 +376,7 @@ const menuIconDiscover = function () {
                     <a href="${url}" class="text-decoration-none">
                         <div class="m-1 m-md-3 icon-item">
                             <div class="text-center">
-                                <img class="img-fluid" src="${icon.url_image}"/>
+                                <img draggable="false" class="img-fluid" src="${icon.url_image}"/>
                                 <div>${icon.name}</div>
                             </div>
                         </div>
@@ -206,6 +385,7 @@ const menuIconDiscover = function () {
             `;
         });
         html += '</div>';
+
         $('#icon-filter-data').html(html);
     };
 
@@ -225,11 +405,11 @@ const menuIconDiscover = function () {
         };
 
 
-        $(document).on('click', '#icon-filter [data-type]', function () {
-            const type = $(this).data('type');
+        $(document).on('click', '#icon-filter input[name="icon_categories"]', function () {
+            const type = $(this).val();
 
-            $('#icon-filter div[data-type]').removeClass('bg-hi-primary text-white').addClass('border-hi-primary');
-            $(this).removeClass('border-hi-primary').addClass('bg-hi-primary text-white');
+            // $('#icon-filter div[data-type]').removeClass('bg-hi-primary text-white').addClass('border-hi-primary');
+            // $(this).removeClass('border-hi-primary').addClass('bg-hi-primary text-white');
 
             $.ajax({
                 url: helper.getBaseUrl() + '/icon_discover/get_icons',

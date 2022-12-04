@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12" id="icon-categories">
+                        <div class="col-12" id="discover-icon-categories">
                             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5">
                                 <?php for ($i = 1; $i <= 5; $i++) : ?>
                                     <div class="col placeholder-glow">
@@ -57,12 +57,12 @@
     </section>
 
     <section>
-        <div class="container-fluid bg-hi-grey" style="border-radius: 100px">
+        <div class="container-fluid bg-hi-grey big-radius">
             <div class="row">
-                <div class="col-12 p-md-5">
+                <div class="col-12">
                     <div class="row">
                         <div class="col-12">
-                            <div class="fw-bold">Icon Style</div>
+                            <div class="fw-bold h3">Icon Style</div>
                         </div>
                     </div>
                     <div class="row" id="icon-styles">
@@ -86,19 +86,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 p-md-5">
+                <div class="col-12">
                     <div class="row">
                         <div class="col-12">
-                            <div class="fw-bold">Icon Set</div>
+                            <div class="fw-bold h3">Icon Set</div>
                         </div>
                     </div>
-                    <div class="row placeholder-icon-set">
+                    <div class="row" id="discover-icon-sets">
                         <div class="col-md-6 p-3">
-                            <div class="bg-white rounded">
-                                <div class="row row-cols-4 row-cols-md-5">
+                            <div class="bg-white icon-set-content">
+                                <div class="row row-cols-4 row-cols-md-5 h-100">
                                     <?php for ($i = 1; $i <= 20; $i++) : ?>
-                                        <div class="text-center placeholder-glow p-3">
-                                            <div class="placeholder rounded col-9 p-3">&nbsp;</div>
+                                        <div class="text-center placeholder-glow p-3 d-flex align-items-center justify-content-center">
+                                            <div class="placeholder rounded col-9 img-fluid">&nbsp;</div>
                                         </div>
                                     <?php endfor ?>
                                 </div>
@@ -112,7 +112,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-12 p-3">
-                                    <div class="bg-white rounded">
+                                    <div class="bg-white icon-set-content">
                                         <div class="row row-cols-4 row-cols-md-5">
                                             <?php for ($i = 1; $i <= 20; $i++) : ?>
                                                 <div class="text-center placeholder-glow p-3">
@@ -130,7 +130,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 p-3">
-                                    <div class="bg-white rounded">
+                                    <div class="bg-white icon-set-content">
                                         <div class="row">
                                             <?php for ($i = 1; $i <= 9; $i++) : ?>
                                                 <div class="col-4 text-center placeholder-glow p-3">
@@ -146,7 +146,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 p-3">
-                                    <div class="bg-white rounded">
+                                    <div class="bg-white icon-set-content">
                                         <div class="row">
                                             <?php for ($i = 1; $i <= 9; $i++) : ?>
                                                 <div class="col-4 text-center placeholder-glow p-3">
@@ -176,19 +176,22 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row" id="icon-filter">
-                                <div class="col-md-2 text-center">
-                                    <div class="p-2">
-                                        <div role="button" data-type="TRENDING" class="py-1 px-4 w-100 rounded-pill bg-hi-primary text-white">Trending</div>
+                                <div class="col-md-3 col-lg-2 text-center">
+                                    <div class="custom-hi-radio-primary">
+                                        <input id="category-popular" type="radio" name="icon_categories" value="POPULAR" checked>
+                                        <label for="category-popular" class="rounded-pill w-100 py-2">Popular</label>
                                     </div>
                                 </div>
-                                <div class="col-md-2 text-center">
-                                    <div class="p-2">
-                                        <div role="button" data-type="LATEST" class="py-1 px-4 w-100 rounded-pill border-hi-primary">Latest</div>
+                                <div class="col-md-3 col-lg-2 text-center">
+                                    <div class="custom-hi-radio-primary">
+                                        <input id="category-latest" type="radio" name="icon_categories" value="LATEST">
+                                        <label for="category-latest" class="rounded-pill w-100 py-2">Latest</label>
                                     </div>
                                 </div>
-                                <div class="col-md-2 text-center">
-                                    <div class="p-2">
-                                        <div role="button" data-type="POPULAR" class="py-1 px-4 w-100 rounded-pill border-hi-primary">Popular</div>
+                                <div class="col-md-3 col-lg-2 text-center">
+                                    <div class="custom-hi-radio-primary">
+                                        <input id="category-free" type="radio" name="icon_categories" value="FREE">
+                                        <label for="category-free" class="rounded-pill w-100 py-2">Free</label>
                                     </div>
                                 </div>
                             </div>

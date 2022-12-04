@@ -37,27 +37,20 @@ class M_icon_discover extends CI_Model
                 ->get()
                 ->result();
 
-            $style->icons = array_map(function ($icon) {
-                $icon->url_image = base_url() . $icon->image;
-                return $icon;
-            }, $icons);
+            $style->icons = $icons;
         }
         return $styles;
     }
 
-    public function doGetTrandingIcons()
+    public function doGetFreeIcons()
     {
+        $subscription_free_id = '1';
         $icons = $this->db
             ->from('mst_icons')
-            ->order_by('number_of_downloads')
-            ->limit(20)
+            ->where("exists(SELECT * FROM mst_icon_subscriptions WHERE mst_icon_subscriptions.icon_id=mst_icons.id AND subscription_plan_id='$subscription_free_id')", NULL, false)
+            ->order_by('created_at', 'desc')
             ->get()
             ->result();
-
-        $icons = array_map(function ($icon) {
-            $icon->url_image = base_url() . $icon->image;
-            return $icon;
-        }, $icons);
 
         return $icons;
     }
@@ -66,24 +59,23 @@ class M_icon_discover extends CI_Model
     {
         $icons = $this->db
             ->from('mst_icons')
-            ->order_by('created_at')
+            ->order_by('created_at', 'desc')
             ->limit(20)
             ->get()
             ->result();
-
-        $icons = array_map(function ($icon) {
-            $icon->url_image = base_url() . $icon->image;
-            return $icon;
-        }, $icons);
 
         return $icons;
     }
 
     public function doGetPopularIcons()
     {
-        // $icons = $this->db
-        //     ->from('');
-        $icons = [];
+        $icons = $this->db
+            ->from('mst_icons')
+            ->order_by('number_of_downloads', 'desc')
+            ->limit(20)
+            ->get()
+            ->result();
+
         return $icons;
     }
 
@@ -97,10 +89,26 @@ class M_icon_discover extends CI_Model
             ->get()
             ->result();
 
-        $icons = array_map(function ($icon) {
-            $icon->url_image = base_url() . $icon->image;
-            return $icon;
-        }, $icons);
         return $icons;
+    }
+
+    public function doGetIconSets()
+    {
+        $sets = $this->db
+            ->from('mst_icon_sets')
+            ->order_by('created_at', 'desc')
+            ->limit(4)
+            ->get()
+            ->result();
+
+        foreach ($sets as &$set) {
+            $set->icons = $this->db->from('mst_icons')
+                ->where('set_id', $set->id)
+                ->limit(20)
+                ->get()
+                ->result();
+        }
+
+        return $sets;
     }
 }

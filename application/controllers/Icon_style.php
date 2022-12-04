@@ -23,7 +23,7 @@ class Icon_style extends CI_Controller
             $data['is_favorite']    = $this->M_icon_style->doCheckIsFavorite($id, $client_id);
 
             $this->template->load($this->namespace . 'index', $data);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             show_404();
         }
     }
@@ -45,7 +45,7 @@ class Icon_style extends CI_Controller
                 'icon'          => $icon,
                 'suggestions'   => $suggestions
             );
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $datarow['status'] = $e->getCode();
             $datarow['msg']    = $e->getMessage();
         } finally {
@@ -63,7 +63,7 @@ class Icon_style extends CI_Controller
             $datarow['status'] = 200;
             $datarow['msg']    = 'sukses';
             $datarow['data']   = $this->M_icon_style->doGetMoreCategoryWithIcons($page);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $datarow['status'] = $e->getCode();
             $datarow['msg']    = $e->getMessage();
         } finally {
@@ -82,8 +82,8 @@ class Icon_style extends CI_Controller
             if (!$format_icon || !$format_icon->image) throw new Exception();
             $this->M_icon_style->updateDownloadIcon($format_icon->icon_id);
 
-            force_download(FCPATH . '/' . $format_icon->image, NULL);
-        } catch (Exception $e) {
+            // force_download(FCPATH . '/' . $format_icon->image, NULL);
+        } catch (Throwable $e) {
             show_404();
         }
     }

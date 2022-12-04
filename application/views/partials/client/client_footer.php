@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="text-white">Icon Set</div>
+                    <div class="text-white fw-bold">Icon Set</div>
                     <ul>
                         <li class="text-white">
                             <a href="" class="text-decoration-none text-white">Solid</a>
@@ -66,7 +66,7 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <div class="text-white">Service</div>
+                    <div class="text-white fw-bold">Services</div>
                     <ul>
                         <li class="text-white">
                             <a href="<?= base_url('faq') ?>" class="text-decoration-none text-white">FAQ</a>

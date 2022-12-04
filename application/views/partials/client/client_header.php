@@ -1,5 +1,5 @@
 <?php $is_landing = $this->uri->segment(1) == ''; ?>
-<nav class="navbar navbar-expand-md sticky-top px-md-5 <?php if ($is_landing) echo 'bg-hi-primary' ?>" id="main-navbar">
+<nav class="navbar navbar-expand-lg sticky-top px-md-5 <?php if ($is_landing) echo 'bg-hi-primary' ?>" id="main-navbar">
     <div class="container-fluid">
         <a href="<?= base_url('/') ?>" class="navbar-brand">
             <?php if ($is_landing) : ?>

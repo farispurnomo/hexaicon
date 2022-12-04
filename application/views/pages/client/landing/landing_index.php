@@ -33,11 +33,11 @@
             <div class="col-12">
                 <div class="container">
                     <div class="row">
-                        <article class="col-12 text-center py-5">
+                        <article class="col-12 wow animate__fadeIn text-center py-5">
                             <div class="title fw-bold mb-3">The smartest for <span class="text-danger">creatives like you</span></div>
                             <div class="subtitle">Whether you're looking for icons, you'll find the perfect <br /> assets on Hexaicons</div>
                         </article>
-                        <article class="col-12">
+                        <article class="col-12 wow animate__fadeIn">
                             <div class="row mb-5">
                                 <div class="col-md-6 col-lg-3 pt-3 text-center">
                                     <div class="box-card mx-xxl-3">
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="col-12">
+                        <article class="col-12 wow animate__fadeIn">
                             <div class="my-5 text-center">
                                 <div class="subtitle mb-3">Trusted by thousand users from 175+ companies in the worlds</div>
 
@@ -153,25 +153,57 @@
                             <div class="py-3">
                                 <div class="box box-red m-auto">
                                     <div class="p-3">
-                                        <?php for ($i = 1; $i <= 3; $i++) : ?>
-                                            <div class="row">
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Add Bookmark.png') ?>" alt="">
                                                 </div>
                                             </div>
-                                        <?php endfor ?>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Bookmark-1.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Download from the Cloud.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Delete Bookmark.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Puzzle.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Bookmark.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Services.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Scroll.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/regular-res/Padlock.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="box-footer">
                                         <div class="p-4">
@@ -186,25 +218,57 @@
                             <div class="py-3">
                                 <div class="box box-purple m-auto">
                                     <div class="p-3">
-                                        <?php for ($i = 1; $i <= 3; $i++) : ?>
-                                            <div class="row">
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Add Bookmark.png') ?>" alt="">
                                                 </div>
                                             </div>
-                                        <?php endfor ?>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Bookmark.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Download from the Cloud.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Close.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Delete Bookmark.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Connect.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Done.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Favorites.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/thin-res/Edit.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="box-footer">
                                         <div class="p-4">
@@ -219,25 +283,57 @@
                             <div class="py-3">
                                 <div class="box box-yellow m-auto">
                                     <div class="p-3">
-                                        <?php for ($i = 1; $i <= 3; $i++) : ?>
-                                            <div class="row">
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Bookmark-1.png') ?>" alt="">
                                                 </div>
                                             </div>
-                                        <?php endfor ?>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Plus.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Bookmark.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Download from the Cloud.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Ok.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Close.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Delete.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Edit.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/solid-res/Connect.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="box-footer">
                                         <div class="p-4">
@@ -251,26 +347,58 @@
                         <div class="col-md-6">
                             <div class="py-3">
                                 <div class="box box-orange m-auto">
-                                    <div -style="clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 80%)">
-                                        <?php for ($i = 1; $i <= 3; $i++) : ?>
-                                            <div class="row">
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <div class="mb-4">
-                                                        <img src="<?= base_url('public/uploads/icons/Add Bookmark.png') ?>" alt="">
-                                                    </div>
+                                    <div class="p-3">
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Services.png') ?>" alt="">
                                                 </div>
                                             </div>
-                                        <?php endfor ?>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Opened Folder.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Picture.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Trash.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Undelete.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Support.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Scroll.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Briefcase.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="mb-4">
+                                                    <img draggable="false" class="img-fluid" src="<?= base_url('public/images/color-res/Box.png') ?>" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="box-footer">
                                         <div class="p-4">
@@ -314,9 +442,9 @@
                                             <?php foreach ($subscription->items as $item) : ?>
                                                 <div class="mb-3">
                                                     <?php if ($is_last) : ?>
-                                                        <img src="<?= base_url('public/images/check-circle-yellow.png') ?>" alt="">
+                                                        <img draggable="false" src="<?= base_url('public/images/check-circle-yellow.png') ?>" alt="">
                                                     <?php else : ?>
-                                                        <img src="<?= base_url('public/images/check-circle.png') ?>" alt="">
+                                                        <img draggable="false" src="<?= base_url('public/images/check-circle.png') ?>" alt="">
                                                     <?php endif ?>
 
                                                     <span><?= $item->name ?></span>
@@ -356,52 +484,52 @@
                             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 content">
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/trend 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/trend 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/trending 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/trending 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/whatsapp (1) 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/whatsapp (1) 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/whatsapp 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/whatsapp 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/engineering 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/engineering 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/instagram 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/instagram 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/instagram-logo 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/instagram-logo 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/linkedin (1) 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/linkedin (1) 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/linkedin 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/linkedin 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img width="200" src="<?= base_url('public/uploads/icons/settings 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/settings 2.png') ?>" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -411,7 +539,7 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="pb-5">
-                            <button class="btn subtitle px-4 rounded-pill btn-hi-primary">See More <i class="fa fa-arrow-right"></i></button>
+                            <a href="<?= base_url('icon_discover') ?>" class="btn subtitle px-4 rounded-pill btn-hi-primary">See More <i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -434,47 +562,47 @@
                     <div class="row">
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/after-effect-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/after-effect-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/xd-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/xd-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/wordpress-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/wordpress-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/figma-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/figma-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/ai-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/ai-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/npm-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/npm-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/penpot-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/penpot-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/canva-icon.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/canva-icon.png') ?>" alt="">
                             </div>
                         </div>
                         <div class="col-4 d-flex align-item-stretch">
                             <div class="bg-card-icon m-2 p-4">
-                                <img src="<?= base_url('public/images/image 20.png') ?>" alt="">
+                                <img draggable="false" src="<?= base_url('public/images/image 20.png') ?>" alt="">
                             </div>
                         </div>
                     </div>

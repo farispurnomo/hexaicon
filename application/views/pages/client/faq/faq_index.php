@@ -2,12 +2,12 @@
     <section class="container">
         <div class="row">
             <div class="col-12 py-3">
-                <div class="card">
+                <div class="card card-hi-primary">
                     <div class="card-header bg-hi-primary text-center h5 text-white">
                         FAQ
                     </div>
                     <div class="card-body">
-                        <div class="accordion accordion-flush" id="accordionFaq">
+                        <div class="accordion accordion-hi-primary accordion-flush" id="accordionFaq">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">

@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="<?= base_url('public/css/client.css') ?>?v<?= $this->config->item('app_version_summary') ?>">
 
-    <link rel="shortcut icon" href="<?= base_url('public/images/mini-logo.png') ?>" />
+    <link rel="shortcut icon" href="<?= base_url('public/images/min-logo-color.png') ?>" />
     <base href="<?= site_url() ?>">
 </head>
 

@@ -23,17 +23,18 @@ class Icon_discover extends CI_Controller
         try {
             $categories         = $this->M_icon_discover->doGetCategories();
             $icon_styles        = $this->M_icon_discover->doGetIconStyles();
-            $icon_trends        = $this->M_icon_discover->doGetTrandingIcons();;
+            $icon_popular       = $this->M_icon_discover->doGetPopularIcons();
+            $icon_sets          = $this->M_icon_discover->doGetIconSets();
 
             $datarow['status']  = 200;
             $datarow['msg']     = 'sukses';
             $datarow['data']    = array(
                 'categories'    => $categories,
                 'icon_styles'   => $icon_styles,
-                'icon_sets'     => [],
-                'icon_trends'   => $icon_trends
+                'icon_sets'     => $icon_sets,
+                'icon_popular'  => $icon_popular
             );
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $datarow['status']  = $e->getCode();
             $datarow['msg']     = $e->getMessage();
         } finally {
@@ -59,14 +60,14 @@ class Icon_discover extends CI_Controller
                     break;
 
                 default:
-                    $icons = $this->M_icon_discover->doGetTrandingIcons();
+                    $icons = $this->M_icon_discover->doGetFreeIcons();
                     break;
             }
 
             $datarow['status']  = 200;
             $datarow['msg']     = 'sukses';
             $datarow['data']    = $icons;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $datarow['status']  = $e->getCode();
             $datarow['msg']     = $e->getMessage();
         } finally {
@@ -86,7 +87,7 @@ class Icon_discover extends CI_Controller
             $datarow['msg']     = 'sukses';
             $datarow['data']    = $icons;
             $datarow['last_query'] = $this->db->last_query();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $datarow['status']  = $e->getCode();
             $datarow['msg']     = $e->getMessage();
         } finally {

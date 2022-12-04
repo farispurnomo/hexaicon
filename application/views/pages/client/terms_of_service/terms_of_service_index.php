@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12 py-3">
 
-                <div class="card">
+                <div class="card card-hi-primary">
                     <div class="card-header bg-hi-primary text-center h5 text-white">
                         Terms and Service
                     </div>

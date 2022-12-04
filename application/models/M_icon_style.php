@@ -33,6 +33,7 @@ class M_icon_style extends CI_Model
             ->row();
 
         if (!$icon) return;
+
         $icon->resolutions = $this->db
             ->select("
                 *, EXISTS(
@@ -47,12 +48,12 @@ class M_icon_style extends CI_Model
             ")
             ->from('mst_icon_resolutions')
             ->where('icon_id', $icon->id)
+            ->order_by('size')
             ->get()
             ->result();
 
         foreach ($icon->resolutions as &$resolution) {
             $resolution->is_unlock = boolval($resolution->is_unlock);
-            $resolution->url_image = base_url() . $resolution->image;
 
             $formats = $this->db
                 ->select("
@@ -73,7 +74,6 @@ class M_icon_style extends CI_Model
 
             $resolution->formats = array_map(function ($format) {
                 $format->is_unlock = boolval($format->is_unlock);
-                $format->url_image = base_url() . $format->image;
 
                 return $format;
             }, $formats);
@@ -100,11 +100,6 @@ class M_icon_style extends CI_Model
             ->get()
             ->result();
 
-        $icons = array_map(function ($icon) {
-            $icon->url_image = base_url() . $icon->image;
-
-            return $icon;
-        }, $icons);
         return $icons;
     }
 
@@ -130,12 +125,6 @@ class M_icon_style extends CI_Model
                 ->where('category_id', $category->id)
                 ->get()
                 ->result();
-
-            $category->icons = array_map(function ($icon) {
-                $icon->url_image = base_url() . $icon->image;
-
-                return $icon;
-            }, $category->icons);
         }
 
         return array(

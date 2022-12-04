@@ -1,8 +1,8 @@
-<main class="min-vh-100 d-flex align-items-center">
+<main class="d-flex align-items-center">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="card">
+        <div class="row">
+            <div class="col-md-8 py-5 m-auto">
+                <div class="card card-hi-primary">
                     <div class="card-header bg-hi-primary h5 text-white">
                         Submit a Request
                     </div>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button class="btn btn-primary"><i class="fa fa-paper-plane"></i> Send</button>
+                            <button class="btn btn-hi-primary"><i class="fa fa-paper-plane"></i> Send</button>
                         </div>
                     </form>
                 </div>
