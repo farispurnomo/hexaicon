@@ -22,7 +22,10 @@
                             No
                         </td>
                         <td>
-                            Style
+                            Menu
+                        </td>
+                        <td>
+                            URL
                         </td>
                         <td>
                             Action
@@ -34,12 +37,13 @@
                     foreach ($table as $key => $value) { ?>
                         <tr>
                             <td><?= $key + 1 ?></td>
-                            <td><?= $value->name ?></td>
+                            <td><?= $value->title ?></td>
+                            <td><?= $value->url ?></td>
                             <td>
                                 <a class="btn btn-primary btn-sm mr-3 ajaxify" onclick="edit('<?= $value->id ?>')" data-bs-toggle="modal" data-bs-target="#modal_edit">
                                     <i class="flaticon-file-1"></i> Edit Data
                                 </a>
-                                <a class="btn btn-danger btn-sm mr-3 ajaxify" onclick="ajax_delete('<?= $value->id ?>','<?= $value->name ?>')">
+                                <a class="btn btn-danger btn-sm mr-3 ajaxify" onclick="ajax_delete('<?= $value->id ?>','<?= $value->title ?>')">
                                     <i class="flaticon-file-1"></i> Delete Data
                                 </a>
                             </td>
@@ -75,18 +79,32 @@
                     <div class="d-flex flex-column mb-8 fv-row">
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                             <span class="required">Name <?= $pagetitle ?></span>
-                            <!-- <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i> -->
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                         </label>
                         <input type="text" class="form-control form-control-solid" placeholder="Enter Name" id="nama_tambah" name="nama" />
                     </div>
                     <div class="d-flex flex-column mb-8 fv-row">
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">description</span>
-                            <!-- <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i> -->
+                            <span class="required">URL <?= $pagetitle ?></span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                         </label>
-                        <textarea class="form-control form-control-solid mb-5" rows="3" name="description" data-kt-element="input" placeholder="Input Description"></textarea>
+                        <input type="text" class="form-control form-control-solid" placeholder="Enter URL" id="url_tambah" name="url" />
                     </div>
-
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Icon <?= $pagetitle ?></span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                        </label>
+                        <input type="text" class="form-control form-control-solid" placeholder="Enter URL" id="icon_tambah" name="icon" />
+                    </div>
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <div class="col-md-6 fv-row">
+                            <label class="required fs-6 fw-bold mb-2">Menu Parent</label>
+                            <select class="form-select form-select-solid" id="parent_id" data-control="select2" data-hide-search="true" data-placeholder="Select Parent Menu" name="parent_id">
+                                <?=$menu?>
+                            </select>
+                        </div>
+                    </div>
                     <div class="text-center">
                         <button type="reset" id="modal_cancel_add" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
                         <button type="button" id="modal_submit_add" class="btn btn-primary">
@@ -126,14 +144,29 @@
                             <span class="required">Name <?= $pagetitle ?></span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                         </label>
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter Name" id="nama_edit" name="nama" />
+                        <input type="text" class="form-control form-control-solid" placeholder="Enter Target Title" id="nama_edit" name="nama" />
                         <input type="hidden" class="form-control form-control-solid" placeholder="Enter Target Title" id="id_edit" name="id" />
                     </div>
                     <div class="d-flex flex-column mb-8 fv-row">
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">description</span>
+                            <span class="required">URL <?= $pagetitle ?></span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                         </label>
-                        <textarea class="form-control form-control-solid mb-5" rows="3" name="description" id="text_area_edit" data-kt-element="input" placeholder="Input Description"></textarea>
+                        <input type="text" class="form-control form-control-solid" placeholder="Enter Target Title" id="url_edit" name="url" />
+                    </div>
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Icon <?= $pagetitle ?></span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                        </label>
+                        <input type="text" class="form-control form-control-solid" placeholder="Enter URL" id="icon_edit" name="icon" />
+                    </div>
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <div class="col-md-6 fv-row">
+                            <label class="required fs-6 fw-bold mb-2">Menu Parent</label>
+                            <select class="form-select form-select-solid" id="parent_id_edit" data-control="select2" data-hide-search="true" data-placeholder="Select Parent Menu" name="parent_id">
+                            </select>
+                        </div>
                     </div>
                     <div class="text-center">
                         <button type="reset" id="modal_cancel_edit" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -153,14 +186,14 @@
     $('#modal_submit_add').click(function() {
         ajax_add()
     })
-    $('#modal_submit_edit').click(function() {
+    $('#modal_submit_edit').click( function() {
         ajax_edit()
     })
 
     function ajax_add() {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/store",
+            url: "<?= base_url() ?>" + "admin/master/menu/store",
             data: $("#form_add").serializeArray(),
             dataType: "json",
             success: function(data) {
@@ -197,17 +230,18 @@
     function edit(id) {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/edit",
+            url: "<?= base_url() ?>" + "admin/master/menu/edit",
             data: {
                 id: id,
             },
             dataType: "json",
             success: function(data) {
                 if (data.status == "200") {
-                    $("#nama_edit").val(data.data.name);
-                    $("#id_edit").val(data.data.id);
-                    $("#text_area_edit").val(data.data.description);               
-                    
+                    $("#nama_edit").val(data.data.title);
+                    $("#url_edit").val(data.data.url);
+                    $("#parent_id_edit").html(data.menu);
+                    $("#id_edit").val(data.data.id)
+                    $("#icon_edit").val(data.data.icon)
                     // $("#parent_id").html(data.menu)
                     // $("#parent_id").html(data.menu)
                     // $("#parent_id").html(data.menu)
@@ -233,7 +267,7 @@
     function ajax_edit() {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/update",
+            url: "<?= base_url() ?>" + "admin/master/menu/update",
             data: $("#form_edit").serializeArray(),
             dataType: "json",
             success: function(data) {
@@ -269,7 +303,7 @@
 
     function ajax_delete(id, name) {
         Swal.fire({
-            text: "Are you sure you want to Remove Style name " + name + "?",
+            text: "Are you sure you want to Remove Menu name " + name + "?",
             icon: "error",
             showCancelButton: !0,
             buttonsStyling: !1,
@@ -284,7 +318,7 @@
             if (t.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "<?= base_url() ?>" + "admin/master/style/destroy",
+                    url: "<?= base_url() ?>" + "admin/master/menu/destroy",
                     data: {
                         id: id,
                     },
@@ -393,6 +427,6 @@
     }
 
     function redirect() {
-        window.location.replace(base_url + "master/style/");
+        window.location.replace(base_url + "master/akses/");
     }
 </script>

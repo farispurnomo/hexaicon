@@ -22,7 +22,7 @@
                             No
                         </td>
                         <td>
-                            Style
+                            Categori
                         </td>
                         <td>
                             Action
@@ -160,7 +160,7 @@
     function ajax_add() {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/store",
+            url: "<?= base_url() ?>" + "admin/master/kategori/store",
             data: $("#form_add").serializeArray(),
             dataType: "json",
             success: function(data) {
@@ -197,7 +197,7 @@
     function edit(id) {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/edit",
+            url: "<?= base_url() ?>" + "admin/master/kategori/edit",
             data: {
                 id: id,
             },
@@ -233,7 +233,7 @@
     function ajax_edit() {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/update",
+            url: "<?= base_url() ?>" + "admin/master/kategori/update",
             data: $("#form_edit").serializeArray(),
             dataType: "json",
             success: function(data) {
@@ -269,7 +269,7 @@
 
     function ajax_delete(id, name) {
         Swal.fire({
-            text: "Are you sure you want to Remove Style name " + name + "?",
+            text: "Are you sure you want to Remove Categori name " + name + "?",
             icon: "error",
             showCancelButton: !0,
             buttonsStyling: !1,
@@ -284,7 +284,7 @@
             if (t.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "<?= base_url() ?>" + "admin/master/style/destroy",
+                    url: "<?= base_url() ?>" + "admin/master/kategori/destroy",
                     data: {
                         id: id,
                     },
@@ -393,6 +393,6 @@
     }
 
     function redirect() {
-        window.location.replace(base_url + "master/style/");
+        window.location.replace(base_url + "master/akses/");
     }
 </script>

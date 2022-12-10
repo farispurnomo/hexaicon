@@ -22,7 +22,7 @@
                             No
                         </td>
                         <td>
-                            Style
+                            Access Role
                         </td>
                         <td>
                             Action
@@ -36,7 +36,7 @@
                             <td><?= $key + 1 ?></td>
                             <td><?= $value->name ?></td>
                             <td>
-                                <a class="btn btn-primary btn-sm mr-3 ajaxify" onclick="edit('<?= $value->id ?>')" data-bs-toggle="modal" data-bs-target="#modal_edit">
+                                <a class="btn btn-primary btn-sm mr-3 ajaxify" onclick="edit('<?= $value->id ?>','<?= $value->name ?>')" data-bs-toggle="modal" data-bs-target="#modal_edit">
                                     <i class="flaticon-file-1"></i> Edit Data
                                 </a>
                                 <a class="btn btn-danger btn-sm mr-3 ajaxify" onclick="ajax_delete('<?= $value->id ?>','<?= $value->name ?>')">
@@ -73,32 +73,45 @@
                         <h1 class="mb-3">Add <?= $pagetitle ?></h1>
                     </div>
                     <div class="d-flex flex-column mb-8 fv-row">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">Name <?= $pagetitle ?></span>
-                            <!-- <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i> -->
-                        </label>
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter Name" id="nama_tambah" name="nama" />
+                        <div class="col-md-6 fv-row">
+                            <label class="required fs-6 fw-bold mb-2">Role</label>
+                            <select class="form-select form-select-solid" id="parent_id" data-control="select2" data-hide-search="true" data-placeholder="Select Parent Menu" name="parent_id">
+                                <?= $table_role ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="d-flex flex-column mb-8 fv-row">
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">description</span>
-                            <!-- <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i> -->
+                            <span class="required">Select Menu Access</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                         </label>
-                        <textarea class="form-control form-control-solid mb-5" rows="3" name="description" data-kt-element="input" placeholder="Input Description"></textarea>
+                        <div class="row">
+                            <?php foreach ($menu as $key => $value) { ?>
+                                <div class="col-md-3">
+                                    <label class="form-check form-check-solid">
+                                        <input class="form-check-input" name="menu[]" type="checkbox" value="<?= $value->id ?>" />
+                                        <span class="form-check-label fw-bold text-muted"><?= $value->title ?></span>
+                                    </label>
+                                    <br>
+                                </div>
+
+                            <?php } ?>
+                        </div>
                     </div>
 
-                    <div class="text-center">
-                        <button type="reset" id="modal_cancel_add" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" id="modal_submit_add" class="btn btn-primary">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                    </div>
-                </form>
             </div>
+            <div class="text-center">
+                <button type="reset" id="modal_cancel_add" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="modal_submit_add" class="btn btn-primary">
+                    <span class="indicator-label">Submit</span>
+                    <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                </button>
+            </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="modal_edit" tabindex="-1" aria-hidden="true">
@@ -123,17 +136,19 @@
                     </div>
                     <div class="d-flex flex-column mb-8 fv-row">
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">Name <?= $pagetitle ?></span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            <label class="required fs-6 fw-bold mb-2">Role</label>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Role"></i>
                         </label>
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter Name" id="nama_edit" name="nama" />
-                        <input type="hidden" class="form-control form-control-solid" placeholder="Enter Target Title" id="id_edit" name="id" />
+                        <input type="text" readonly class="form-control form-control-solid" placeholder="Enter Target Title" id="nama_edit" name="nama" />
+                        <input type="hidden" class="form-control form-control-solid" placeholder="Enter Target Title" id="id_edit" name="parent_id" />
                     </div>
                     <div class="d-flex flex-column mb-8 fv-row">
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">description</span>
+                            <span class="required">Select Menu Access</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                         </label>
-                        <textarea class="form-control form-control-solid mb-5" rows="3" name="description" id="text_area_edit" data-kt-element="input" placeholder="Input Description"></textarea>
+                        <div class="row" id="edit_menu">
+                        </div>
                     </div>
                     <div class="text-center">
                         <button type="reset" id="modal_cancel_edit" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -160,7 +175,7 @@
     function ajax_add() {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/store",
+            url: "<?= base_url() ?>" + "admin/master/role_akses/store",
             data: $("#form_add").serializeArray(),
             dataType: "json",
             success: function(data) {
@@ -194,19 +209,19 @@
         });
     }
 
-    function edit(id) {
+    function edit(id,nama) {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/edit",
+            url: "<?= base_url() ?>" + "admin/master/role_akses/edit",
             data: {
                 id: id,
             },
             dataType: "json",
             success: function(data) {
                 if (data.status == "200") {
-                    $("#nama_edit").val(data.data.name);
-                    $("#id_edit").val(data.data.id);
-                    $("#text_area_edit").val(data.data.description);               
+                    $("#nama_edit").val(nama);
+                    $("#id_edit").val(id)
+                    $("#edit_menu").html(data.role)
                     
                     // $("#parent_id").html(data.menu)
                     // $("#parent_id").html(data.menu)
@@ -233,7 +248,7 @@
     function ajax_edit() {
         $.ajax({
             type: "POST",
-            url: "<?= base_url() ?>" + "admin/master/style/update",
+            url: "<?= base_url() ?>" + "admin/master/role_akses/update",
             data: $("#form_edit").serializeArray(),
             dataType: "json",
             success: function(data) {
@@ -269,7 +284,7 @@
 
     function ajax_delete(id, name) {
         Swal.fire({
-            text: "Are you sure you want to Remove Style name " + name + "?",
+            text: "Are you sure you want to Remove Access Role name " + name + "?",
             icon: "error",
             showCancelButton: !0,
             buttonsStyling: !1,
@@ -284,7 +299,7 @@
             if (t.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "<?= base_url() ?>" + "admin/master/style/destroy",
+                    url: "<?= base_url() ?>" + "admin/master/role_akses/destroy",
                     data: {
                         id: id,
                     },
@@ -393,6 +408,6 @@
     }
 
     function redirect() {
-        window.location.replace(base_url + "master/style/");
+        window.location.replace(base_url + "master/akses/");
     }
 </script>
