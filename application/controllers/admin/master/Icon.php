@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Icon extends CI_Controller
+class Icon extends HEXAICONS_Controller
 {
     protected $table        = 'master_iconsTable';
     protected $namespace    = 'pages/admin/master/icon/icon_';

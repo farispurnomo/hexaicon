@@ -1,11 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller
+class Dashboard extends HEXAICONS_Controller
 {
     protected $namespace    = 'pages/admin/dashboard/dashboard_';
     protected $route        = 'admin/dashboard';
     protected $pagetitle    = 'Dashboard';
+    // protected $extend_view  = 'layouts/admin_1';
     protected $extend_view  = 'layouts/admin';
 
     public function index()

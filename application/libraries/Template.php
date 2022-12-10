@@ -80,8 +80,6 @@ class Template
         $this->CI->db->join('core_menu_abilities', 'core_menu_abilities.id=core_privileges.ability_id');
         $this->CI->db->where('core_privileges.role_id', $role_id);
         $abilities = $this->CI->db->get()->result();
-
-        // echo '<pre>';print_r($abilities);exit;
         $menu_ids = [];
         foreach ($abilities as $ability) {
             if (strpos($ability->name, ':read') !== FALSE) {
