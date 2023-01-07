@@ -30,3 +30,30 @@ if (!function_exists('getUserSubscription')) {
         return $ci->db->get()->row();
     }
 }
+
+if (!function_exists('getClientLogin')) {
+    function getClientLogin()
+    {
+        $ci         = &get_instance();
+        $is_client  = $ci->session->userdata('is_client');
+        if (!$is_client) return;
+
+        $id         = $ci->session->userdata('client_id');
+
+        $client     = $ci->db
+            ->select('mst_clients.*, mst_subscription_plans.name AS subscription_name')
+            ->from('mst_clients')
+            ->join('mst_subscription_plans', 'mst_subscription_plans.id=mst_clients.subscription_plan_id')
+            ->where('mst_clients.id', $id)
+            ->get()
+            ->row();
+
+        if ($client) {
+            $path               = ($client->image ? $client->image : '/public/images/no_image.png');
+            $client->url_image  = base_url($path);
+        }
+
+
+        return $client;
+    }
+}

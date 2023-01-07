@@ -5,7 +5,7 @@
             <div class="col-md-4">
                 <div class="text-center px-5 py-3 p-lg-5">
                     <div class="p-lg-3">
-                        <img class="img-fluid img-thumbnail rounded-circle" draggable="false" src="<?= $user->url_image ?>" alt="">
+                        <img class="img-fluid img-thumbnail rounded-circle" draggable="false" src="<?= $client->url_image ?>" alt="">
                     </div>
                 </div>
             </div>
@@ -14,12 +14,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="fw-bold text-white h5 mb-3">
-                                <?= $user->name ?>
+                                <?= $client->name ?>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="text-white h6 mb-4">
-                                <?= $user->position ?>
+                                <?= $client->position ?>
                             </div>
                         </div>
                         <div class="col-12">
@@ -27,7 +27,7 @@
                                 <div class="col-sm-10 col-lg-5 d-flex align-items-center">
                                     <div class="rounded-pill bg-white py-2 px-3 d-flex align-items-center justify-content-between w-100" style="box-shadow: 3px 3px 3px #a23247;">
                                         <span class="fw-bold">Subscription Plan</span>
-                                        <span class="badge rounded-pill bg-hi-primary px-4 py-2"><?= $user->subscription_name ?></span>
+                                        <span class="badge rounded-pill bg-hi-primary px-4 py-2"><?= $client->subscription_name ?></span>
                                     </div>
                                 </div>
                                 <div class="col-sm-2 d-flex align-items-center justify-content-center">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-12">
                             <div class="py-3">
-                                <a href="" class="btn btn-hi-warning"><i class="fa fa-sign-in-alt"></i> Logout</a>
+                                <a href="<?= base_url('client/auth/logout') ?>" class="btn btn-hi-warning"><i class="fa fa-sign-in-alt"></i> Logout</a>
                             </div>
                         </div>
                     </div>
