@@ -18,4 +18,19 @@ class M_client_auth extends CI_Model
             return $client;
         }
     }
+
+    public function doGetDefaultSubscriptionPlan()
+    {
+        return $this->db
+            ->from('mst_subscription_plans')
+            ->where('is_default', 1)
+            ->get()
+            ->row();
+    }
+
+    public function doInsertClientData(array $data)
+    {
+        $this->db->insert($this->table, $data);
+        return $this->db->affected_rows();
+    }
 }
