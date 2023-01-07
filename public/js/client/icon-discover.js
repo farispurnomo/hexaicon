@@ -69,10 +69,10 @@ const menuIconDiscover = function () {
                 }
             },
             blur: function () {
-                setTimeout(function () {
+                // setTimeout(function () {
                     $('.search-section').removeClass('open').css('z-index', 'unset');
                     removeBackdrop();
-                }, 500)
+                // }, 500)
             },
             focus: function () {
                 $('.search-section').css('z-index', '1051');
@@ -376,6 +376,7 @@ const menuIconDiscover = function () {
                     <a href="${url}" class="text-decoration-none">
                         <div class="m-1 m-md-3 icon-item">
                             <div class="text-center">
+                                <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
                                 <img draggable="false" class="img-fluid" src="${icon.url_image}"/>
                                 <div>${icon.name}</div>
                             </div>

@@ -188,10 +188,11 @@ const menuIconStyle = function () {
                 const url = helper.getBaseUrl() + 'icon_style/index/' + icon.id;
                 html += `
                     <div class="col-auto">
-                        <div class="discover-item-card h-100 p-3">
+                        <div class="style-item-card h-100 p-3">
                             <a href="${url}" class="text-decoration-none text-black">
                                 <div class="text-center">
                                     <img draggable="false" class="img-fluid" src="${icon.url_image}"/>
+                                    <!--<img draggable="false" class="img-fluid" src="http://localhost/ap2/public/images/icons8-heart-plus-100.png"/>-->
                                     <div>${icon.name}</div>
                                 </div>
                             </a>
@@ -205,7 +206,7 @@ const menuIconStyle = function () {
         const html = `
             <div class="row mb-5">
                 <div class="col-12 px-md-4">
-                    <div class="fw-bold text-capitalize h5">${category.name.toLowerCase()}</div>
+                    <div class="fw-bold text-capitalize h5 text-nowrap">${category.name.toLowerCase()}</div>
                     <div class="row">
                         ${renderIcons(category.icons)}
                     </row>
@@ -221,6 +222,7 @@ const menuIconStyle = function () {
             img.onload = () => resolve(img);
             img.onerror = reject;
             img.src = src;
+            // img.src = 'http://localhost/ap2/public/images/icons8-heart-plus-100.png';
         });
     };
 

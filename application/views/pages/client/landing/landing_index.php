@@ -454,7 +454,7 @@
                                     </div>
                                     <div class="card-pricing-footer">
                                         <div class="small mb-1"><?= $subscription->note ?></div>
-                                        <button class="btn subtitle px-md-5 rounded-pill <?= ($is_last ? 'btn-hi-white' : 'btn-hi-primary') ?>">Get Started</button>
+                                        <a href="<?= base_url('subscription/purchase/' . $subscription->id) ?>" class="btn subtitle px-md-5 rounded-pill <?= ($is_last ? 'btn-hi-white' : 'btn-hi-primary') ?>">Get Started</a>
                                     </div>
                                 </div>
                             </div>
@@ -484,52 +484,52 @@
                             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 content">
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/trend 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/trend 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/trending 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/trending 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/whatsapp (1) 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/whatsapp (1) 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/whatsapp 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/whatsapp 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/engineering 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/engineering 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/instagram 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/instagram 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/instagram-logo 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/instagram-logo 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/linkedin (1) 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/linkedin (1) 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/linkedin 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/linkedin 2.png') ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-center p-3">
                                     <div class="p-3 bg-white">
-                                        <img draggable="false" width="200" src="<?= base_url('public/uploads/icons/settings 2.png') ?>" alt="">
+                                        <img draggable="false" width="200" src="<?= base_url('public/images/icon-trend-res/settings 2.png') ?>" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -619,7 +619,7 @@
             </div>
             <div class="col-md-4 d-flex align-items-center justify-content-center">
                 <div class="p-4">
-                    <button class="btn btn-outline-light rounded px-5 subtitle">Get Pro</button>
+                    <a href="<?= base_url('subscription') ?>" class="btn btn-outline-light rounded px-5 subtitle">Get Pro</a>
                 </div>
             </div>
         </div>

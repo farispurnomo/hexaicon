@@ -33,7 +33,7 @@ class M_auth extends CI_Model
     {
         $this->db->where('a.email',$this->db->escape_str($email));
         $this->db->join($this->table. ' b','a.id=b.user_id');
-        $this->db->from('users a');
+        $this->db->from('core_users a');
         $this->db->select('a.email,a.password,b.role_id,b.avatar');
         $query = $this->db->get();
         return ["count"=>$query->num_rows(),"data"=>$query->row()] ;

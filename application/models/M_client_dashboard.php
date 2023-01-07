@@ -12,8 +12,11 @@ class M_client_dashboard extends CI_Model
             ->get()
             ->row();
 
-        $path               = ($client->image ? $client->image : '/public/images/no_image.png');
-        $client->url_image  = base_url($path);
+        if ($client) {
+            $path               = ($client->image ? $client->image : '/public/images/no_image.png');
+            $client->url_image  = base_url($path);
+        }
+
 
         return $client;
     }

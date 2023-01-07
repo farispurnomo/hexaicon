@@ -90,6 +90,11 @@ body {
     background-color: var(--hi-gray);
 }
 
+.text-bg-hi-primary {
+    color: white;
+    background-color: RGBA(var(--hi-purple-rgb), var(--bs-bg-opacity, 1)) !important
+}
+
 /* end: BACKGROUND COLOR */
 
 .border-hi-primary {
@@ -214,7 +219,7 @@ nav#main-navbar .nav-link div.search {
     padding: 5px 5px !important;
     margin-left: 1rem;
     margin-right: 1rem;
-    transition: all .3s ease-in-out;
+    transition: background-color .3s ease-in-out;
 }
 
 nav#main-navbar .nav-link div.search svg path {
@@ -247,7 +252,7 @@ nav#main-navbar .btn-login {
     padding: 5px 1.5rem !important;
     border-radius: 3px;
     border-width: 2px;
-    transition: all .3s ease-in-out;
+    /* transition: all .3s ease-in-out; */
 }
 
 nav#main-navbar .btn-login:hover {
@@ -1021,3 +1026,15 @@ nav#main-navbar.bg-hi-primary .btn-login:hover {
 }
 
 /* end: ICON DISCOVER PAGE */
+
+/* start: ICON STYLE PAGE */
+.style-item-card {
+    width: 128px;
+    border-radius: 25px;
+}
+
+.style-item-card:hover {
+    background-color: rgba(var(--hi-purple-rgb), 0.25);
+}
+
+/* end: ICON STYLE PAGE */
