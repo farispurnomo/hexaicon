@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
-        $data['client']             = $this->client;;
+        $data['client']             = $this->client;
 
         $data['extend_view']        = $this->extend_view;
         $data['favorite_icon_sets'] = $this->M_client_dashboard->doGetFavoriteIconSets($this->client->id);

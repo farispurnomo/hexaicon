@@ -6,14 +6,15 @@ class Profile extends CI_Controller
     protected $extend_view  = 'layouts/client';
     protected $route        = 'client/profile';
 
-    protected $client_id;
+    protected $client;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('M_client_profile');
 
-        $this->client_id = $this->session->userdata('id') ?? 1;
+        $this->client = getClientLogin();
+        if (!$this->client) redirect('client/auth/login');
     }
 
     public function index()
@@ -21,9 +22,9 @@ class Profile extends CI_Controller
         $data['extend_view']    = $this->extend_view;
         $data['route']          = $this->route;
 
-        $data['user']           = $this->M_client_profile->doGetClientById($this->client_id);
+        $data['client']           = $this->client;
 
-        if (!$data['user']) show_404();
+        if (!$data['client']) show_404();
 
         $this->template->load($this->namespace . 'index', $data);
     }
@@ -58,15 +59,17 @@ class Profile extends CI_Controller
             $params['name']         = $this->input->post('name', true);
             $params['position']     = $this->input->post('position', true);
 
-            if ($password = $this->input->post('password')) {
-                $params['password'] = password_hash($password, PASSWORD_BCRYPT);
+            if($this->client->account_type === ACCOUNT_TYPE_EMAIL){
+                if ($password = $this->input->post('password')) {
+                    $params['password'] = password_hash($password, PASSWORD_BCRYPT);
+                }
             }
 
             if (!empty($_FILES['file']) && $_FILES['file']['size'] > 0) {
                 $params['image'] = $this->do_upload();
             }
 
-            $this->M_client_profile->doUpdateClientById($this->client_id, $params);
+            $this->M_client_profile->doUpdateClientById($this->client->id, $params);
             $this->session->set_flashdata('success', 'Data successfully saved');
         } catch (Throwable $th) {
         } finally {

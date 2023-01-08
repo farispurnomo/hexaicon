@@ -162,7 +162,7 @@
                                 dataType: 'JSON',
                                 data: {
                                     email: response.email,
-                                    type: 'GOOGLE',
+                                    type: '<?= ACCOUNT_TYPE_GOOGLE ?>',
                                 },
                                 success: function(response) {
                                     window.location.reload();

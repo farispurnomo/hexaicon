@@ -222,7 +222,7 @@ class Auth extends CI_Controller
             $email      = $this->input->post('email', TRUE);
             $client     = $this->M_client_auth->doGetClientByEmail($email);
             if (!$client) throw new Exception('<div><small>Email not registered.</small></div>');
-            if (!$client->account_type !== 'EMAIL') throw new Exception('<div><small>This Feature not Supported for account type ' . strtolower($client->account_type) . '.</small></div>');
+            if (!$client->account_type !== ACCOUNT_TYPE_EMAIL) throw new Exception('<div><small>This Feature not Supported for account type ' . strtolower($client->account_type) . '.</small></div>');
 
             $token      = random_string('alnum', 60);
             $expired    = getGeneralSetting('PASSWORD_RESET_EXPIRE') ?: 60;

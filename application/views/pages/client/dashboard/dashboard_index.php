@@ -14,12 +14,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="fw-bold text-white h5 mb-3">
-                                <?= $client->name ?>
+                                <?= $client->name ?: '-' ?>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="text-white h6 mb-4">
-                                <?= $client->position ?>
+                                <?= $client->position ?: '-' ?>
                             </div>
                         </div>
                         <div class="col-12">
