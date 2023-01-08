@@ -35,13 +35,13 @@ class Auth extends CI_Controller
             $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
             if ($this->form_validation->run() == FALSE) {
-                throw new Exception(validation_errors('<div>', '</div>'));
+                throw new Exception(validation_errors('<div><small>', '</small></div>'));
             }
 
             $email          = $this->input->post('email', TRUE);
             $password       = $this->input->post('password', TRUE);
             $login_data     = $this->M_client_auth->doGetLoginData($email, $password);
-            if (!$login_data) throw new Exception('These credentials do not match our records.');
+            if (!$login_data) throw new Exception('<div><small>These credentials do not match our records.</small></div>');
 
             $userdata       = array(
                 'is_client'     => TRUE,
@@ -53,6 +53,39 @@ class Auth extends CI_Controller
         } catch (Throwable $th) {
             $this->session->set_flashdata('error', $th->getMessage());
             redirect($this->route . 'login');
+        }
+    }
+
+    public function login_email_act()
+    {
+        try {
+            $email          = $this->input->post('email', TRUE);
+            $type           = $this->input->post('type', TRUE);
+
+            $login_data     = $this->M_client_auth->doGetClientByEmail($email);
+
+            if (!$login_data) throw new Exception('<div><small>These credentials do not match our records.</small></div>');
+            if ($login_data->account_type !== strtoupper($type))  throw new Exception('<div><small>These credentials do not match our records.</small></div>');
+
+            $userdata       = array(
+                'is_client'     => TRUE,
+                'client_id'     => $login_data->id,
+            );
+
+            $this->session->set_userdata($userdata);
+
+            $datarow['status']  = 200;
+            $datarow['msg']     = 'success';
+        } catch (Throwable $th) {
+            $this->session->set_flashdata('error', $th->getMessage());
+
+            $datarow['status']  = $th->getCode();
+            $datarow['msg']     = $th->getMessage();
+        } finally {
+            $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(200)
+                ->set_output(json_encode($datarow));
         }
     }
 
@@ -120,6 +153,57 @@ class Auth extends CI_Controller
         }
     }
 
+    public function register_email_act()
+    {
+        try {
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[mst_clients.email]');
+            $this->form_validation->set_rules('type', 'Type', 'required|trim|in_list[GOOGLE]');
+            $this->form_validation->set_message('is_unique', 'The %s is already taken');
+
+            if ($this->form_validation->run() == FALSE) {
+                throw new Exception(validation_errors('<div class="small">', '</div>'));
+            }
+
+            $current_timestamp      = date('Y-m-d H:i:s');
+
+            $email                  = $this->input->post('email', TRUE);
+            $type                   = $this->input->post('type', TRUE);
+
+            $subscribed_at          = null;
+            $subscription_plan_id   = null;
+
+            $def_subscription_plan  = $this->M_client_auth->doGetDefaultSubscriptionPlan();
+            if (isset($def_subscription_plan)) {
+                $subscription_plan_id = $def_subscription_plan->id;
+                $subscribed_at        = $current_timestamp;
+            }
+
+            $client                 = array(
+                'email'                 => $email,
+                'subscription_plan_id'  => $subscription_plan_id,
+                'subscribed_at'         => $subscribed_at,
+                'account_type'          => $type,
+                'created_at'            => $current_timestamp
+            );
+
+            $this->session->set_flashdata('success', 'Account registered.');
+            $this->M_client_auth->doInsertClientData($client);
+
+            $datarow['status']  = 200;
+            $datarow['msg']     = 'success';
+        } catch (Throwable $th) {
+            $this->session->set_flashdata('error', $th->getMessage());
+
+            $datarow['status']  = $th->getCode();
+            $datarow['msg']     = $th->getMessage();
+        } finally {
+            $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(200)
+                ->set_output(json_encode($datarow));
+        }
+    }
+
     public function forget()
     {
         $data['extend_view']        = $this->extend_view;
@@ -137,7 +221,8 @@ class Auth extends CI_Controller
         try {
             $email      = $this->input->post('email', TRUE);
             $client     = $this->M_client_auth->doGetClientByEmail($email);
-            if (!$client) throw new Exception('Email not registered.');
+            if (!$client) throw new Exception('<div><small>Email not registered.</small></div>');
+            if (!$client->account_type !== 'EMAIL') throw new Exception('<div><small>This Feature not Supported for account type ' . strtolower($client->account_type) . '.</small></div>');
 
             $token      = random_string('alnum', 60);
             $expired    = getGeneralSetting('PASSWORD_RESET_EXPIRE') ?: 60;
