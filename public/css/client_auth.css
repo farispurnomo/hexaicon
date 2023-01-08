@@ -183,7 +183,7 @@ nav#main-navbar .btn-login:hover {
     display: block;
     width: 30px;
     height: 3px;
-    background-color: #fff;
+    background-color: #000;
     border-radius: 10px;
     transition: all 0.3s;
 }

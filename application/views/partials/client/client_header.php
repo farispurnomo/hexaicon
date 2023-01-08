@@ -48,14 +48,23 @@
     </div>
 </nav>
 
-<div class="offcanvas bg-hi-primary offcanvas-start w-100" tabindex="-1" id="offcanvasSidebar">
+<div class="offcanvas offcanvas-start w-100" tabindex="-1" id="offcanvasSidebar">
     <div class="offcanvas-header">
-        <button type="button" class="btn-close btn-close-white pe-4 pt-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close pe-4 pt-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         <h5 class="offcanvas-title">
             <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 52 52" fill="white">
-                    <path d="M10.333,58A4.157,4.157,0,0,1,7.3,56.7,4.157,4.157,0,0,1,6,53.667V10.333A4.157,4.157,0,0,1,7.3,7.3,4.157,4.157,0,0,1,10.333,6H31.35v4.333H10.333V53.667H31.35V58Zm35.1-13.361-3.106-3.106,7.367-7.367H24.417V29.833H49.55l-7.367-7.367,3.106-3.106L58,32.072Z" transform="translate(-6 -6)" />
-                </svg>
+                <?php if (getClientLogin()) : ?>
+                    <a class="text-muted p-2" href="<?= base_url('client/dashboard') ?>">
+                        <i class="fa fa-user-circle"></i>
+                    </a>
+                <?php else : ?>
+                    <a class="text-muted p-2" href="<?= base_url('client/auth/login') ?>">
+                        <i class="fa fa-sign-in"></i>
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 52 52" fill="white">
+                            <path d="M10.333,58A4.157,4.157,0,0,1,7.3,56.7,4.157,4.157,0,0,1,6,53.667V10.333A4.157,4.157,0,0,1,7.3,7.3,4.157,4.157,0,0,1,10.333,6H31.35v4.333H10.333V53.667H31.35V58Zm35.1-13.361-3.106-3.106,7.367-7.367H24.417V29.833H49.55l-7.367-7.367,3.106-3.106L58,32.072Z" transform="translate(-6 -6)" />
+                        </svg> -->
+                    </a>
+                <?php endif ?>
             </div>
         </h5>
     </div>
