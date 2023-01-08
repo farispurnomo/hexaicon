@@ -8,7 +8,7 @@ class Subscription extends CI_Controller
     protected $pagetitle    = 'Dashboard';
     protected $extend_view  = 'layouts/client';
 
-    protected $client_id;
+    protected $client;
 
     public function __construct()
     {
@@ -17,7 +17,7 @@ class Subscription extends CI_Controller
         $this->load->library('payment');
         $this->load->model('M_client_subscription');
 
-        $this->client_id = $this->session->userdata('id');
+        $this->client = getClientLogin();
     }
 
     public function index()
@@ -29,8 +29,8 @@ class Subscription extends CI_Controller
 
     public function purchase($id)
     {
-        $data['user']               = $this->M_client_subscription->doGetClientById($this->client_id);
-        if (!$data['user']) show_404();
+        $data['client']             = $this->client;
+        if (!$data['client']) redirect('client/auth/login');
 
         $data['subscription']       = $this->M_client_subscription->doGetDetailSubscription(intval($id));
         if (!$data['subscription']) show_404();
@@ -47,7 +47,7 @@ class Subscription extends CI_Controller
     public function request_token()
     {
         try {
-            $user               = $this->M_client_subscription->doGetClientById($this->client_id);
+            $user               = $this->M_client_subscription->doGetClientById($this->client->id);
             if (!$user) throw new Exception('Unauthorized', 401);
 
             $plan_id            = $this->input->post('plan_id', true);
@@ -81,7 +81,7 @@ class Subscription extends CI_Controller
     public function upgrade()
     {
         try {
-            $user               = $this->M_client_subscription->doGetClientById($this->client_id);
+            $user               = $this->M_client_subscription->doGetClientById($this->client->id);
             if (!$user) throw new Exception('Unauthenticated', 401);
 
             $subscription           = $this->M_client_subscription->doGetDetailSubscription($this->input->post('plan_id', true));
@@ -99,12 +99,12 @@ class Subscription extends CI_Controller
                         'subscribed_at'             => $subscribed_at,
                         'subscription_ends_at'      => $subscription_ends_at,
                     );
-                    $this->M_client_subscription->doUpdateSubscriptionClient($this->client_id, $update);
+                    $this->M_client_subscription->doUpdateSubscriptionClient($this->client->id, $update);
                 }
             }
 
             $log                    = array(
-                'client_id'                 => $this->client_id,
+                'client_id'                 => $this->client->id,
                 'client_email'              => $user->email,
                 'subscription_plan_id'      => $subscription->id,
                 'subscription_plan_name'    => $subscription->name,

@@ -24,7 +24,7 @@
                     <a class="nav-link nav-text px-3" href="">Icon Styles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-text px-3" href="">Pricing</a>
+                    <a class="nav-link nav-text px-3" href="<?= base_url('subscription') ?>">Pricing</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link py-0 px-3" href="">
@@ -72,7 +72,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?= base_url('pricing') ?>" class="text-decoration-none">
+                <a href="<?= base_url('subscription') ?>" class="text-decoration-none">
                     Pricing
                 </a>
             </li>
