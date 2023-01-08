@@ -2,11 +2,9 @@
     <div class="row">
         <div class="col-xl-4 m-auto">
             <div class="text-center">
-                <div class="mb-5 d-flex justify-content-center">
-                    <div>
-                        <h2 class="fw-bold">Register</h2>
-                        <hr class="mt-2" />
-                    </div>
+                <div class="mb-5 text-center">
+                    <h2 class="fw-bold">Register</h2>
+                    <hr class="mt-2" />
                 </div>
                 <div class="mb-5">
                     <div>Create an new account.</div>
@@ -40,7 +38,7 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn py-2 btn-hi-primary">Login</button>
+                    <button type="submit" class="btn py-2 btn-hi-primary">Register</button>
                 </div>
             </form>
         </div>
@@ -56,6 +54,8 @@
         border: 2px solid black;
         opacity: 1;
         border-radius: 10px;
+        width: 5rem;
+        margin: auto;
     }
 </style>
 

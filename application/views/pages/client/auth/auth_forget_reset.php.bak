@@ -1,0 +1,92 @@
+<form>
+    <div class="d-flex">
+        <input name="code" class="code-input" required />
+        <input name="code" class="code-input" required />
+        <input name="code" class="code-input" required />
+        <input name="code" class="code-input" required />
+        <input name="code" class="code-input" required />
+        <input name="code" class="code-input" required />
+    </div>
+</form>
+
+<script>
+    const inputElements = [...document.querySelectorAll('input.code-input')]
+
+    $(function() {
+        $(document).on('submit', 'form', function(e) {
+            e.preventDefault();
+
+            const verification_code = inputElements.map(({
+                value
+            }) => value).join('');
+            console.log(verification_code);
+
+            return false;
+        });
+    });
+
+    inputElements.forEach((ele, index) => {
+        ele.addEventListener('keydown', (e) => {
+            // if the keycode is backspace & the current field is empty
+            // focus the input before the current. Then the event happens
+            // which will clear the "before" input box.
+            if (e.keyCode === 8 && e.target.value === '') inputElements[Math.max(0, index - 1)].focus()
+        })
+        ele.addEventListener('input', (e) => {
+            // take the first character of the input
+            // this actually breaks if you input an emoji like 👨‍👩‍👧‍👦....
+            // but I'm willing to overlook insane security code practices.
+            const [first, ...rest] = e.target.value
+            e.target.value = first ?? '' // first will be undefined when backspace was entered, so set the input to ""
+            const lastInputBox = index === inputElements.length - 1
+            const didInsertContent = first !== undefined
+            if (didInsertContent && !lastInputBox) {
+                // continue to input the rest of the string
+                inputElements[index + 1].focus()
+                inputElements[index + 1].value = rest.join('')
+                inputElements[index + 1].dispatchEvent(new Event('input'))
+            }
+
+            if (lastInputBox) {
+                $('form').trigger('submit');
+            }
+        })
+    })
+</script>
+
+<style>
+    form input.code-input {
+        --spacing: 8px;
+        --background1: hsl(214, 14%, 20%);
+        --background2: hsl(214, 14%, 13%);
+        --background3: hsl(214, 14%, 5%);
+        --brand1: hsl(var(--hue) 80% 60%);
+        --text1: hsl(0, 0%, 100%);
+        --text2: hsl(0, 0%, 90%);
+
+        font-size: 1.5em;
+        width: 1em;
+        text-align: center;
+        flex: 1 0 1em;
+        border: 1px solid var(--hi-purple);
+    }
+
+    form input {
+        padding: var(--spacing);
+        border-radius: calc(var(--spacing) / 2);
+        color: var(--text1);
+        background: var(--background1);
+        border: 0;
+        border: 4px solid transparent;
+    }
+
+    form input:invalid {
+        box-shadow: none;
+    }
+
+    form input:focus {
+        outline: none;
+        border: 4px solid var(--brand1);
+        background: var(--background3);
+    }
+</style>

@@ -87,7 +87,7 @@ class Auth extends CI_Controller
                 throw new Exception(validation_errors('<div class="small">', '</div>'));
             }
 
-            $current_timestamp      = date('Y-m-d h:i:s');
+            $current_timestamp      = date('Y-m-d H:i:s');
 
             $email                  = $this->input->post('email', TRUE);
             $password               = $this->input->post('password', TRUE);
@@ -122,9 +122,111 @@ class Auth extends CI_Controller
 
     public function forget()
     {
+        $data['extend_view']        = $this->extend_view;
+        $data['pagetitle']          = 'Forget Password';
+        $data['header_button']      = array(
+            'text'  => 'Login',
+            'href'  => base_url($this->route . 'login')
+        );
+
+        $this->template->load($this->namespace . 'forget', $data);
     }
 
-    public function reset_password()
+    public function send_reset_password_token()
     {
+        try {
+            $email      = $this->input->post('email', TRUE);
+            $client     = $this->M_client_auth->doGetClientByEmail($email);
+            if (!$client) throw new Exception('Email not registered.');
+
+            $token      = random_string('alnum', 60);
+            $expired    = getGeneralSetting('PASSWORD_RESET_EXPIRE') ?: 60;
+
+            $reset      = array(
+                'email'         => $email,
+                'token'         => $token,
+                'expired_at'    => date('Y-m-d H:i:s', strtotime("+ $expired minutes")),
+                'created_at'    => date('Y-m-d H:i:s')
+            );
+            $this->M_client_auth->doInsertPasswordReset($reset);
+
+            $reset['expired']   = $expired . ' minutes';
+            $body       = $this->load->view($this->namespace . 'forget_mail', $reset, TRUE);
+
+            $send_email = sendEmail($email, 'Reset Password Notification', $body);
+            if (!$send_email->success) {
+                throw new Exception($send_email->msg);
+            }
+
+            $this->session->set_flashdata('success', 'Please check your email inbox.');
+        } catch (Throwable $th) {
+            $this->session->set_flashdata('error', $th->getMessage());
+        } finally {
+            redirect($this->route . 'forget');
+        }
+    }
+
+    public function reset($token = null)
+    {
+        $email                      = $this->input->get('email', TRUE);
+
+        $token_data                 = $this->M_client_auth->doGetTokenResetData($email, $token);
+        if (!$token_data) {
+            $this->session->set_flashdata('error', 'Invalid Token');
+            redirect($this->route . 'login');
+        }
+
+        if (strtotime($token_data->expired_at) < now()) {
+            $this->session->set_flashdata('error', 'Expired Token');
+            redirect($this->route . 'login');
+        }
+
+        $data['extend_view']        = $this->extend_view;
+        $data['pagetitle']          = 'Reset Password';
+        $data['header_button']      = array(
+            'text'  => 'Login',
+            'href'  => base_url($this->route . 'login')
+        );
+
+        $data['token_data']         = $token_data;
+
+        $this->template->load($this->namespace . 'forget_reset', $data);
+    }
+
+    public function reset_password_act()
+    {
+        try {
+            $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]');
+            $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|trim|matches[password]');
+
+            if ($this->form_validation->run() == FALSE) {
+                throw new Exception(validation_errors('<div class="small">', '</div>'));
+            }
+
+            $email                  = $this->input->post('_email', TRUE);
+            $token                  = $this->input->post('_token', TRUE);
+            $password               = $this->input->post('password');
+
+            $token_data             = $this->M_client_auth->doGetTokenResetData($email, $token);
+            if (!$token_data) {
+                $this->session->set_flashdata('error', 'Invalid Token');
+                redirect($this->route . 'login');
+            }
+
+            if (strtotime($token_data->expired_at) < now()) {
+                $this->session->set_flashdata('error', 'Expired Token');
+                redirect($this->route . 'login');
+            }
+
+            $password               = password_hash($password, PASSWORD_DEFAULT);
+            $this->M_client_auth->doUpdatePasswordClientByEmail($email, $password);
+
+            $this->session->set_flashdata('success', 'Your password has been successfully reset.');
+            redirect($this->route . 'login');
+        } catch (Throwable $th) {
+            $this->session->set_flashdata('error', $th->getMessage());
+            // redirect($this->route . 'register');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
     }
 }
