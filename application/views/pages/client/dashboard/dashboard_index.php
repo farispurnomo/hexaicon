@@ -14,6 +14,11 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="fw-bold text-white h5 mb-3">
+                                <?= $client->email ?: '-' ?>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="fw-bold text-white h5 mb-3">
                                 <?= $client->name ?: '-' ?>
                             </div>
                         </div>

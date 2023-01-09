@@ -43,7 +43,7 @@
                     <tr>
                         <td style="text-align:center;">
                             <a href="<?php echo base_url() ?>" title="logo" target="_blank">
-                                <img width="60" src="<?php echo base_url('public/images/min-logo-color.png') ?>" title="logo" alt="logo">
+                                <img width="60" src="cid:<?php echo $cid_logo ?>" title="logo" alt="logo">
                             </a>
                         </td>
                     </tr>

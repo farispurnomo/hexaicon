@@ -7,7 +7,7 @@ use Midtrans\Transaction;
 
 class Payment
 {
-    public $ci;
+    private $ci;
 
     public function __construct()
     {

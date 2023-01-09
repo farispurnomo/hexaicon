@@ -219,28 +219,61 @@ class Auth extends CI_Controller
     public function send_reset_password_token()
     {
         try {
-            $email      = $this->input->post('email', TRUE);
-            $client     = $this->M_client_auth->doGetClientByEmail($email);
+            $email              = $this->input->post('email', TRUE);
+            $client             = $this->M_client_auth->doGetClientByEmail($email);
             if (!$client) throw new Exception('<div><small>Email not registered.</small></div>');
-            if (!$client->account_type !== ACCOUNT_TYPE_EMAIL) throw new Exception('<div><small>This Feature not Supported for account type ' . strtolower($client->account_type) . '.</small></div>');
+            if ($client->account_type !== ACCOUNT_TYPE_EMAIL) throw new Exception('<div><small>This Feature not Supported for account type ' . strtolower($client->account_type) . '.</small></div>');
 
-            $token      = random_string('alnum', 60);
-            $expired    = getGeneralSetting('PASSWORD_RESET_EXPIRE') ?: 60;
+            $token              = random_string('alnum', 60);
+            $expired            = getGeneralSetting('PASSWORD_RESET_EXPIRE') ?: 60;
 
-            $reset      = array(
-                'email'         => $email,
-                'token'         => $token,
-                'expired_at'    => date('Y-m-d H:i:s', strtotime("+ $expired minutes")),
-                'created_at'    => date('Y-m-d H:i:s')
+            $reset              = array(
+                'email'             => $email,
+                'token'             => $token,
+                'expired_at'        => date('Y-m-d H:i:s', strtotime("+ $expired minutes")),
+                'created_at'        => date('Y-m-d H:i:s')
             );
             $this->M_client_auth->doInsertPasswordReset($reset);
 
             $reset['expired']   = $expired . ' minutes';
-            $body       = $this->load->view($this->namespace . 'forget_mail', $reset, TRUE);
 
-            $send_email = sendEmail($email, 'Reset Password Notification', $body);
-            if (!$send_email->success) {
-                throw new Exception($send_email->msg);
+            $mail_mailer        = getGeneralSetting('MAIL_MAILER');
+            $mail_host          = getGeneralSetting('MAIL_HOST');
+            $mail_port          = getGeneralSetting('MAIL_PORT');
+            $mail_username      = getGeneralSetting('MAIL_USERNAME');
+            $mail_password      = getGeneralSetting('MAIL_PASSWORD');
+            $mail_from_address  = getGeneralSetting('MAIL_FROM_ADDRESS');
+            $mail_from_name     = getGeneralSetting('MAIL_FROM_NAME');
+
+            $config             = array(
+                'protocol'          => $mail_mailer,
+                'smtp_host'         => $mail_host,
+                'smtp_port'         => $mail_port,
+                'smtp_user'         => $mail_username,
+                'smtp_pass'         => $mail_password,
+                'mailtype'          => 'html',
+                'charset'           => 'iso-8859-1'
+            );
+            $this->load->library('email', $config);
+
+            $this->email->clear(TRUE);
+            $this->email->set_newline("\r\n");
+
+            $this->email->from($mail_from_address, $mail_from_name);
+
+            $this->email->to($email);
+            $this->email->subject('Reset Password Notification');
+
+            $filename           = base_url('public/images/min-logo-color.png');
+            $this->email->attach($filename, 'inline');
+
+            $reset['cid_logo']  = $this->email->attachment_cid($filename);
+            $body               = $this->load->view($this->namespace . 'forget_mail', $reset, TRUE);
+
+            $this->email->message($body);
+
+            if (!$this->email->send()) {
+                throw new Exception($this->email->print_debugger());
             }
 
             $this->session->set_flashdata('success', 'Please check your email inbox.');
