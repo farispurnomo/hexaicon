@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends HEXAICONS_Controller
+class Dashboard extends CI_Controller
 {
     protected $namespace    = 'pages/admin/dashboard/dashboard_';
     protected $route        = 'admin/dashboard';

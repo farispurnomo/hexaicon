@@ -62,7 +62,7 @@ if (!function_exists('getUserLogin')) {
     function getUserLogin()
     {
         $ci         = &get_instance();
-        $is_client  = $ci->session->userdata('is_admin');
+        $is_client  = $ci->session->userdata('is_user');
 
         if (!$is_client) return;
 

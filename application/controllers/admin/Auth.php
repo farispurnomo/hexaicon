@@ -44,8 +44,8 @@ class Auth extends CI_Controller
             if (!$login_data) throw new Exception('These credentials do not match our records.', 401);
 
             $userdata       = array(
-                'is_client'     => TRUE,
-                'client_id'     => $login_data->id,
+                'is_user'     => TRUE,
+                'user_id'     => $login_data->id,
             );
             $this->session->set_userdata($userdata);
 

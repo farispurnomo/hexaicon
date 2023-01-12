@@ -14,6 +14,7 @@
 
     <link href="<?= base_url('public/src/') ?>plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('public/src/') ?>css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('public/vendor/') ?>animate/animate.min.css" rel="stylesheet" type="text/css" />
 
     <base href="<?= base_url() ?>">
 </head>
@@ -27,7 +28,7 @@
         <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?= base_url('public/src/') ?>media/illustrations/sketchy-1/14.png">
             <!--begin::Content-->
-            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20 animate__animated animate__fadeInDown">
                 <!--begin::Logo-->
                 <a href="" class="mb-12">
                     <img alt="Logo" src="<?= base_url('public/images/') ?>logo-color2.png" class="h-40px" />
