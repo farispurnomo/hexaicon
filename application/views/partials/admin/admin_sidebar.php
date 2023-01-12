@@ -1,7 +1,7 @@
-<div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+<div id="kt_aside" class="aside aside-light aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <a href="<?= base_url() ?>" class="brand-logo">
-            <img alt="Logo" src="<?= base_url('public/images/main-logo.png') ?>" style="max-width: 160px;height: auto;" />
+            <img alt="Logo" src="<?= base_url('public/images/logo-color2.png') ?>" class="img-fluid p-5 logo" />
         </a>
         <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">
             <span class="svg-icon svg-icon-1 rotate-180">
@@ -16,33 +16,12 @@
         </div>
     </div>
     <div class="aside-menu flex-column-fluid">
-        <ul class="menu-nav">
-            <?php foreach ($menus as $menu) : ?>
-                <?php if (empty($menu['childs'])) : ?>
-                    <li class="menu-item parent <?= (strpos(current_url(), $menu['url']) !== FALSE ? 'menu-item-active' : '') ?>" aria-haspopup="true">
-                        <a href="<?= base_url($menu['url']) ?>" class="menu-link">
-                            <span class="menu-icon">
-                                <i class="<?= $menu['icon'] ?? 'flaticon2-architecture-and-city' ?>"></i>
-                            </span>
-                            <span class="menu-text"><?= $menu['title'] ?></span>
-                        </a>
-                    </li>
-                <?php else : ?>
-                    <li class="menu-item parent <?= (strpos(current_url(), $menu['url']) !== FALSE ? 'menu-item-open' : '') ?>" aria-haspopup="true">
-                        <a href="javascript:void(0)" class="menu-link submenu menu-toggle">
-                            <span class="menu-icon">
-                                <i class="<?= $menu['icon'] ?? 'flaticon2-architecture-and-city' ?>"></i>
-                            </span>
-                            <span class="menu-text"><?= $menu['title'] ?></span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu">
-                            <span class="menu-arrow"></span>
-                            <?php $this->load->view('partials/admin/admin_subsidebar', ['childs' => $menu['childs']]); ?>
-                        </div>
-                    </li>
-                <?php endif ?>
-            <?php endforeach ?>
-        </ul>
+        <div class="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="0">
+            <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true" data-kt-menu-expand="false">
+
+                <?= @$sidebar_menu ?>
+
+            </div>
+        </div>
     </div>
 </div>

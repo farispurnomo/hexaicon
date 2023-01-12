@@ -77,7 +77,7 @@ class Auth extends CI_Controller
             $datarow['status']  = 200;
             $datarow['msg']     = 'success';
         } catch (Throwable $th) {
-            $this->session->set_flashdata('error', $th->getMessage());
+            // $this->session->set_flashdata('error', $th->getMessage());
 
             $datarow['status']  = $th->getCode();
             $datarow['msg']     = $th->getMessage();

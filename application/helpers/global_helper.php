@@ -58,6 +58,32 @@ if (!function_exists('getClientLogin')) {
     }
 }
 
+if (!function_exists('getUserLogin')) {
+    function getUserLogin()
+    {
+        $ci         = &get_instance();
+        $is_client  = $ci->session->userdata('is_admin');
+
+        if (!$is_client) return;
+
+        $id         = $ci->session->userdata('user_id');
+        $user       = $ci->db
+            ->select('core_users.*, core_roles.name AS role_name')
+            ->from('core_users')
+            ->join('core_roles', 'core_roles.id=core_users.role_id')
+            ->where('core_users.id', $id)
+            ->get()
+            ->row();
+
+        if ($user) {
+            $path               = ($user->avatar ? $user->avatar : '/public/src/media/avatars/blank.png');
+            $user->url_avatar  = base_url($path);
+        }
+
+        return $user;
+    }
+}
+
 if (!function_exists('getGeneralSetting')) {
     function getGeneralSetting($name)
     {
