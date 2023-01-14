@@ -96,3 +96,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('ACCOUNT_TYPE_EMAIL',        'EMAIL');
 define('ACCOUNT_TYPE_GOOGLE',       'GOOGLE');
 define('ACCOUNT_TYPE_FACEBOOK',     'FACEBOOK');
+
+define('TRANSACTION_STATUS_PENDING',    '1');
+define('TRANSACTION_STATUS_SUCCESS',    '2');
+define('TRANSACTION_STATUS_FAILED',     '3');
