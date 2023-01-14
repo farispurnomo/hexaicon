@@ -69,10 +69,10 @@ const menuIconDiscover = function () {
                 }
             },
             blur: function () {
-                // setTimeout(function () {
+                setTimeout(function () {
                     $('.search-section').removeClass('open').css('z-index', 'unset');
                     removeBackdrop();
-                // }, 500)
+                }, 200)
             },
             focus: function () {
                 $('.search-section').css('z-index', '1051');
