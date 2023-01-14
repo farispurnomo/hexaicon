@@ -1,22 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <div>You are receiving this email because we received a password reset request for your account.</div>
-    <a href="<?php echo base_url('client/auth/reset/' . $token . '?email=' . $email) ?>">Reset Password</a>
-    <div>This password reset link will expire in <?php echo $expired ?></div>
-    <div>If you did not request a password reset, no further action is required.</div>
-</body>
-
-</html> -->
-
 <!doctype html>
 <html lang="en-US">
 
@@ -32,7 +13,7 @@
 </head>
 
 <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8;" leftmargin="0">
-    <!--100% body table-->
+
     <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8" style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
         <tr>
             <td>
@@ -93,7 +74,7 @@
             </td>
         </tr>
     </table>
-    <!--/100% body table-->
+
 </body>
 
 </html>

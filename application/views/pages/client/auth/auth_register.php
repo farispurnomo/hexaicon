@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container animate__animated animate__fadeIn">
     <div class="row">
         <div class="col-xl-4 m-auto">
             <div class="text-center">
