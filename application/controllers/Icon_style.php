@@ -2,12 +2,17 @@
 
 class Icon_style extends CI_Controller
 {
-    protected $namespace    = 'pages/client/icon_style/icon_style_';
-    protected $extend_view  = 'layouts/client';
+    private $namespace    = 'pages/client/icon_style/icon_style_';
+    private $extend_view  = 'layouts/client';
+    private $route          = 'icon_style';
+
+    private $client;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->client       = getClientLogin();
         $this->load->model('M_icon_style');
     }
 
@@ -16,11 +21,15 @@ class Icon_style extends CI_Controller
         try {
             if (!$id) throw new Exception();
 
-            $client_id  = $this->session->userdata('id');
-
             $data['extend_view']    = $this->extend_view;
+            $data['route']          = $this->route;
             $data['icon_id']        = $id;
-            $data['is_favorite']    = $this->M_icon_style->doCheckIsFavorite($id, $client_id);
+            $data['is_favorite']    = false;
+            $data['client']         = $this->client;
+
+            if ($this->client) {
+                $data['is_favorite']    = $this->M_icon_style->doCheckIsFavorite($id, $this->client->id);
+            }
 
             $this->template->load($this->namespace . 'index', $data);
         } catch (Throwable $e) {
@@ -33,7 +42,7 @@ class Icon_style extends CI_Controller
         try {
             if (!$id) throw new Exception('Ikon tidak ditemukan', 201);
 
-            $subscription_id   = getUserSubscription()->id;
+            $subscription_id   = $this->client ? $this->client->subscription_plan_id : null;
             $icon              = $this->M_icon_style->doGetDetaiIcon($id, $subscription_id);
             if (!$icon) throw new Exception('Ikon tidak ditemukan', 201);
 
@@ -90,14 +99,11 @@ class Icon_style extends CI_Controller
 
     public function add_to_favorite($icon_id)
     {
-        $is_login = $this->session->userdata('is_client');
-        $client_id  = $this->session->userdata('id');
-
-        if (!$is_login) {
+        if (!$this->client) {
             redirect('login');
         } else {
-            $this->M_icon_style->doToggleFavorite($icon_id, $client_id);
-            redirect(base_url('icon_style/index/' . $icon_id));
+            $this->M_icon_style->doToggleFavorite($icon_id, $this->client->id);
+            redirect('icon_style/index/' . $icon_id);
         }
     }
 }

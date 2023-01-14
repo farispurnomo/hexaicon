@@ -76,7 +76,7 @@
                                                     <div class="row g-0 h-100">
                                                         <?php foreach ($icon_set->icons as $icon) : ?>
                                                             <div class="col-4 d-flex align-items-center justify-content-center">
-                                                                <img class="img-fluid" draggable="false" src="<?= $icon->url_image ?>" alt="">
+                                                                <img class="img-fluid" loading="lazy" width="96" draggable="false" src="<?= $icon->url_image ?>" alt="">
                                                             </div>
                                                         <?php endforeach ?>
                                                     </div>
@@ -107,13 +107,11 @@
                         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-6 py-3">
                             <?php if (!empty($favorite_icons)) : ?>
                                 <?php foreach ($favorite_icons as $icon) : ?>
-                                    <div class="col">
-                                        <a href="<?= base_url('icon_style/index/' . $icon->id) ?>" class="text-decoration-none">
-                                            <div class="m-1 m-md-3 icon-item">
-                                                <div class="text-center">
-                                                    <img draggable="false" class="img-fluid" src="<?= $icon->url_image ?>" />
-                                                    <div><?= $icon->name ?></div>
-                                                </div>
+                                    <div class="col p-1 p-md-3">
+                                        <a href="<?= base_url('icon_style/index/' . $icon->id) ?>" class="text-decoration-none text-black icon-item">
+                                            <div class="text-center">
+                                                <img draggable="false" loading="lazy" width="96" class="img-fluid" src="<?= $icon->url_image ?>" />
+                                                <div><?= $icon->name ?></div>
                                             </div>
                                         </a>
                                     </div>

@@ -176,19 +176,19 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row" id="icon-filter">
-                                <div class="col-md-3 col-lg-2 text-center">
+                                <div class="col-md-3 col-lg-2 text-center p-2">
                                     <div class="custom-hi-radio-primary">
                                         <input id="category-popular" type="radio" name="icon_categories" value="POPULAR" checked>
                                         <label for="category-popular" class="rounded-pill w-100 py-2">Popular</label>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-lg-2 text-center">
+                                <div class="col-md-3 col-lg-2 text-center p-2">
                                     <div class="custom-hi-radio-primary">
                                         <input id="category-latest" type="radio" name="icon_categories" value="LATEST">
                                         <label for="category-latest" class="rounded-pill w-100 py-2">Latest</label>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-lg-2 text-center">
+                                <div class="col-md-3 col-lg-2 text-center p-2">
                                     <div class="custom-hi-radio-primary">
                                         <input id="category-free" type="radio" name="icon_categories" value="FREE">
                                         <label for="category-free" class="rounded-pill w-100 py-2">Free</label>

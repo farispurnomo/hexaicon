@@ -191,7 +191,7 @@ const menuIconStyle = function () {
                         <div class="style-item-card h-100 p-3">
                             <a href="${url}" class="text-decoration-none text-black">
                                 <div class="text-center">
-                                    <img draggable="false" class="img-fluid" src="${icon.url_image}"/>
+                                    <img loading="lazy" width="96" draggable="false" class="img-fluid" src="${icon.url_image}"/>
                                     <!--<img draggable="false" class="img-fluid" src="http://localhost/ap2/public/images/icons8-heart-plus-100.png"/>-->
                                     <div>${icon.name}</div>
                                 </div>

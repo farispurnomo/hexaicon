@@ -62,10 +62,17 @@
                         </div>
 
                         <div class="p-3">
-                            <a href="<?= base_url('icon_style/add_to_favorite/' . $icon_id) ?>" class="btn rounded-pill <?= ($is_favorite ? 'btn-hi-primary' : 'btn-hi-outline-primary') ?>">
-                                <img draggable="false" src="<?= base_url('public/images/icons8-heart-plus-100.png') ?>" width="24" alt="" class="img-fluid">
-                                <?= ($is_favorite ? 'Remove From Favorite' : 'Add To Favorite') ?>
-                            </a>
+                            <?php if ($client) : ?>
+                                <a href="<?= base_url($route . '/add_to_favorite/' . $icon_id) ?>" class="btn rounded-pill <?= ($is_favorite ? 'btn-hi-primary' : 'btn-hi-outline-primary') ?>">
+                                    <img draggable="false" src="<?= base_url('public/images/icons8-heart-plus-100.png') ?>" width="24" alt="" class="img-fluid">
+                                    <?= ($is_favorite ? 'Remove From Favorite' : 'Add To Favorite') ?>
+                                </a>
+                            <?php else : ?>
+                                <a href="<?= base_url('client/auth/login') ?>" class="btn rounded-pill <?= ($is_favorite ? 'btn-hi-primary' : 'btn-hi-outline-primary') ?>">
+                                    <img draggable="false" src="<?= base_url('public/images/icons8-heart-plus-100.png') ?>" width="24" alt="" class="img-fluid">
+                                    Add To Favorite
+                                </a>
+                            <?php endif ?>
                         </div>
                     </div>
 

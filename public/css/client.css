@@ -731,13 +731,14 @@ nav#main-navbar.bg-hi-primary .btn-login:hover {
 .icon-item {
     border: 1px solid #000000;
     border-radius: calc(1rem + 2vw);
-    padding: 1rem;
+    /* padding: 1rem; */
     cursor: pointer;
     aspect-ratio: 1/1;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
 }
 
 .icon-item:hover {
@@ -899,24 +900,11 @@ nav#main-navbar.bg-hi-primary .btn-login:hover {
     bottom: 0;
     left: 0;
     right: 0;
+    filter: drop-shadow(0px -8px 3px rgba(0, 0, 0, 0.25))
 }
 
 #discover-icon-sets .footer div {
     height: 100%;
-}
-
-#discover-icon-sets .footer-hi-primary {
-    background: linear-gradient(to right, #DF5933, #ce3a64);
-    color: white;
-    font-weight: bold;
-    filter: drop-shadow(0px -8px 3px rgba(0, 0, 0, 0.25))
-}
-
-#discover-icon-sets .footer-hi-grey {
-    background-color: var(--hi-dark-grey);
-    color: white;
-    font-weight: bold;
-    filter: drop-shadow(0px -8px 3px rgba(0, 0, 0, 0.25))
 }
 
 .search-section {

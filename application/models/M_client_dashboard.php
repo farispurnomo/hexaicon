@@ -4,7 +4,6 @@ class M_client_dashboard extends CI_Model
 {
     public function doGetFavoriteIconSets($id)
     {
-
         $sets = $this->db
             ->select('mst_icon_sets.*')
             ->from('log_favorite_icon_sets')
@@ -14,13 +13,22 @@ class M_client_dashboard extends CI_Model
             ->get()
             ->result();
 
-        foreach ($sets as $set) {
-            $set->icons = $this->db
+        foreach ($sets as &$set) {
+            $icons              = $this->db
                 ->from('mst_icons')
                 ->where('set_id', $set->id)
                 ->limit(9)
                 ->get()
                 ->result();
+
+            $icons              = array_map(function ($icon) {
+                $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
+                $icon->url_image    = base_url($path);
+
+                return $icon;
+            }, $icons);
+
+            $set->icons         = $icons;
         }
 
         return $sets;
@@ -35,6 +43,13 @@ class M_client_dashboard extends CI_Model
             ->where('log_favorite_icons.client_id', $id)
             ->get()
             ->result();
+
+        $icons              = array_map(function ($icon) {
+            $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
+            $icon->url_image    = base_url($path);
+
+            return $icon;
+        }, $icons);
 
         return $icons;
     }

@@ -36,7 +36,7 @@ const menuIconDiscover = function () {
                                 html += `
                                     <li>
                                         <div data-keyword="${icon.name}" role="button">
-                                            <img draggable="false" width="32" class="img-fluid" src="${icon.url_image}" alt="">
+                                            <img draggable="false" width="32" loading="lazy" class="img-fluid" src="${icon.url_image}" alt="">
                                             <span>${makeBold(icon.name, keyword)}</span>
                                         </div>
                                     </li>
@@ -122,7 +122,7 @@ const menuIconDiscover = function () {
             icons.forEach((icon) => {
                 html += `
                 <div class="col-4 text-center p-3">
-                    <img draggable="false" class="img-fluid" src="${icon.url_image}" />
+                    <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}" />
                 </div>`;
             });
             return html;
@@ -161,7 +161,7 @@ const menuIconDiscover = function () {
                                 <div class="icon-category">
                                     <div class="row align-items-center">
                                         <div class="col-xl-4 text-center">
-                                            <img draggable="false" class="img-fluid" src="${category.url_image}" />
+                                            <img draggable="false" class="img-fluid" loading="lazy" src="${category.url_image}" />
                                         </div>
                                         <div class="col-xl-8 text-center text-xl-start fw-bold">
                                             ${category.name}
@@ -201,10 +201,14 @@ const menuIconDiscover = function () {
                     // for (let i = 0, n = icons.length; i < n; i++) {
                     for (let i = 0, n = 20; i < n; i++) {
                         const element = icons[i];
+
                         if (element) {
+                            const url = helper.getBaseUrl() + 'icon_style/index/' + element.id;
                             result += `
                                 <div class="text-center p-3 d-flex align-items-center justify-content-center">
-                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    <a href="${url}">
+                                        <img loading="lazy" width="96" src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    </a>
                                 </div>
                             `;
                         }
@@ -219,11 +223,11 @@ const menuIconDiscover = function () {
                             <div class="row row-cols-4 row-cols-md-5 h-100">
                                 ${renderIcons(sets[0].icons)}
                             </div>
-                            <div class="text-center footer footer-hi-primary">
+                            <a href="" class="text-center footer btn btn-hi-primary">
                                 <div class="d-flex justify-content-center align-items-center h4">
                                     ${sets[0].name}
                                 </div>
-                            </div>
+                            </a>
                         </div>
                 `;
                 }
@@ -238,9 +242,12 @@ const menuIconDiscover = function () {
                     for (let i = 0, n = 20; i < n; i++) {
                         const element = icons[i];
                         if (element) {
+                            const url = helper.getBaseUrl() + 'icon_style/index/' + element.id;
                             result += `
                                 <div class="text-center p-3">
-                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    <a href="${url}">
+                                        <img loading="lazy" width="96" src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    </a>
                                 </div>
                             `;
                         }
@@ -256,11 +263,11 @@ const menuIconDiscover = function () {
                             <div class="row row-cols-4 row-cols-md-5">
                                 ${renderIcons(sets[1].icons)}
                             </div>
-                            <div class="text-center footer footer-hi-primary">
+                            <a href="" class="text-center footer btn btn-hi-primary">
                                 <div class="d-flex justify-content-center align-items-center h4">
                                     ${sets[1].name}
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 `;
@@ -274,10 +281,14 @@ const menuIconDiscover = function () {
                     let result = '';
                     for (let i = 0; i < 9; i++) {
                         const element = icons[i];
+
                         if (element) {
+                            const url = helper.getBaseUrl() + 'icon_style/index/' + element.id;
                             result += `
                                 <div class="col-4 text-center p-3">
-                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    <a href="${url}">
+                                        <img loading="lazy" width="96" src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    </a>
                                 </div>
                             `;
                         }
@@ -293,11 +304,11 @@ const menuIconDiscover = function () {
                             <div class="row">
                                 ${renderIcons(sets[2].icons)}
                             </div>
-                            <div class="text-center footer footer-hi-grey">
+                            <a href="" class="text-center footer btn btn-secondary">
                                 <div class="d-flex justify-content-center align-items-center h4">
                                     ${sets[2].name}
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 `;
@@ -310,10 +321,14 @@ const menuIconDiscover = function () {
                     let result = '';
                     for (let i = 0; i < 9; i++) {
                         const element = icons[i];
+
                         if (element) {
+                            const url = helper.getBaseUrl() + 'icon_style/index/' + element.id;
                             result += `
                                 <div class="col-4 text-center p-3">
-                                    <img src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    <a href="${url}">
+                                        <img loading="lazy" width="96" src="${element.url_image}" draggable="false" class="rounded img-fluid"/>
+                                    </a>
                                 </div>
                             `;
                         }
@@ -329,11 +344,11 @@ const menuIconDiscover = function () {
                             <div class="row">
                                 ${renderIcons(sets[3].icons)}
                             </div>
-                            <div class="text-center footer footer-hi-grey">
+                            <a href="" class="text-center footer btn btn-secondary">
                                 <div class="d-flex justify-content-center align-items-center h4">
                                     ${sets[3].name}
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 `;
@@ -372,14 +387,12 @@ const menuIconDiscover = function () {
         icons.forEach(icon => {
             const url = helper.getBaseUrl() + 'icon_style/index/' + icon.id;
             html += `
-                <div class="col">
-                    <a href="${url}" class="text-decoration-none">
-                        <div class="m-1 m-md-3 icon-item">
-                            <div class="text-center">
-                                <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
-                                <img draggable="false" class="img-fluid" src="${icon.url_image}"/>
-                                <div>${icon.name}</div>
-                            </div>
+                <div class="col p-1 p-md-3">
+                    <a href="${url}" class="text-decoration-none text-black icon-item">
+                        <div class="text-center p-2">
+                            <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
+                            <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
+                            <div>${icon.name}</div>
                         </div>
                     </a>
                 </div>

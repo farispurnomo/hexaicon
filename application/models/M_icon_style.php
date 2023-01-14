@@ -4,7 +4,7 @@ class M_icon_style extends CI_Model
 {
     public function doGetCategoriesWithIcons($offset = 0)
     {
-        $categories = $this->db
+        $categories             = $this->db
             ->from('mst_icon_categories')
             ->offset($offset)
             ->limit(4)
@@ -12,12 +12,23 @@ class M_icon_style extends CI_Model
             ->result();
 
         $categories = array_map(function ($category) {
-            $category->icons = $this->db
+            // $path                   = ($category->image ? $category->image : 'public/images/no_image.png');
+            // $category->url_image    = base_url($path);
+
+            $icons              = $this->db
                 ->from('mst_icons')
                 ->where('category_id', $category->id)
                 ->get()
                 ->result();
 
+            $icons              = array_map(function ($icon) {
+                $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
+                $icon->url_image    = base_url($path);
+
+                return $icon;
+            }, $icons);
+
+            $category->icons = $icons;
             return $category;
         }, $categories);
 
@@ -32,11 +43,15 @@ class M_icon_style extends CI_Model
             ->get()
             ->row();
 
+        $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
+        $icon->url_image    = base_url($path);
+
         if (!$icon) return;
 
         $icon->resolutions = $this->db
             ->select("
-                *, EXISTS(
+                *,
+                EXISTS(
                     SELECT 
                         *
                     FROM
@@ -100,6 +115,13 @@ class M_icon_style extends CI_Model
             ->get()
             ->result();
 
+        $icons              = array_map(function ($icon) {
+            $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
+            $icon->url_image    = base_url($path);
+
+            return $icon;
+        }, $icons);
+
         return $icons;
     }
 
@@ -120,11 +142,23 @@ class M_icon_style extends CI_Model
             ->result();
 
         foreach ($categories as &$category) {
-            $category->icons = $this->db
+            // $path                   = ($category->image ? $category->image : 'public/images/no_image.png');
+            // $category->url_image    = base_url($path);
+
+            $icons              = $this->db
                 ->from('mst_icons')
                 ->where('category_id', $category->id)
                 ->get()
                 ->result();
+
+            $icons              = array_map(function ($icon) {
+                $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
+                $icon->url_image    = base_url($path);
+
+                return $icon;
+            }, $icons);
+
+            $category->icons    = $icons;
         }
 
         return array(

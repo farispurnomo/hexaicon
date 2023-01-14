@@ -6,24 +6,24 @@ class Auth extends CI_Controller
     private $extend_view  = 'layouts/admin_auth';
     private $route        = 'admin/auth/';
 
+    private $user;
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model('M_admin_auth');
+
+        $this->user = getUserLogin();
     }
 
     public function login()
     {
-        if (getClientLogin()) {
-            redirect('client/dashboard');
+        if ($this->user) {
+            redirect('admin/dashboard');
         }
 
         $data['extend_view']        = $this->extend_view;
         $data['pagetitle']          = 'Login';
-        $data['header_button']      = array(
-            'text'  => 'Register',
-            'href'  => base_url('client/auth/register')
-        );
 
         $this->template->load($this->namespace . 'login', $data);
     }
@@ -70,5 +70,23 @@ class Auth extends CI_Controller
     {
         $this->session->sess_destroy();
         redirect($this->route . 'login');
+    }
+
+    public function profile()
+    {
+        if (!$this->user) show_404();
+
+        $data['extend_view']        = $this->extend_view;
+    }
+
+    public function profile_update()
+    {
+        try {
+            $this->session->set_flashdata('success', 'Data successfully saved');
+        } catch (Throwable $th) {
+            $this->session->set_flashdata('error', $th->getMessage());
+        } finally {
+            redirect('admin/auth/profile');
+        }
     }
 }

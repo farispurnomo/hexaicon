@@ -85,7 +85,10 @@ class M_admin_dashboard extends CI_Model
         $sum_number_of_downloads    = array_sum(array_column($categories, 'number_of_downloads'));
 
         foreach ($categories as &$category) {
-            $average                = $category->number_of_downloads / $sum_number_of_downloads * 100;
+            $average                = 0;
+            if ($sum_number_of_downloads > 0) {
+                $average                = $category->number_of_downloads / $sum_number_of_downloads * 100;
+            }
             $category->average      = round($average);
 
             $path                   = ($category->image ? $category->image : '/public/images/no_image.png');

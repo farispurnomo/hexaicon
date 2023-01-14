@@ -27,6 +27,6 @@ class Contact_us extends CI_Controller
         $this->M_contact_us->store($post);
 
         $this->session->set_flashdata('success', 'Data Successfully Sended');
-        return redirect(base_url($this->route));
+        return redirect($this->route);
     }
 }
