@@ -18,7 +18,7 @@
         <!--begin::Mobile logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="<?= base_url() ?>" class="d-lg-none">
-                <img alt="Logo" src="<?= base_url('public/images/') ?>min-logo-color.png" class="h-30px">
+                <img draggable="false" alt="Logo" src="<?= base_url('public/images/') ?>min-logo-color.png" class="h-30px">
             </a>
         </div>
         <!--end::Mobile logo-->
@@ -29,11 +29,29 @@
                 <!--begin::Page title-->
                 <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_header_nav'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">No Toolbar</h1>
+                    <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1"><?= $pagetitle ?></h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
                     <span class="h-20px border-gray-300 border-start mx-4"></span>
                     <!--end::Separator-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="<?=base_url('admin/dashboard')?>" class="text-muted text-hover-primary">Home</a>
+						</li>
+						<!--end::Item-->
+						<?php foreach($subheaders as $key => $subheader):?>
+							<li class="breadcrumb-item">
+								<span class="bullet bg-gray-300 w-5px h-2px"></span>
+							</li>
+							<!--end::Item-->
+							<!--begin::Item-->
+							<li class="breadcrumb-item text-dark"><?= $key?></li>
+							<!--end::Item-->
+						<?php endforeach; ?>
+					</ul>
+					<!--end::Breadcrumb-->
                 </div>
                 <!--end::Page title-->
             </div>
@@ -44,7 +62,7 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="<?= @$user->url_avatar ?: base_url('public/src/media/avatars/blank.png') ?>" alt="user">
+                        <img draggable="false" src="<?= @$user->url_avatar ?: base_url('public/src/media/avatars/blank.png') ?>" alt="user">
                     </div>
                     <!--begin::User account menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true" style="">
@@ -53,7 +71,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="<?= @$user->url_avatar ?: base_url('public/src/media/avatars/blank.png') ?>">
+                                    <img draggable="false" alt="Logo" src="<?= @$user->url_avatar ?: base_url('public/src/media/avatars/blank.png') ?>">
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
