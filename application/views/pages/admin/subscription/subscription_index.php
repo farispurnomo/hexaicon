@@ -13,9 +13,11 @@
                 </div>
             </div>
             <div class="card-toolbar">
-                <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                    <a href="<?= base_url($route . '/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Data</a>
-                </div>
+                <?php if (isHaveAbility($permission . 'create')) : ?>
+                    <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+                        <a href="<?= base_url($route . '/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Data</a>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
         <div class="card-body pt-0">
@@ -88,6 +90,7 @@
                         orderable: false,
                         render: function(data, type, row) {
                             return `
+                                <?php if (isHaveAbility($permission . 'update')) : ?>
 								<a href="<?= base_url($route . '/edit/') ?>${row.id}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -96,6 +99,9 @@
                                         </svg>
                                     </span>
 								</a>
+                                <?php endif ?>
+
+                                <?php if (isHaveAbility($permission . 'delete')) : ?>
 								<a href="<?= base_url($route . '/delete/') ?>${row.id}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -105,6 +111,7 @@
                                         </svg>
                                     </span>
 								</a>
+                                <?php endif ?>
 						`;
                         }
                     }

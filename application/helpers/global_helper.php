@@ -84,6 +84,28 @@ if (!function_exists('getUserLogin')) {
     }
 }
 
+if (!function_exists('isHaveAbility')) {
+    function isHaveAbility($ability_name)
+    {
+        $user   = getUserLogin();
+
+        if (!$user) return false;
+
+        $ci         = &get_instance();
+        $ability    = $ci->db
+            ->from('core_menu_abilities')
+            ->join('core_privileges', 'core_privileges.ability_id=core_menu_abilities.id')
+            ->where('core_privileges.role_id', $user->role_id)
+            ->where('core_menu_abilities.name', $ability_name)
+            ->get()
+            ->row();
+
+        if (!$ability) return false;
+
+        return true;
+    }
+}
+
 if (!function_exists('getGeneralSetting')) {
     function getGeneralSetting($name)
     {

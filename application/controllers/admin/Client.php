@@ -8,6 +8,7 @@ class Client extends CI_Controller
 	private $pagetitle    = 'Client';
 	private $extend_view  = 'layouts/admin';
 	private $table_id     = 'kt_clients_table';
+	private $permission   = 'client:';
 
 	public function __construct()
 	{
@@ -20,17 +21,22 @@ class Client extends CI_Controller
 
 	public function index()
 	{
+		if (!isHaveAbility($this->permission . 'read')) show_404();
+
 		$data['extend_view']    		= $this->extend_view;
 		$data['pagetitle']      		= $this->pagetitle;
 		$data['subheaders']     		= ['Client' => base_url($this->route . '.index')];
 		$data['route']					= $this->route;
 		$data['table_id']				= $this->table_id;
+		$data['permission']				= $this->permission;
 
 		$this->template->load($this->namespace . 'index', $data);
 	}
 
 	public function paginate()
 	{
+		if (!isHaveAbility($this->permission . 'read')) show_404();
+
 		try {
 			$search						= $this->input->post('search', TRUE)['value'];
 			$offset						= $this->input->post('start', TRUE);
@@ -61,6 +67,8 @@ class Client extends CI_Controller
 
 	public function create()
 	{
+		if (!isHaveAbility($this->permission . 'create')) show_404();
+
 		$data['extend_view']    		= $this->extend_view;
 		$data['pagetitle']      		= 'Add ' . $this->pagetitle;
 		$data['subheaders']     		= ['Index' => base_url($this->route . '.index')];
@@ -91,6 +99,8 @@ class Client extends CI_Controller
 
 	public function store()
 	{
+		if (!isHaveAbility($this->permission . 'create')) show_404();
+
 		try {
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[mst_clients.email]');
 			$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]');
@@ -156,12 +166,15 @@ class Client extends CI_Controller
 
 	public function profile($id)
 	{
+		if (!isHaveAbility($this->permission . 'read')) show_404();
+
 		if (!$id) show_404();
 
 		$data['extend_view']    		= $this->extend_view;
 		$data['route']					= $this->route;
 		$data['pagetitle']      		= $this->pagetitle . ' Detail';
 		$data['subheaders']     		= ['client' => base_url($this->route . '.index'), 'detail' => null];
+		$data['permission']				= $this->permission;
 
 		$data['id']						= $id;
 		$data['client']					= $this->M_admin_client->doGetFirstClientData($id);
@@ -173,12 +186,15 @@ class Client extends CI_Controller
 
 	public function subscription($id = null)
 	{
+		if (!isHaveAbility($this->permission . 'read')) show_404();
+
 		if (!$id) show_404();
 
 		$data['extend_view']    		= $this->extend_view;
 		$data['route']					= $this->route;
 		$data['pagetitle']      		= $this->pagetitle . ' History';
 		$data['subheaders']     		= ['client' => base_url($this->route . '.index'), 'detail' => null];
+		$data['permission']				= $this->permission;
 		$data['id']						= $id;
 		$data['view']					= $this->load->view($this->namespace . 'subscription', $data, true);
 
@@ -191,6 +207,8 @@ class Client extends CI_Controller
 
 	public function subscription_paginate($id = null)
 	{
+		if (!isHaveAbility($this->permission . 'read')) show_404();
+
 		if (!$id) show_404();
 
 		try {
@@ -225,6 +243,8 @@ class Client extends CI_Controller
 
 	public function edit($id = null)
 	{
+		if (!isHaveAbility($this->permission . 'update')) show_404();
+
 		if (!$id) show_404();
 
 		$data['extend_view']    		= $this->extend_view;
@@ -241,6 +261,8 @@ class Client extends CI_Controller
 
 	public function update($id = null)
 	{
+		if (!isHaveAbility($this->permission . 'read')) show_404();
+
 		if (!$id) show_404();
 
 		try {
@@ -323,6 +345,8 @@ class Client extends CI_Controller
 
 	public function delete($id = null)
 	{
+		if (!isHaveAbility($this->permission . 'delete')) show_404();
+
 		if (!$id) show_404();
 
 		$client			= $this->M_admin_client->doGetFirstClientData($id);

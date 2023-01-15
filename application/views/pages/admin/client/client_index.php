@@ -13,15 +13,17 @@
 				</div>
 			</div>
 			<div class="card-toolbar">
-				<div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-					<a href="<?= base_url($route . '/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Data</a>
-				</div>
+				<?php if (isHaveAbility($permission . 'create')) : ?>
+					<div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+						<a href="<?= base_url($route . '/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Data</a>
+					</div>
+				<?php endif ?>
 			</div>
 		</div>
 		<div class="card-body pt-0">
 			<div class="py-3">
-                <?php $this->load->view('partials/admin/admin_alert'); ?>
-            </div>
+				<?php $this->load->view('partials/admin/admin_alert'); ?>
+			</div>
 
 			<table class="table align-middle table-row-dashed fs-6 gy-5" id="<?= $table_id ?>">
 

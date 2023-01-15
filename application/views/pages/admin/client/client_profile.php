@@ -4,10 +4,12 @@
             <h3 class="fw-bolder m-0">Profile Details</h3>
         </div>
         <div class="card-toolbar">
-            <a href="<?= base_url($route . '/edit/' . $id) ?>" class="btn btn-sm btn-flex btn-light-primary">
-                <i class="fa fa-edit"></i>
-                Edit
-            </a>
+            <?php if (isHaveAbility($permission . 'update')) : ?>
+                <a href="<?= base_url($route . '/edit/' . $id) ?>" class="btn btn-sm btn-flex btn-light-primary">
+                    <i class="fa fa-edit"></i>
+                    Edit
+                </a>
+            <?php endif ?>
         </div>
     </div>
     <div class="card-body p-9">

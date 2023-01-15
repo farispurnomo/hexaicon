@@ -37,10 +37,12 @@
                             </div>
                         </div>
                         <div class="d-flex my-4">
-                            <a id="delete-user" href="<?= base_url($route . '/delete/' . $id) ?>" class="btn btn-sm btn-danger me-2">
-                                <i class="fa fa-trash-alt"></i>
-                                <span class="indicator-label">Delete</span>
-                            </a>
+                            <?php if (isHaveAbility($permission . 'delete')) : ?>
+                                <a id="delete-user" href="<?= base_url($route . '/delete/' . $id) ?>" class="btn btn-sm btn-danger me-2">
+                                    <i class="fa fa-trash-alt"></i>
+                                    <span class="indicator-label">Delete</span>
+                                </a>
+                            <?php endif ?>
                         </div>
                     </div>
                     <div>

@@ -6,6 +6,7 @@ class Dashboard extends CI_Controller
     private $route        = 'admin/dashboard';
     private $pagetitle    = 'Dashboard';
     private $extend_view  = 'layouts/admin';
+    private $permission   = 'dashboard:';
 
     public function __construct()
     {
@@ -18,6 +19,8 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
+        if (!isHaveAbility($this->permission . 'read')) show_404();
+
         $data['extend_view']            = $this->extend_view;
         $data['pagetitle']              = $this->pagetitle;
         $data['subheaders']             = ['Dashboard' => base_url($this->route . '.index')];

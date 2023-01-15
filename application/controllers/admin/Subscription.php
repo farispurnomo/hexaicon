@@ -1,13 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class subscription extends CI_Controller
+class Subscription extends CI_Controller
 {
     private $namespace    = 'pages/admin/subscription/subscription_';
     private $route        = 'admin/subscription';
     private $pagetitle    = 'Subscription';
     private $extend_view  = 'layouts/admin';
     private $table_id     = 'kt_subscriptions_table';
+    private $permission   = 'subscription:';
 
     public function __construct()
     {
@@ -20,17 +21,22 @@ class subscription extends CI_Controller
 
     public function index()
     {
+        if (!isHaveAbility($this->permission . 'read')) show_404();
+
         $data['extend_view']            = $this->extend_view;
         $data['pagetitle']              = $this->pagetitle;
         $data['subheaders']             = ['Subscription' => base_url($this->route . '.index')];
         $data['route']                  = $this->route;
         $data['table_id']               = $this->table_id;
+        $data['permission']             = $this->permission;
 
         $this->template->load($this->namespace . 'index', $data);
     }
 
     public function paginate()
     {
+        if (!isHaveAbility($this->permission . 'read')) show_404();
+
         try {
             $search                     = $this->input->post('search', TRUE)['value'];
             $offset                     = $this->input->post('start', TRUE);
@@ -61,6 +67,8 @@ class subscription extends CI_Controller
 
     public function create()
     {
+        if (!isHaveAbility($this->permission . 'create')) show_404();
+
         $data['extend_view']            = $this->extend_view;
         $data['pagetitle']              = 'Add ' . $this->pagetitle;
         $data['subheaders']             = ['Subscription' => base_url($this->route . '.index'), 'Create' => basename($this->route . '/create')];
@@ -71,6 +79,8 @@ class subscription extends CI_Controller
 
     public function store()
     {
+        if (!isHaveAbility($this->permission . 'create')) show_404();
+
         try {
             $this->form_validation->set_rules('name', 'Name', 'required');
             $this->form_validation->set_rules('description', 'Description', 'required');
@@ -105,6 +115,8 @@ class subscription extends CI_Controller
 
     public function edit($id = null)
     {
+        if (!isHaveAbility($this->permission . 'update')) show_404();
+
         if (!$id) show_404();
 
         $data['extend_view']            = $this->extend_view;
@@ -121,6 +133,8 @@ class subscription extends CI_Controller
 
     public function update($id = null)
     {
+        if (!isHaveAbility($this->permission . 'update')) show_404();
+
         if (!$id) show_404();
 
         try {
@@ -157,6 +171,8 @@ class subscription extends CI_Controller
 
     public function delete($id = null)
     {
+        if (!isHaveAbility($this->permission . 'delete')) show_404();
+
         if (!$id) show_404();
 
         $this->M_admin_subscription->doDeleteSubscriptionData($id);
