@@ -26,4 +26,9 @@ class M_admin_auth extends CI_Model
             return $user;
         }
     }
+
+    public function doUpdateUserData($id)
+    {
+        return $this->db->affected_rows();
+    }
 }

@@ -84,7 +84,7 @@
 					<?php foreach ($most_downloaded['categories'] as $category) : ?>
 						<div class="d-flex flex-stack">
 							<div class="d-flex align-items-center me-3">
-								<img src="<?= $category->url_image ?>" class="me-4 w-30px" alt="">
+								<img draggable="false" src="<?= $category->url_image ?>" class="me-4 w-30px" alt="">
 								<div class="flex-grow-1">
 									<span class="text-gray-800 fs-5 fw-bolder lh-0"><?= $category->name ?></span>
 									<span class="text-gray-400 fw-bold d-block fs-6">
@@ -129,7 +129,9 @@
 								<?php foreach ($latest_transactions['transactions'] as $transaction) : ?>
 									<tr>
 										<td>
-											<span class="text-gray-800"><?= $transaction->order_id ?></span>
+											<div role="button" data-bs-toggle="modal" data-bs-target="#detail-<?= $transaction->id ?>">
+												<span class="text-gray-800"><?= $transaction->order_id ?></span>
+											</div>
 										</td>
 										<td class="text-end"><?= $transaction->created ?></td>
 										<td class="text-end">
@@ -153,10 +155,107 @@
 		</div>
 	</div>
 </div>
-</div>
+
+<?php foreach ($latest_transactions['transactions'] as $transaction) : ?>
+	<div class="modal fade" id="detail-<?= $transaction->id ?>" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header pb-0 border-0 justify-content-end">
+					<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+							</svg>
+						</span>
+					</div>
+				</div>
+				<div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
+					<?php if ($transaction->response) : ?>
+						<?php $response = json_decode($transaction->response); ?>
+						<div class="mb-7 h5 fw-bolder">Response Detail</div>
+
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">status code</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->status_code ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">status message</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->status_message ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">transaction id</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->transaction_id ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">order id</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->order_id ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">gross amount</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->gross_amount ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">payment type</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->payment_type ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">transaction time</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->transaction_time ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">transaction status</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->transaction_status ?></span>
+							</div>
+						</div>
+						<div class="row mb-7">
+							<label class="col-lg-4 fw-bold text-muted">fraud status</label>
+							<div class="col-lg-8">
+								<span class="fw-bolder fs-6 text-gray-800"><?= $response->fraud_status ?></span>
+							</div>
+						</div>
+					<?php else : ?>
+						<div class="text-center">No Data Available</div>
+					<?php endif ?>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php endforeach ?>
 
 <script defer>
 	const dashboard = function() {
+		const initCounter = function() {
+			$('.counter').each(function() {
+				$(this).prop('Counter', 0).animate({
+					// Counter: $(this).text()
+					Counter: $(this).data('counter')
+				}, {
+					duration: 2000,
+					easing: 'swing',
+					step: function(now) {
+						now = Number(Math.ceil(now)).toLocaleString('en');
+						$(this).text(now);
+					}
+				});
+			});
+		}
+
 		const initChart = function() {
 			const chart_el = document.getElementById("kt_charts_widget_3");
 			if (!chart_el) return;
@@ -307,6 +406,7 @@
 				info: false,
 				order: [],
 				lengthChange: false,
+				responsive: true,
 				pageLength: 6,
 				ordering: false,
 				paging: false,
@@ -319,35 +419,14 @@
 
 		return {
 			init: function() {
+				initCounter();
 				initChart();
 				initDataTable();
 			}
 		}
 	}();
 
-	const helpers = function() {
-		const init = function() {
-			$('.counter').each(function() {
-				$(this).prop('Counter', 0).animate({
-					// Counter: $(this).text()
-					Counter: $(this).data('counter')
-				}, {
-					duration: 2000,
-					easing: 'swing',
-					step: function(now) {
-						now = Number(Math.ceil(now)).toLocaleString('en');
-						$(this).text(now);
-					}
-				});
-			});
-		};
-		return {
-			init: () => init()
-		}
-	}();
-
 	KTUtil.onDOMContentLoaded((function() {
 		dashboard.init();
-		helpers.init();
 	}))
 </script>

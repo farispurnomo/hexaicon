@@ -31,6 +31,7 @@ class M_landing extends CI_Model
             $subscription->is_expensive    = false;
             $subscription->items = $this->db->from('mst_subscription_plan_items')
                 ->where('subscription_plan_id', $subscription->id)
+                ->order_by('order')
                 ->get()
                 ->result();
         }
