@@ -58,7 +58,7 @@
 							return `
 								<div class="row">
 									<div class="col-md-3 text-center">
-										<img width="64" class="img-fluid rounded-circle img-thumbnail" draggable="false" src="${row.url_image}"/>
+										<img loading="lazy" width="64" class="img-fluid rounded-circle img-thumbnail" draggable="false" src="${row.url_image}"/>
 									</div>
 									<div class="col-md-9 d-flex align-items-center">
 										<div>

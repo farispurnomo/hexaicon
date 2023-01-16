@@ -1,5 +1,4 @@
-<?php
-defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Client extends CI_Controller
 {
@@ -53,7 +52,8 @@ class Client extends CI_Controller
 			$datarow['recordsFiltered']	= $this->M_admin_client->doCountClientData($search);
 			$datarow['data']			= $items;
 		} catch (Throwable $th) {
-			$datarow['draw']			= 0;
+			$datarow['errors']          = $th->getMessage();
+			$datarow['draw']            = 1;
 			$datarow['recordsTotal'] 	= 0;
 			$datarow['recordsFiltered']	= 0;
 			$datarow['data']			= [];

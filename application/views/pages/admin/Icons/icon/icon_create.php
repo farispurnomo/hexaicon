@@ -5,7 +5,7 @@
             <div class="card card-flush py-4">
                 <div class="card-header">
                     <div class="card-title">
-                        <h2>Avatar</h2>
+                        <h2>Image</h2>
                     </div>
                 </div>
                 <div class="card-body text-center pt-0">
@@ -23,22 +23,47 @@
                             <i class="bi bi-x fs-2"></i>
                         </span>
                     </div>
-                    <div class="text-muted fs-7">Set the client thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                    <div class="text-muted fs-7">Set the icon thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
                 </div>
             </div>
+
             <div class="card card-flush py-4">
                 <div class="card-header">
                     <div class="card-title">
-                        <h2 class="required">Subscription</h2>
+                        <h2>Detail Icon</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <select name="subscription_plan_id" class="form-select kt-select2 mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" required>
-                        <?php foreach ($subscriptions as $subscription) : ?>
-                            <option value="<?= $subscription->id ?>"><?= $subscription->name ?></option>
-                        <?php endforeach ?>
-                    </select>
-                    <?= form_error('subscription_plan_id', '<div class="text-danger">', '</div>') ?>
+                    <div class="mb-10 fv-row">
+                        <label class="required form-label">Set</label>
+                        <select name="subscription_plan_id" class="form-select kt-select2 mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" required>
+                            <option value="">Select</option>
+                            <?php foreach ($sets as $set) : ?>
+                                <option value="<?= $set->id ?>"><?= $set->name ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <?= form_error('subscription_plan_id', '<div class="text-danger">', '</div>') ?>
+                    </div>
+                    <div class="mb-10 fv-row">
+                        <label class="required form-label">Style</label>
+                        <select name="subscription_plan_id" class="form-select kt-select2 mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" required>
+                            <option value="">Select</option>
+                            <?php foreach ($styles as $style) : ?>
+                                <option value="<?= $style->id ?>"><?= $style->name ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <?= form_error('subscription_plan_id', '<div class="text-danger">', '</div>') ?>
+                    </div>
+                    <div class="mb-10 fv-row">
+                        <label class="required form-label">Category</label>
+                        <select name="subscription_plan_id" class="form-select kt-select2 mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" required>
+                            <option value="">Select</option>
+                            <?php foreach ($categories as $category) : ?>
+                                <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <?= form_error('subscription_plan_id', '<div class="text-danger">', '</div>') ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,7 +72,7 @@
             <div class="card card-flush py-4">
                 <div class="card-header">
                     <div class="card-title">
-                        <h2><?= $pagetitle ?></h2>
+                        <h2>Setting Icon</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -55,24 +80,12 @@
                         <?php $this->load->view('partials/admin/admin_alert'); ?>
                     </div>
 
-                    <div class="mb-10 fv-row">
-                        <label class="required form-label">Email</label>
-                        <input type="email" name="email" class="form-control mb-2" required value="<?= set_value('email') ?>" />
-                        <?= form_error('email', '<div class="text-danger">', '</div>') ?>
+                    <div>
+                        <div>-> Resolusi (tab sheet vertical)</div>
+                        <div>-> Resolusi -> Format (list vertical like form)</div>
+                        <div>-> Resolusi -> Format -> Subscription (collapse list per format)</div>
                     </div>
-                    <div class="mb-10 fv-row">
-                        <label class="required form-label">Password</label>
-                        <input type="password" name="password" class="form-control mb-2" required minlength="6" />
-                        <?= form_error('password', '<div class="text-danger">', '</div>') ?>
-                    </div>
-                    <div class="mb-10 fv-row">
-                        <label class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control mb-2" value="<?= set_value('name') ?>" />
-                    </div>
-                    <div class="mb-10 fv-row">
-                        <label class="form-label">Job</label>
-                        <input type="text" name="position" class="form-control mb-2" value="<?= set_value('job') ?>" />
-                    </div>
+
                 </div>
             </div>
 
@@ -87,7 +100,7 @@
     </form>
 </div>
 
-<script>
+<script defer>
     const value = "<?php echo set_value('subscription_id'); ?>";
     if (value) {
         document.querySelector('form select[name="subscription_id"]').value = value;

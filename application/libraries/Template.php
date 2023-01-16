@@ -94,12 +94,15 @@ class Template
     private function render_navigation_sidebar($menus)
     {
         $html = '';
-        $render_child = function ($childs) use (&$render_child) {
+
+        $is_route_active = fn ($url) => strpos(current_url(), $url) !== FALSE;
+
+        $render_child = function ($childs) use (&$render_child, $is_route_active) {
             $child_html = '';
             foreach ($childs as $menu) {
                 if (!empty($menu['childs'])) {
                     $child_html   .= '
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <div data-kt-menu-trigger="click" class="menu-item ' . ($is_route_active($menu['url']) ? 'show' : '') . ' menu-accordion">
                             <span class="menu-link">
                                 <span class="menu-icon">
                                     <i class="' . $menu['icon'] . '"></i>
@@ -114,7 +117,7 @@ class Template
                         </div>';
                 } else {
                     $child_html .= '<div class="menu-item">
-                                        <a class="menu-link" href="' . base_url($menu['url']) . '">
+                                        <a class="menu-link ' . ($is_route_active($menu['url']) ? 'active' : '') . '" href="' . base_url($menu['url']) . '">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
@@ -129,7 +132,7 @@ class Template
         foreach ($menus as $key => $value) {
             if (!empty($value['childs'])) {
                 $html   .= '
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <div data-kt-menu-trigger="click" class="menu-item ' . ($is_route_active($value['url']) ? 'show' : '') . ' menu-accordion">
                             <span class="menu-link">
                                 <span class="menu-icon">
                                     <i class="' . $value['icon'] . '"></i>
@@ -145,7 +148,7 @@ class Template
             } else {
                 $html   .= '
                         <div class="menu-item">
-                            <a class="menu-link py-3" href="' . base_url($value['url']) . '" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <a class="menu-link ' . ($is_route_active($value['url']) ? 'active' : '') . ' py-3" href="' . base_url($value['url']) . '" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                 <span class="menu-icon">
                                     <i class="' . $value['icon'] . '"></i>
                                 </span>

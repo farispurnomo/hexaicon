@@ -23,26 +23,22 @@
                             <i class="bi bi-x fs-2"></i>
                         </span>
                     </div>
-                    <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                    <div class="text-muted fs-7">Set the user thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
                 </div>
             </div>
             <div class="card card-flush py-4">
                 <div class="card-header">
                     <div class="card-title">
-                        <h2 class="required">Subscription</h2>
+                        <h2 class="required">Role</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <select name="subscription_plan_id" class="form-select kt-select2 mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" required>
-                        <?php foreach ($subscriptions as $subscription) : ?>
-                            <option value="<?= $subscription->id ?>" <?= $subscription->id == $record->subscription_plan_id ? 'selected' : '' ?>><?= $subscription->name ?></option>
+                    <select name="role_id" class="form-select kt-select2 mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" required>
+                        <?php foreach ($roles as $role) : ?>
+                            <option value="<?= $role->id ?>"><?= $role->name ?></option>
                         <?php endforeach ?>
                     </select>
-                    <?= form_error('subscription_plan_id', '<div class="text-danger">', '</div>') ?>
-                    <div class="d-none mt-10">
-                        <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>
-                        <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />
-                    </div>
+                    <?= form_error('role_id', '<div class="text-danger">', '</div>') ?>
                 </div>
             </div>
         </div>
@@ -61,12 +57,12 @@
 
                     <div class="mb-10 fv-row">
                         <label class="required form-label">Email</label>
-                        <input type="email" name="email" class="form-control mb-2" value="<?= $record->email ?>" disabled />
+                        <input type="email" name="email" class="form-control mb-2" disabled value="<?= $record->email ?>" />
                         <?= form_error('email', '<div class="text-danger">', '</div>') ?>
                     </div>
                     <div class="mb-10 fv-row">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control mb-2" />
+                        <label class="required form-label">Password</label>
+                        <input type="password" name="password" class="form-control mb-2" minlength="6" />
                         <div class="form-text">Leave blank if doesn't change the password.</div>
                         <?= form_error('password', '<div class="text-danger">', '</div>') ?>
                     </div>
@@ -75,8 +71,8 @@
                         <input type="text" name="name" class="form-control mb-2" value="<?= $record->name ?>" />
                     </div>
                     <div class="mb-10 fv-row">
-                        <label class="form-label">Job</label>
-                        <input type="text" name="position" class="form-control mb-2" value="<?= $record->position ?>" />
+                        <label class="form-label">Phone</label>
+                        <input type="text" name="phone" class="form-control mb-2" value="<?= $record->phone ?>" />
                     </div>
                 </div>
             </div>
@@ -93,9 +89,9 @@
 </div>
 
 <script>
-    const value = "<?php echo set_value('subscription_id'); ?>";
+    const value = "<?php echo set_value('role_id'); ?>";
     if (value) {
-        document.querySelector('form select[name="subscription_id"]').value = value;
+        document.querySelector('form select[name="role_id"]').value = value;
     }
 
     // On document ready
