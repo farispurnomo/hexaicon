@@ -213,4 +213,21 @@ class M_icon_style extends CI_Model
             ->get()
             ->num_rows() > 0;
     }
+
+    public function doGetIconById($id)
+    {
+        $icon = $this->db
+            ->from('mst_icons')
+            ->where('id', $id)
+            ->get()
+            ->row();
+
+        if ($icon) {
+            if ($icon->image) {
+                $icon->vector = file_get_contents(base_url($icon->image));
+            }
+
+            return $icon;
+        }
+    }
 }

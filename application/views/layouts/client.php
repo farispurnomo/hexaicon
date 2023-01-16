@@ -15,6 +15,10 @@
 
     <link rel="shortcut icon" href="<?= base_url('public/images/min-logo-color.png') ?>" />
     <base href="<?= site_url() ?>">
+
+    <script src="<?= base_url('public/vendor/bootstrap-5.2.0/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= base_url('public/vendor/jquery-3.6.1/jquery-3.6.1.min.js') ?>"></script>
+    <script src="<?= base_url('public/vendor/wow/wow.min.js') ?>"></script>
 </head>
 
 <body>
@@ -40,12 +44,7 @@
     <footer class="bg-black">
         <?php $this->load->view('partials/client/client_footer'); ?>
     </footer>
-    <script>
-        const base_url = "<?=base_url()?>";
-    </script>
-    <script src="<?= base_url('public/vendor/bootstrap-5.2.0/js/bootstrap.bundle.min.js') ?>"></script>
-    <script src="<?= base_url('public/vendor/jquery-3.6.1/jquery-3.6.1.min.js') ?>"></script>
-    <script src="<?= base_url('public/vendor/wow/wow.min.js') ?>"></script>
+
     <script type="module" src="<?= base_url('public/js/client.js') ?>?v<?= $this->config->item('app_version_summary') ?>"></script>
 </body>
 

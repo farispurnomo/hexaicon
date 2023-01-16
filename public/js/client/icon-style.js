@@ -327,11 +327,25 @@ const menuIconStyle = function () {
 
             }
         })
-    }
+    };
+
+    // const handleModal = function (icon_id) {
+    //     $(document).on('click', '#btn-edit-vector', function () {
+    //         $.ajax({
+    //             url: helper.getBaseUrl() + 'icon_style/edit/' + icon_id,
+    //             dataType: 'HTML',
+    //             success: function (response) {
+    //                 $('#edit-vector').html(response);
+    //             }
+    //         });
+    //     });
+    // }
 
     const init = function (icon_id) {
         handleEvents();
         requestDataIcon(icon_id);
+
+        // handleModal(icon_id);
 
         canvasHandle.init();
     };

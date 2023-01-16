@@ -1,4 +1,5 @@
 <main>
+
     <section>
         <div class="container">
             <div class="row">
@@ -16,7 +17,34 @@
         </div>
     </section>
 
-    <section id="image-detail-section">
+    <section class="mb-3">
+        <?php $this->load->view($namespace . 'edit'); ?>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <a href="<?= base_url('client/auth/login') ?>" class="btn rounded-pill <?= ($is_favorite ? 'btn-hi-primary' : 'btn-hi-outline-primary') ?>">
+                        Download
+                    </a>
+                </div>
+                <div class="col-md-6 text-center">
+                    <?php if ($client) : ?>
+                        <a href="<?= base_url($route . '/add_to_favorite/' . $icon_id) ?>" class="btn rounded-pill <?= ($is_favorite ? 'btn-hi-primary' : 'btn-hi-outline-primary') ?>">
+                            <img draggable="false" src="<?= base_url('public/images/icons8-heart-plus-100.png') ?>" width="24" alt="" class="img-fluid">
+                            <?= ($is_favorite ? 'Remove From Favorite' : 'Add To Favorite') ?>
+                        </a>
+                    <?php else : ?>
+                        <a href="<?= base_url('client/auth/login') ?>" class="btn rounded-pill <?= ($is_favorite ? 'btn-hi-primary' : 'btn-hi-outline-primary') ?>">
+                            <img draggable="false" src="<?= base_url('public/images/icons8-heart-plus-100.png') ?>" width="24" alt="" class="img-fluid">
+                            Add To Favorite
+                        </a>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section id="image-detail-section">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md-8 order-2 order-md-1">
@@ -79,13 +107,14 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <section>
         <div class="container-fluid" id="suggestion-icons">
 
         </div>
     </section>
+
 </main>
 
 <style>

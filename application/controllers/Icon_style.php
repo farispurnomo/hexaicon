@@ -26,6 +26,8 @@ class Icon_style extends CI_Controller
             $data['icon_id']        = $id;
             $data['is_favorite']    = false;
             $data['client']         = $this->client;
+            $data['namespace']      = $this->namespace;
+            $data['icon']           = $this->M_icon_style->doGetIconById($id);
 
             if ($this->client) {
                 $data['is_favorite']    = $this->M_icon_style->doCheckIsFavorite($id, $this->client->id);
@@ -106,4 +108,10 @@ class Icon_style extends CI_Controller
             redirect('icon_style/index/' . $icon_id);
         }
     }
+
+    // public function edit($id)
+    // {
+    //     $data['icon']       = $this->M_icon_style->doGetIconById($id);
+    //     $this->load->view($this->namespace . 'edit', $data);
+    // }
 }
