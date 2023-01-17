@@ -181,7 +181,6 @@ class User extends CI_Controller
             if (!$record) redirect('/client/errors/error_404');
 
             $user                        = array(
-                'password'                      => password_hash($password, PASSWORD_BCRYPT),
                 'name'                          => $this->input->post('name', TRUE),
                 'phone'                         => $this->input->post('phone', TRUE),
                 'role_id'                       => $this->input->post('role_id'),

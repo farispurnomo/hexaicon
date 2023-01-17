@@ -1,5 +1,5 @@
 <div id="kt_content_container" class="container-fluid">
-    <form method="POST" action="<?= base_url($route . '/update/' . $record->id) ?>" enctype="multipart/form-data" class="form d-flex flex-column flex-lg-row">
+    <form method="POST" action="<?= base_url($route . '/profile_update') ?>" enctype="multipart/form-data" class="form d-flex flex-column flex-lg-row">
 
         <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
             <div class="card card-flush py-4">
@@ -24,21 +24,6 @@
                         </span>
                     </div>
                     <div class="text-muted fs-7">Set the user thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
-                </div>
-            </div>
-            <div class="card card-flush py-4">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h2 class="required">Role</h2>
-                    </div>
-                </div>
-                <div class="card-body pt-0">
-                    <select name="role_id" class="form-select kt-select2 mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" required>
-                        <?php foreach ($roles as $role) : ?>
-                            <option value="<?= $role->id ?>"><?= $role->name ?></option>
-                        <?php endforeach ?>
-                    </select>
-                    <?= form_error('role_id', '<div class="text-danger">', '</div>') ?>
                 </div>
             </div>
         </div>
@@ -78,7 +63,6 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <a href="<?= base_url($route . '/index') ?>" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
                 <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
                     <span class="indicator-label">Update</span>
                 </button>

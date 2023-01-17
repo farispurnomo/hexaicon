@@ -27,8 +27,30 @@ class M_admin_auth extends CI_Model
         }
     }
 
-    public function doUpdateUserData($id)
+    public function doGetFirstUserData($id)
     {
+        $user                   = $this->db
+            ->from($this->table_users)
+            ->where('id', $id)
+            ->get()
+            ->row();
+
+        if ($user) {
+            $path               = ($user->avatar ? $user->avatar : '/public/src/media/avatars/blank.png');
+            $user->url_image    = base_url($path);
+
+            return $user;
+        }
+
+        return $user;
+    }
+
+    public function doUpdateUserData($id, array $data)
+    {
+        $this->db
+            ->where('id', $id)
+            ->update($this->table_users, $data);
+
         return $this->db->affected_rows();
     }
 }

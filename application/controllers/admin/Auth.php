@@ -72,21 +72,84 @@ class Auth extends CI_Controller
         redirect($this->route . 'login');
     }
 
+    private function do_upload()
+    {
+        $file_name                      = str_replace(' ', '_', $_FILES['file']['name']);
+        $config['upload_path']          = './public/uploads/users/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = '2000';
+        $file_name                      = rand(00, 99) . '_' . date('YmdHis') . '_' . $file_name;
+        $config['file_name']            = $file_name; //new file name
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload('file')) {
+            return '/public/uploads/users/' . $this->upload->data()['file_name'];
+        }
+
+        $this->session->set_flashdata('error', $this->upload->display_errors());
+        redirect($_SERVER['HTTP_REFERER'], 'refresh');
+    }
+
     public function profile()
     {
         if (!$this->user) show_404();
 
-        $data['extend_view']        = $this->extend_view;
+        $data['extend_view']            = 'layouts/admin';
+        $data['pagetitle']              = 'Profile';
+        $data['subheaders']             = ['Profile' => base_url($this->route . '.index')];
+        $data['route']                  = $this->route;
+        $data['record']                 = $this->M_admin_auth->doGetFirstUserData($this->user->id);
+
+        $this->template->load('pages/admin/users/user/user_profile', $data);
     }
 
     public function profile_update()
     {
+        if (!$this->user) show_404();
+
         try {
-            $this->session->set_flashdata('success', 'Data successfully saved');
+            $password                   = $this->input->post('password');
+
+            if ($password != '') {
+                $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]');
+
+                if ($this->form_validation->run() == FALSE) {
+                    throw new Exception(validation_errors(), 405);
+                }
+            }
+
+
+            $record            = $this->M_admin_auth->doGetFirstUserData($this->user->id);
+            if (!$record) redirect('/client/errors/error_404');
+
+            $user                        = array(
+                'name'                          => $this->input->post('name', TRUE),
+                'phone'                         => $this->input->post('phone', TRUE),
+                'updated_at'                    => date('Y-m-d H:i:s')
+            );
+
+            if ($password != '') {
+                $user['password']            = password_hash($password, PASSWORD_BCRYPT);
+            }
+
+            if (!empty($_FILES['file']) && $_FILES['file']['size'] > 0) {
+                $user['avatar'] = $this->do_upload();
+
+                if ($record->avatar) {
+                    $full_path = FCPATH . $record->avatar;
+                    if (file_exists($full_path)) @unlink($full_path);
+                }
+            }
+
+            $this->M_admin_auth->doUpdateUserData($this->user->id, $user);
+
+            $this->session->set_flashdata('success', 'Profile successfully updated');
         } catch (Throwable $th) {
-            $this->session->set_flashdata('error', $th->getMessage());
+            if ($th->getCode() != 405)
+                $this->session->set_flashdata('error', $th->getMessage());
         } finally {
-            redirect('admin/auth/profile');
+            redirect($this->route . 'profile');
         }
     }
 }
