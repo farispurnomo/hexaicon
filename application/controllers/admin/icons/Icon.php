@@ -67,8 +67,6 @@ class Icon extends CI_Controller
 
     public function create()
     {
-        echo 'coming soon :)';
-        exit;
         if (!isHaveAbility($this->permission . 'create')) show_404();
 
         $data['extend_view']            = $this->extend_view;
@@ -78,6 +76,7 @@ class Icon extends CI_Controller
         $data['categories']             = $this->M_admin_icon->doGetCategories();
         $data['styles']                 = $this->M_admin_icon->doGetStylesData();
         $data['sets']                   = $this->M_admin_icon->doGetSetsData();
+        $data['subscriptions']          = $this->M_admin_icon->doGetSubscriptions();
 
         $this->template->load($this->namespace . 'create', $data);
     }
@@ -85,8 +84,8 @@ class Icon extends CI_Controller
     private function do_upload()
     {
         $file_name                      = str_replace(' ', '_', $_FILES['file']['name']);
-        $config['upload_path']          = './public/uploads/users/';
-        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['upload_path']          = './public/uploads/icons/';
+        $config['allowed_types']        = 'svg';
         $config['max_size']             = '2000';
         $file_name                      = rand(00, 99) . '_' . date('YmdHis') . '_' . $file_name;
         $config['file_name']            = $file_name; //new file name
@@ -94,7 +93,7 @@ class Icon extends CI_Controller
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
         if ($this->upload->do_upload('file')) {
-            return '/public/uploads/users/' . $this->upload->data()['file_name'];
+            return '/public/uploads/icons/' . $this->upload->data()['file_name'];
         }
 
         $this->session->set_flashdata('error', $this->upload->display_errors());
@@ -106,34 +105,90 @@ class Icon extends CI_Controller
         if (!isHaveAbility($this->permission . 'create')) show_404();
 
         try {
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[core_users.email]');
-            $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]');
-            $this->form_validation->set_rules('role_id', 'Role', 'required');
+            $this->form_validation->set_rules('name', 'Name', 'required');
+
+            if (empty($_FILES['file']['name'])) {
+                $this->form_validation->set_rules('file', 'Image', 'required');
+            }
 
             if ($this->form_validation->run() == FALSE) {
                 throw new Exception(validation_errors(), 405);
             }
 
-            $email                      = $this->input->post('email', TRUE);
-
-            $role_id                    = $this->input->post('role_id', TRUE);
-            $role                       = $this->M_admin_icon->doGetRoleById($role_id);
-            if (!$role) throw new Exception('Role is not valid');
-
             $icon                       = array(
-                'email'                         => $email,
-                'password'                      => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
                 'name'                          => $this->input->post('name', TRUE),
-                'phone'                         => $this->input->post('phone', TRUE),
-                'role_id'                       => $this->input->post('role_id'),
+                'number_of_downloads'           => 0,
                 'created_at'                    => date('Y-m-d H:i:s')
             );
 
-            if (!empty($_FILES['file']) && $_FILES['file']['size'] > 0) {
-                $icon['avatar']                 = $this->do_upload();
+            $set_id                     = $this->input->post('set_id', TRUE);
+            $style_id                   = $this->input->post('style_id', TRUE);
+            $category_id                = $this->input->post('category_id', TRUE);
+
+            if ($set_id != '') {
+                $set                    = $this->M_admin_icon->doGetSetById($set_id);
+                if (!$set) throw new Exception('Icon Set is not valid');
+
+                $icon['set_id']         = $set_id;
             }
 
-            $this->M_admin_icon->doInsertIconData($icon);
+            if ($style_id != '') {
+                $style                  = $this->M_admin_icon->doGetStyleById($style_id);
+                if (!$style) throw new Exception('Icon Style is not valid');
+
+                $icon['style_id']       = $style_id;
+            }
+
+            if ($style_id != '') {
+                $category                   = $this->M_admin_icon->doGetCategoryById($category_id);
+                if (!$category) throw new Exception('Icon Category is not valid');
+
+                $icon['category_id']    = $category_id;
+            }
+
+            if (!empty($_FILES['file']) && $_FILES['file']['size'] > 0) {
+                $icon['image']                 = $this->do_upload();
+            }
+
+            $this->db->trans_start();
+            $icon_id                    = $this->M_admin_icon->doInsertIconData($icon);
+
+            $subscriptions              = array();
+            $subscription_ids           = $this->input->post('subscriptions');
+            foreach ($subscription_ids as $subscription_id) {
+                $subscriptions[]        = array(
+                    'subscription_plan_id'  => $subscription_id,
+                    'icon_id'               => $icon_id
+                );
+            }
+            if (!empty($subscriptions)) {
+                $this->M_admin_icon->doInsertIconSubscription($subscriptions);
+            }
+
+            $formats                        = array('svg', 'png');
+            foreach ($formats as $format) {
+
+                $record                     = array(
+                    'icon_id'                   => $icon_id,
+                    'name'                      => $format
+                );
+
+                $format_id                  = $this->M_admin_icon->doInsertIconFormat($record);
+
+                $records                    = [];
+                $format_subscriptions       = $this->input->post("{$format}[]");
+                foreach ($format_subscriptions as $format_subscription) {
+                    $records[]              = array(
+                        'icon_format_id'            => $format_id,
+                        'subscription_plan_id'      => $format_subscription
+                    );
+                }
+
+                if (!empty($records)) {
+                    $this->M_admin_icon->doInsertIconFormatSubscription($records);
+                }
+            }
+            $this->db->trans_complete();
 
             $this->session->set_flashdata('success', 'Data successfully saved');
             redirect($this->route);
@@ -147,8 +202,6 @@ class Icon extends CI_Controller
 
     public function edit($id = null)
     {
-        echo 'coming soon :)';
-        exit;
         if (!isHaveAbility($this->permission . 'update')) show_404();
 
         if (!$id) show_404();
@@ -158,7 +211,10 @@ class Icon extends CI_Controller
         $data['subheaders']             = ['Index' => base_url($this->route . '.index')];
         $data['route']                  = $this->route;
 
-        $data['roles']                  = $this->M_admin_icon->doGetRoles();
+        $data['categories']             = $this->M_admin_icon->doGetCategories();
+        $data['styles']                 = $this->M_admin_icon->doGetStylesData();
+        $data['sets']                   = $this->M_admin_icon->doGetSetsData();
+        $data['subscriptions']          = $this->M_admin_icon->doGetSubscriptions();
         $data['record']                 = $this->M_admin_icon->doGetFirstIconData($id);
         if (!$data['record']) show_404();
 
@@ -172,12 +228,7 @@ class Icon extends CI_Controller
         if (!$id) show_404();
 
         try {
-            $password                   = $this->input->post('password');
-
-            $this->form_validation->set_rules('role_id', 'Role', 'required');
-            if ($password != '') {
-                $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]');
-            }
+            $this->form_validation->set_rules('name', 'Name', 'required');
 
             if ($this->form_validation->run() == FALSE) {
                 throw new Exception(validation_errors(), 405);
@@ -186,28 +237,89 @@ class Icon extends CI_Controller
             $record            = $this->M_admin_icon->doGetFirstIconData($id);
             if (!$record) redirect('/client/errors/error_404');
 
-            $user                        = array(
-                'password'                      => password_hash($password, PASSWORD_BCRYPT),
+            $icon                        = array(
                 'name'                          => $this->input->post('name', TRUE),
-                'phone'                         => $this->input->post('phone', TRUE),
-                'role_id'                       => $this->input->post('role_id'),
                 'updated_at'                    => date('Y-m-d H:i:s')
             );
 
-            if ($password != '') {
-                $user['password']            = password_hash($password, PASSWORD_BCRYPT);
+            $set_id                     = $this->input->post('set_id', TRUE);
+            $style_id                   = $this->input->post('style_id', TRUE);
+            $category_id                = $this->input->post('category_id', TRUE);
+
+            if ($set_id != '') {
+                $set                    = $this->M_admin_icon->doGetSetById($set_id);
+                if (!$set) throw new Exception('Icon Set is not valid');
+
+                $icon['set_id']         = $set_id;
+            }
+
+            if ($style_id != '') {
+                $style                  = $this->M_admin_icon->doGetStyleById($style_id);
+                if (!$style) throw new Exception('Icon Style is not valid');
+
+                $icon['style_id']       = $style_id;
+            }
+
+            if ($style_id != '') {
+                $category                   = $this->M_admin_icon->doGetCategoryById($category_id);
+                if (!$category) throw new Exception('Icon Category is not valid');
+
+                $icon['category_id']    = $category_id;
             }
 
             if (!empty($_FILES['file']) && $_FILES['file']['size'] > 0) {
-                $user['avatar'] = $this->do_upload();
+                $icon['image']           = $this->do_upload();
 
-                if ($record->avatar) {
-                    $full_path = FCPATH . $record->avatar;
+                if ($record->image) {
+                    $full_path          = FCPATH . $record->image;
                     if (file_exists($full_path)) @unlink($full_path);
                 }
             }
 
-            $this->M_admin_icon->doUpdateIconData($id, $user);
+            $this->db->trans_start();
+            $this->M_admin_icon->doUpdateIconData($id, $icon);
+
+            $this->M_admin_icon->doDeleteIconSubscription($id);
+            $subscriptions              = array();
+            $subscription_ids           = $this->input->post('subscriptions');
+            if (!empty($subscription_ids)) {
+                foreach ($subscription_ids as $subscription_id) {
+                    $subscriptions[]        = array(
+                        'subscription_plan_id'  => $subscription_id,
+                        'icon_id'               => $id
+                    );
+                }
+            }
+            if (!empty($subscriptions)) {
+                $this->M_admin_icon->doInsertIconSubscription($subscriptions);
+            }
+
+            $this->M_admin_icon->doDeleteIconFormat($id);
+
+            $formats                        = array('svg', 'png');
+            foreach ($formats as $format) {
+
+                $record                     = array(
+                    'icon_id'                   => $id,
+                    'name'                      => $format
+                );
+
+                $format_id                  = $this->M_admin_icon->doInsertIconFormat($record);
+
+                $records                    = [];
+                $format_subscriptions       = $this->input->post("{$format}[]");
+                foreach ($format_subscriptions as $format_subscription) {
+                    $records[]              = array(
+                        'icon_format_id'            => $format_id,
+                        'subscription_plan_id'      => $format_subscription
+                    );
+                }
+
+                if (!empty($records)) {
+                    $this->M_admin_icon->doInsertIconFormatSubscription($records);
+                }
+            }
+            $this->db->trans_complete();
 
             $this->session->set_flashdata('success', 'Data successfully updated');
             redirect($this->route);
@@ -229,8 +341,8 @@ class Icon extends CI_Controller
         $client            = $this->M_admin_icon->doGetFirstIconData($id);
         if (!$client) redirect('/client/errors/error_404');
 
-        if ($client->avatar) {
-            $full_path = FCPATH . $client->avatar;
+        if ($client->image) {
+            $full_path = FCPATH . $client->image;
             if (file_exists($full_path)) @unlink($full_path);
         }
 
