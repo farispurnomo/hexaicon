@@ -128,7 +128,14 @@ const menuIconDiscover = function () {
             return html;
         };
 
-        let html = '<div class="text-center">Data not available</div>';
+        let html = `
+            <div class="text-center">
+                <div>
+                    <lottie-player class="m-auto" src="${helper.getBaseUrl() + 'public/images/25943-nodata.json'}"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay/>
+                </div>
+                <div>No Data Available</div>
+            </div>
+        `;
         if (styles.length) {
             html = '';
             styles.forEach((style) => {
@@ -175,7 +182,7 @@ const menuIconDiscover = function () {
 
             html += `
                     <div class="col p-3">
-                        <a href="" class="text-decoration-none">
+                        <a href="javascript:void(0)" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#categoriesModal">
                             <div class="icon-category bg-hi-primary justify-content-center">
                                 <div class="row align-items-center">
                                     <div class="col-12 fw-bold text-center h4">
@@ -192,7 +199,12 @@ const menuIconDiscover = function () {
     }
 
     const renderIconset = function (sets) {
-        let html = '<div class="text-center">Data not available</div>';
+        let html = `<div class="text-center">
+            <div>
+                <lottie-player class="m-auto" src="${helper.getBaseUrl() + 'public/images/25943-nodata.json'}"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay/>
+            </div>
+            <div>No Data Available</div>
+        </div>`;
         if (sets.length) {
             const set_1 = function () {
 
@@ -378,7 +390,14 @@ const menuIconDiscover = function () {
 
     const renderFilterData = function (icons) {
         if (!icons.length) {
-            let html = `<div class="text-center">No data available</div>`
+            let html = `
+                <div class="text-center">
+                    <div>
+                        <lottie-player class="m-auto" src="${helper.getBaseUrl() + 'public/images/25943-nodata.json'}"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay/>
+                    </div>
+                    <div>No Data Available</div>
+                </div>
+                `;
             $('#icon-filter-data').html(html);
             return;
         }
@@ -386,18 +405,49 @@ const menuIconDiscover = function () {
         let html = '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xxl-6">';
         icons.forEach(icon => {
             const url = helper.getBaseUrl() + 'icon_style/index/' + icon.id;
-            html += `
-                <div class="col p-1 p-md-3">
-                    <a href="${url}" class="text-decoration-none text-black icon-item">
-                        <div class="text-center p-2">
-                            <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
-                            <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
-                            <div>${icon.name}</div>
-                        </div>
-                    </a>
-                </div>
-            `;
+
+            if (icon.guest_access) {
+                html += `
+                    <div class="col p-1 p-md-3">
+                        <a href="${url}" class="text-decoration-none text-black icon-item">
+                            <div class="text-center p-2">
+                                <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
+                                <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
+                                <div>${icon.name}</div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            }
+
+            if (!icon.is_unlock) {
+                html += `
+                    <div class="col p-1 p-md-3">
+                        <a href="javascript:void(0)" class="text-decoration-none text-black icon-item locked" data-bs-toggle="modal" data-bs-icon="${icon.id}" data-bs-target="#restrictionModal">
+                            <div class="text-center p-2">
+                                <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
+                                <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
+                                <div>${icon.name}</div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="col p-1 p-md-3">
+                        <a href="${url}" class="text-decoration-none text-black icon-item">
+                            <div class="text-center p-2">
+                                <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
+                                <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
+                                <div>${icon.name}</div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            }
+
         });
+
         html += '</div>';
 
         $('#icon-filter-data').html(html);
@@ -445,10 +495,149 @@ const menuIconDiscover = function () {
         });
     };
 
+    const initRestrictionModal = function () {
+        $('#restrictionModal').on('show.bs.modal', function (e) {
+            const button = e.relatedTarget;
+            const icon_id = $(button).data('bs-icon');
+
+            const body = $(this).find('.modal-body');
+
+            $.ajax({
+                url: helper.getBaseUrl() + 'icon_discover/get_detail_icon/' + icon_id,
+                method: 'GET',
+                dataType: 'JSON',
+                beforeSend: function () {
+                    body.html('<div class="text-center p-5"><i class="fa fa-spin fa-spinner fa-2x"></i></div>')
+                },
+                success: function (response) {
+                    if (response.status == 200) {
+
+                        if (!response.is_login) { // jika belum login
+                            // if (response.data.guest_access) { // jika access gratis diberikan
+                            // suruh login
+
+                            body.html(`
+                                    <div class="text-center">
+                                        <div class="my-4">
+                                            <img loading="lazy" class="img-fluid" width="48" src="${helper.getBaseUrl() + 'public/images/min-logo-color.png'}"/>
+                                        </div>
+                                        <div class="mb-3 h4">You must login first</div>
+                                        <a class="btn btn-hi-primary px-4" href="${helper.getBaseUrl() + 'client/auth/login'}">Login</a>
+                                    </div>
+                                `);
+
+                            // }
+                        } else { // sudah login
+                            if (!response.data.is_unlock) {// jika subscription tidak sesuai
+                                // suruh bayar
+
+                                if (response.data.minimum_subscription) {
+                                    body.html(`
+                                        <div class="text-center">
+                                            <div class="my-4">
+                                                <img loading="lazy" class="img-fluid" width="48" src="${helper.getBaseUrl() + 'public/images/min-logo-color.png'}"/>
+                                            </div>
+                                            <div class="mb-3 h4">Unlock with ${response.data.minimum_subscription.name}</div>
+                                            <a class="btn btn-hi-primary px-4" href="${helper.getBaseUrl() + 'subscription/index?id=' + response.data.minimum_subscription.id}">Only ${response.data.minimum_subscription.total_price} <i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    `);
+                                } else {
+                                    body.html(`
+                                        <div class="text-center">
+                                            <div class="my-4">
+                                                <img loading="lazy" class="img-fluid" width="48" src="${helper.getBaseUrl() + 'public/images/min-logo-color.png'}"/>
+                                            </div>
+                                            <div class="mb-3 h4">Icon not supported anymore</div>
+                                            <div>Please <a href="${helper.getBaseUrl() + 'contact_us'}">contact us</a> if you're think this is a mistake</div>
+                                        </div>
+                                    `);
+                                }
+
+                            }
+                        }
+
+                    } else {
+                        body.html(`<div class="text-center">${response.msg}</div>`)
+                    }
+                }
+            })
+        });
+    };
+
+    const initCategoriesModal = function () {
+        let current_page = 1;
+        let body;
+
+        const load_more = function () {
+            $.ajax({
+                url: helper.getBaseUrl() + 'icon_discover/get_categories?page=' + current_page,
+                method: 'GET',
+                dataType: 'JSON',
+                beforeSend: function () {
+                    let html = '';
+                    for (let i = 0; i < 6; i++) {
+                        html += `
+                            <div class="col-6 col p-3 placeholder-glow">
+                                <div class="p-5 col-12 placeholder rounded"></div>
+                            </div>
+                        `;
+                    }
+                    body.find('#modal-category-list').append(html);
+                },
+                success: function (response) {
+                    current_page++;
+
+                    let html = '';
+                    body.find('#modal-category-list').find('.placeholder-glow').remove();
+
+                    response.data.categories.forEach(category => {
+                        html += `
+                            <div class="col-6 col p-3">
+                                <a href="" class="text-decoration-none">
+                                    <div class="icon-category-2">
+                                        <div class="row gx-0 align-items-center">
+                                            <div class="col-xl-4 text-center" style="background-color: #eeeeee">
+                                                <img draggable="false" class="img-fluid" loading="lazy" src="${category.url_image}" />
+                                            </div>
+                                            <div class="col-xl-8 fw-bold">
+                                                <div class="px-3">${category.name}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        `;
+                    });
+
+                    body.find('#modal-category-list').append(html);
+
+                    if (response.data.is_done) {
+                        $('#load-more-wrapper').addClass('d-none');
+                    }
+                }
+            })
+        };
+
+        $('#categoriesModal').on('show.bs.modal', function () {
+            current_page = 1;
+            body = $(this).find('.modal-body');
+            body.find('#modal-category-list').empty()
+            $('#load-more-wrapper').removeClass('d-none');
+
+            load_more();
+        });
+
+        $(document).on('click', '#load-more-wrapper', function () {
+            load_more();
+        })
+    };
+
     const init = function () {
         initInputSearch();
         initializeDefaultData();
         initFilterData();
+        initRestrictionModal();
+        initCategoriesModal();
     };
 
     return {

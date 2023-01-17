@@ -221,6 +221,35 @@
     </section>
 </main>
 
+<div class="modal fade" id="restrictionModal" tabindex="-1" aria-labelledby="restrictionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="categoriesModal" tabindex="-1" aria-labelledby="categoriesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row row-cols-1 row-cols-md-3" id="modal-category-list">
+
+                </div>
+                <div class="row" id="load-more-wrapper">
+                    <div class="col-12 text-center py-3 px-md-4">
+                        <div id="wrapper">
+                            <button type="button" id="btn-load-more" class="btn rounded-pill px-4 btn-hi-primary w-100">Load More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="module" defer>
     import menuIconDiscover from "<?= base_url('public/js/client/icon-discover.js') ?>";
 

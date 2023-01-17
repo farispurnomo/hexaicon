@@ -72,7 +72,7 @@ class M_icon_discover extends CI_Model
         return $icons;
     }
 
-    public function doGetLatestIcons()
+    public function doGetLatestIcons($subscription_id = null)
     {
         $icons                  = $this->db
             ->from('mst_icons')
@@ -81,9 +81,19 @@ class M_icon_discover extends CI_Model
             ->get()
             ->result();
 
-        $icons = array_map(function ($icon) {
+        $icons = array_map(function ($icon) use ($subscription_id) {
             $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
             $icon->url_image    = base_url($path);
+
+            $subscription       = $this->db
+                ->from('mst_icon_subscriptions')
+                ->where('icon_id', $icon->id)
+                ->where('subscription_plan_id', $subscription_id)
+                ->get()
+                ->row();
+
+            $icon->is_unlock    = ($subscription ? true : false);
+            $icon->guest_access = ($icon->guest_access == '1' ? true : false);
 
             return $icon;
         }, $icons);
@@ -91,7 +101,7 @@ class M_icon_discover extends CI_Model
         return $icons;
     }
 
-    public function doGetPopularIcons()
+    public function doGetPopularIcons($subscription_id = null)
     {
         $icons                  = $this->db
             ->from('mst_icons')
@@ -100,9 +110,19 @@ class M_icon_discover extends CI_Model
             ->get()
             ->result();
 
-        $icons = array_map(function ($icon) {
+        $icons = array_map(function ($icon) use ($subscription_id) {
             $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
             $icon->url_image    = base_url($path);
+
+            $subscription       = $this->db
+                ->from('mst_icon_subscriptions')
+                ->where('icon_id', $icon->id)
+                ->where('subscription_plan_id', $subscription_id)
+                ->get()
+                ->row();
+
+            $icon->is_unlock    = ($subscription ? true : false);
+            $icon->guest_access = ($icon->guest_access == '1' ? true : false);
 
             return $icon;
         }, $icons);
@@ -157,5 +177,72 @@ class M_icon_discover extends CI_Model
         }
 
         return $sets;
+    }
+
+    public function doGetDetailIcon($icon_id, $subscription_id = null)
+    {
+        $icon                       = $this->db
+            ->from('mst_icons')
+            ->where('id', $icon_id)
+            ->get()
+            ->row();
+
+        if ($icon) {
+            $path                       = ($icon->image ? $icon->image : 'public/images/no_image.png');
+            $icon->url_image            = base_url($path);
+
+            $subscription               = $this->db
+                ->from('mst_icon_subscriptions')
+                ->where('icon_id', $icon->id)
+                ->where('subscription_plan_id', $subscription_id)
+                ->get()
+                ->row();
+
+            $icon->is_unlock            = ($subscription ? true : false);
+            $icon->guest_access         = ($icon->guest_access == '1' ? true : false);
+
+            $icon->minimum_subscription = $this->db
+                ->select('mst_subscription_plans.*')
+                ->from('mst_icon_subscriptions')
+                ->join('mst_subscription_plans', 'mst_subscription_plans.id=mst_icon_subscriptions.subscription_plan_id')
+                ->where('mst_icon_subscriptions.icon_id', $icon->id)
+                ->order_by('mst_subscription_plans.total_price', 'asc')
+                ->get()
+                ->row();
+        }
+
+        return $icon;
+    }
+
+    public function doGetMoreCategories($page, $item_per_page = 12)
+    {
+        $total_data     = $this->db->from('mst_icon_categories')->get()->num_rows();
+        $total_page     = ceil($total_data / $item_per_page);
+
+        $is_done        = $page >= $total_page;
+
+        $offset         = ($page - 1) * $item_per_page;
+
+        $categories     = $this->db
+            ->from('mst_icon_categories')
+            ->order_by('name')
+            ->limit($item_per_page)
+            ->offset($offset)
+            ->get()
+            ->result();
+
+        foreach ($categories as &$category) {
+            $path                   = ($category->image ? $category->image : 'public/images/no_image.png');
+            $category->url_image    = base_url($path);
+        }
+
+        return array(
+            'categories' => $categories,
+            'is_done'    => $is_done,
+            'last_query' => $this->db->last_query(),
+            'page'       => $page,
+            'total_page' => $total_page,
+
+        );
     }
 }

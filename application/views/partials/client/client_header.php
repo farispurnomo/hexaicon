@@ -21,7 +21,7 @@
                     <a class="nav-link nav-text px-3" href="<?= base_url('icon_discover') ?>">Discover</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-text px-3" href="">Icon Styles</a>
+                    <a class="nav-link nav-text px-3" href="<?= base_url('icon_styles') ?>">Icon Styles</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-text px-3" href="<?= base_url('subscription') ?>">Pricing</a>

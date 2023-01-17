@@ -19,6 +19,7 @@
     <script src="<?= base_url('public/vendor/bootstrap-5.2.0/js/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('public/vendor/jquery-3.6.1/jquery-3.6.1.min.js') ?>"></script>
     <script src="<?= base_url('public/vendor/wow/wow.min.js') ?>"></script>
+    <script src="<?= base_url('public/vendor/lottie/lottie-player.js') ?>"></script>
 </head>
 
 <body>

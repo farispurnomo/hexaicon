@@ -34,7 +34,7 @@ class M_client_dashboard extends CI_Model
         return $sets;
     }
 
-    public function doGetFavoriteIcons($id)
+    public function doGetFavoriteIcons($id, $subscription_id)
     {
         $icons = $this->db
             ->select('mst_icons.*')
@@ -44,9 +44,18 @@ class M_client_dashboard extends CI_Model
             ->get()
             ->result();
 
-        $icons              = array_map(function ($icon) {
+        $icons              = array_map(function ($icon) use ($subscription_id) {
             $path               = ($icon->image ? $icon->image : 'public/images/no_image.png');
             $icon->url_image    = base_url($path);
+
+            $subscription       = $this->db
+                ->from('mst_icon_subscriptions')
+                ->where('icon_id', $icon->id)
+                ->where('subscription_plan_id', $subscription_id)
+                ->get()
+                ->row();
+
+            $icon->is_unlock    = ($subscription ? true : false);
 
             return $icon;
         }, $icons);

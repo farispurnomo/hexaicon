@@ -4,7 +4,7 @@ class Icon_style extends CI_Controller
 {
     private $namespace    = 'pages/client/icon_style/icon_style_';
     private $extend_view  = 'layouts/client';
-    private $route          = 'icon_style';
+    private $route        = 'icon_style';
 
     private $client;
 

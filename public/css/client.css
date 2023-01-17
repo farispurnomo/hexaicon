@@ -739,10 +739,22 @@ nav#main-navbar.bg-hi-primary .btn-login:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .icon-item:hover {
     background-color: rgba(var(--hi-purple-rgb), 0.25);
+}
+
+.icon-item.locked::after {
+    position: absolute;
+    content: '';
+    background-image: url('../images/lock-icon.png');
+    background-repeat: round;
+    top: -10px;
+    right: -10px;
+    width: 50px;
+    height: 50px;
 }
 
 /* end: DASHBOARD PAGE */
@@ -869,6 +881,18 @@ nav#main-navbar.bg-hi-primary .btn-login:hover {
 
 #discover-icon-categories>div>div:nth-of-type(5) .icon-category:hover .h4 {
     color: var(--hi-purple) !important;
+}
+
+.icon-category-2 {
+    background-color: #f7f7f7;
+    color: black;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.icon-category-2:hover {
+    box-shadow: 2px 2px 6px #bdbdbd;
+    background: rgba(222, 87, 54, 0.25);
 }
 
 .placeholder-trending .placeholder {

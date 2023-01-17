@@ -82,6 +82,21 @@ class M_admin_icon extends CI_Model
                 $format->subscriptions = array_column($subscriptions, 'subscription_plan_id');
             }
 
+            if (empty($icon->formats)) {
+                $icon->formats    = array(
+                    (object) array(
+                        'id'            => '1',
+                        'name'          => 'svg',
+                        'subscriptions' => []
+                    ),
+                    (object) array(
+                        'id'            => '2',
+                        'name'          => 'png',
+                        'subscriptions' => []
+                    ),
+                );
+            }
+
             return $icon;
         }
 
