@@ -418,32 +418,32 @@ const menuIconDiscover = function () {
                         </a>
                     </div>
                 `;
-            }
-
-            if (!icon.is_unlock) {
-                html += `
-                    <div class="col p-1 p-md-3">
-                        <a href="javascript:void(0)" class="text-decoration-none text-black icon-item locked" data-bs-toggle="modal" data-bs-icon="${icon.id}" data-bs-target="#restrictionModal">
-                            <div class="text-center p-2">
-                                <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
-                                <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
-                                <div>${icon.name}</div>
-                            </div>
-                        </a>
-                    </div>
-                `;
             } else {
-                html += `
-                    <div class="col p-1 p-md-3">
-                        <a href="${url}" class="text-decoration-none text-black icon-item">
-                            <div class="text-center p-2">
-                                <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
-                                <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
-                                <div>${icon.name}</div>
-                            </div>
-                        </a>
-                    </div>
-                `;
+                if (!icon.is_unlock) {
+                    html += `
+                        <div class="col p-1 p-md-3">
+                            <a href="javascript:void(0)" class="text-decoration-none text-black icon-item locked" data-bs-toggle="modal" data-bs-icon="${icon.id}" data-bs-target="#restrictionModal">
+                                <div class="text-center p-2">
+                                    <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
+                                    <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
+                                    <div>${icon.name}</div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="col p-1 p-md-3">
+                            <a href="${url}" class="text-decoration-none text-black icon-item">
+                                <div class="text-center p-2">
+                                    <!-- <img draggable="false" class="img-fluid" src="${icon.url_image}"/> -->
+                                    <img draggable="false" class="img-fluid" width="96" loading="lazy" src="${icon.url_image}"/>
+                                    <div>${icon.name}</div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                }
             }
 
         });

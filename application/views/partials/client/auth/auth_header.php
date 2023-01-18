@@ -21,16 +21,6 @@
                 <li class="nav-item">
                     <a class="nav-link nav-text px-3" href="<?= base_url('subscription') ?>">Pricing</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link py-0 px-3" href="">
-                        <div class="search">
-                            <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18.3333 31.6667C25.6971 31.6667 31.6667 25.6971 31.6667 18.3333C31.6667 10.9695 25.6971 5 18.3333 5C10.9695 5 5 10.9695 5 18.3333C5 25.6971 10.9695 31.6667 18.3333 31.6667Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M35 35L27.75 27.75" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </a>
-                </li>
                 <?php if (isset($header_button)) : ?>
                     <li class="nav-item">
                         <a class="nav-link btn btn-login" href="<?= $header_button['href'] ?>"><?= $header_button['text'] ?></a>
@@ -64,11 +54,6 @@
             <li>
                 <a href="<?= base_url('pricing') ?>" class="text-decoration-none">
                     Pricing
-                </a>
-            </li>
-            <li>
-                <a href="<?= base_url('search') ?>" class="text-decoration-none">
-                    Search
                 </a>
             </li>
         </ul>

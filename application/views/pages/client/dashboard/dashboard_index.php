@@ -63,7 +63,7 @@
                         <div class="d-md-flex justify-content-between">
                             <div class="fw-bold h3">Favorite Icon Set</div>
                             <div>
-                                <a href="" class="text-decoration-none text-black">See all >></a>
+                                <a href="<?= base_url($route . '/favorite_icon_set') ?>" class="text-decoration-none text-black">See all >></a>
                             </div>
                         </div>
                         <div class="row py-3">
@@ -92,7 +92,10 @@
                                 <?php endforeach ?>
                             <?php else : ?>
                                 <div class="col-12 text-center">
-                                    Data not available
+                                    <div>
+                                        <lottie-player class="m-auto" src="<?= base_url('public/images/25943-nodata.json') ?>" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay />
+                                    </div>
+                                    <div>No Data Available</div>
                                 </div>
                             <?php endif ?>
                         </div>
@@ -101,7 +104,7 @@
                         <div class="d-md-flex justify-content-between">
                             <div class="fw-bold h3">Favorite icon</div>
                             <div>
-                                <a href="" class="text-decoration-none text-black">See all >></a>
+                                <a href="<?= base_url($route . '/favorite_icon') ?>" class="text-decoration-none text-black">See all >></a>
                             </div>
                         </div>
                         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-6 py-3">
@@ -127,7 +130,10 @@
                                 <?php endforeach ?>
                             <?php else : ?>
                                 <div class="text-center m-auto">
-                                    Data not available
+                                    <div>
+                                        <lottie-player class="m-auto" src="<?= base_url('public/images/25943-nodata.json') ?>" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay />
+                                    </div>
+                                    <div>No Data Available</div>
                                 </div>
                             <?php endif ?>
                         </div>

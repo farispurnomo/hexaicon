@@ -888,6 +888,7 @@ nav#main-navbar.bg-hi-primary .btn-login:hover {
     color: black;
     border-radius: 1rem;
     overflow: hidden;
+    box-shadow: 1px 1px 3px #bdbdbd;
 }
 
 .icon-category-2:hover {

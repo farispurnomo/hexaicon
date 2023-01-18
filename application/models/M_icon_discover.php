@@ -239,10 +239,6 @@ class M_icon_discover extends CI_Model
         return array(
             'categories' => $categories,
             'is_done'    => $is_done,
-            'last_query' => $this->db->last_query(),
-            'page'       => $page,
-            'total_page' => $total_page,
-
         );
     }
 }
