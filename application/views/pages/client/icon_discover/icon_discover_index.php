@@ -257,3 +257,14 @@
         menuIconDiscover.init();
     })
 </script>
+
+<style>
+    .icon-style-item {
+        border-radius: 10px;
+        transition: all .1s ease-in-out
+    }
+
+    .icon-style-item:hover {
+        box-shadow: 5px 5px 20px #bdbdbd;
+    }
+</style>

@@ -47,8 +47,8 @@
                 </a>
             </li>
             <li>
-                <a href="<?= base_url('icon_styles') ?>" class="text-decoration-none">
-                    Icon Styles
+                <a href="<?= base_url('icon_search') ?>" class="text-decoration-none">
+                    Icon Search
                 </a>
             </li>
             <li>

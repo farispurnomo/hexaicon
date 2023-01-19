@@ -41,6 +41,7 @@
 							<span class="form-check-label text-gray-600"><em>Guest</em></span>
 						</label>
 					</div>
+					<hr/>
                     <?php foreach ($subscriptions as $subscription) : ?>
                         <div class="mb-3">
                             <label class="form-check form-check-custom form-check-solid">

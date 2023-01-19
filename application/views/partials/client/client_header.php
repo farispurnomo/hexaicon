@@ -21,7 +21,7 @@
                     <a class="nav-link nav-text px-3" href="<?= base_url('icon_discover') ?>">Discover</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-text px-3" href="<?= base_url('icon_styles') ?>">Icon Styles</a>
+                    <a class="nav-link nav-text px-3" href="<?= base_url('icon_search') ?>">Icon Search</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-text px-3" href="<?= base_url('subscription') ?>">Pricing</a>
@@ -66,8 +66,8 @@
                 </a>
             </li>
             <li>
-                <a href="<?= base_url('icon_styles') ?>" class="text-decoration-none">
-                    Icon Styles
+                <a href="<?= base_url('icon_search') ?>" class="text-decoration-none">
+                    Icon Searh
                 </a>
             </li>
             <li>

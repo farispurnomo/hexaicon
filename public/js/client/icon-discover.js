@@ -141,16 +141,18 @@ const menuIconDiscover = function () {
             styles.forEach((style) => {
                 html += `
                 <div class="col-md-3 p-3">
-                    <a href="" class="text-black text-decoration-none">
-                        <div class="bg-white rounded">
-                            <div class="row">
-                                ${renderIcons(style.icons)}
+                    <div class="icon-style-item">
+                        <a href="${helper.getBaseUrl() + 'icon_search?style_id=' + style.id}" class="text-black text-decoration-none">
+                            <div class="bg-white rounded">
+                                <div class="row">
+                                    ${renderIcons(style.icons)}
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-center fw-bold py-3">
-                            <div>Icon ${style.name}</div>
-                        </div>
-                    </a>
+                            <div class="text-center fw-bold py-3">
+                                <div>Icon ${style.name}</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             `;
             });
@@ -164,7 +166,7 @@ const menuIconDiscover = function () {
             categories.forEach((category) => {
                 html += `
                         <div class="col-6 col p-3">
-                            <a href="" class="text-decoration-none">
+                            <a href="${helper.getBaseUrl() + 'icon_search?category_id=' + category.id}" class="text-decoration-none">
                                 <div class="icon-category">
                                     <div class="row align-items-center">
                                         <div class="col-xl-4 text-center">

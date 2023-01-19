@@ -58,6 +58,7 @@ class M_icon_discover extends CI_Model
         $icons = $this->db
             ->from('mst_icons')
             ->where("exists(SELECT * FROM mst_icon_subscriptions WHERE mst_icon_subscriptions.icon_id=mst_icons.id AND subscription_plan_id='$subscription_free_id')", NULL, false)
+            ->or_where('guest_access', '1')
             ->order_by('created_at', 'desc')
             ->get()
             ->result();
