@@ -290,7 +290,7 @@
                     style_ids: styles.filter(x => x.checked === true).map(x => x.id),
                     set_ids: sets.filter(x => x.checked === true).map(x => x.id),
                     category_ids: categories.filter(x => x.checked === true).map(x => x.id),
-                    queries: params_queries.filter(x => x.checked === true).map(x => x.text)
+                    queries: params_queries.map(x => x.text)
                 }
             };
 
@@ -412,7 +412,7 @@
                 const value = $(this).data('value');
 
                 if (s_type === type.QUERY) {
-                    const index = params_queries.findIndex(x => x.text === value);
+                    const index = params_queries.findIndex(x => x.id === value);
                     if (index !== -1) {
                         params_queries.splice(index, 1);
                     }

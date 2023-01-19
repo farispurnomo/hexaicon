@@ -196,11 +196,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="text-end px-5">
                                 <div>See more >>></div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
