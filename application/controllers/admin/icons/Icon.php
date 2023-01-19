@@ -124,6 +124,12 @@ class Icon extends CI_Controller
                 'number_of_downloads'           => 0,
                 'created_at'                    => date('Y-m-d H:i:s')
             );
+			
+			if($this->input->post('guest_access')){
+				$icon['guest_access']			= 1; // true
+			}else{
+				$icon['guest_access']			= 1; // false
+			}
 
             $set_id                     = $this->input->post('set_id', TRUE);
             $style_id                   = $this->input->post('style_id', TRUE);
@@ -245,6 +251,12 @@ class Icon extends CI_Controller
                 'name'                          => $this->input->post('name', TRUE),
                 'updated_at'                    => date('Y-m-d H:i:s')
             );
+			
+			if($this->input->post('guest_access')){
+				$icon['guest_access']			= 1; // true
+			}else{
+				$icon['guest_access']			= 0; // false
+			}
 
             $set_id                     = $this->input->post('set_id', TRUE);
             $style_id                   = $this->input->post('style_id', TRUE);

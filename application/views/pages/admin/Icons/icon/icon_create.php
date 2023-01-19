@@ -35,6 +35,12 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
+					<div class="mb-3">
+						<label class="form-check form-check-custom form-check-solid">
+							<input class="form-check-input" type="checkbox" value="1" name="guest_access">
+							<span class="form-check-label text-gray-600"><em>Guest</em></span>
+						</label>
+					</div>
                     <?php foreach ($subscriptions as $subscription) : ?>
                         <div class="mb-3">
                             <label class="form-check form-check-custom form-check-solid">

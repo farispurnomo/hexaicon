@@ -35,6 +35,13 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
+					<div class="mb-3">
+						<label class="form-check form-check-custom form-check-solid">
+							<input class="form-check-input" type="checkbox" value="1" name="guest_access" <?=$record->guest_access ? 'checked' : ''?>>
+							<span class="form-check-label text-gray-600"><em>Guess</em></span>
+						</label>
+					</div>
+					<hr/>
                     <?php foreach ($subscriptions as $subscription) : ?>
                         <div class="mb-3">
                             <label class="form-check form-check-custom form-check-solid">

@@ -69,7 +69,7 @@ class Category extends CI_Controller
     {
         $file_name                      = str_replace(' ', '_', $_FILES['file']['name']);
         $config['upload_path']          = './public/uploads/icon_categories/';
-        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        //$config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['max_size']             = '2000';
         $file_name                      = rand(00, 99) . '_' . date('YmdHis') . '_' . $file_name;
         $config['file_name']            = $file_name; //new file name
