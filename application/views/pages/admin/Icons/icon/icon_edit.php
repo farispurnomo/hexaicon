@@ -35,13 +35,13 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-					<div class="mb-3">
-						<label class="form-check form-check-custom form-check-solid">
-							<input class="form-check-input" type="checkbox" value="1" name="guest_access" <?=$record->guest_access ? 'checked' : ''?>>
-							<span class="form-check-label text-gray-600"><em>Guess</em></span>
-						</label>
-					</div>
-					<hr/>
+                    <div class="mb-3">
+                        <label class="form-check form-check-custom form-check-solid">
+                            <input class="form-check-input" type="checkbox" value="1" name="guest_access" <?= $record->guest_access ? 'checked' : '' ?>>
+                            <span class="form-check-label text-gray-600"><em>Guess</em></span>
+                        </label>
+                    </div>
+                    <hr />
                     <?php foreach ($subscriptions as $subscription) : ?>
                         <div class="mb-3">
                             <label class="form-check form-check-custom form-check-solid">
@@ -120,6 +120,15 @@
 
                             <?php foreach ($record->formats as $key => $format) : ?>
                                 <div class="tab-pane fade <?= $key === 0 ? 'show active' : '' ?>" id="kt_<?= $format->id ?>_pane" role="tabpanel" tabindex="0">
+                                    <div class="mb-3">
+                                        <label class="form-check form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" value="1" name="<?= $format->name ?>_guest" <?= ($format->guest_access ? 'checked' : '') ?>>
+                                            <span class="form-check-label text-gray-600"><em>Guest</em></span>
+                                        </label>
+                                    </div>
+
+                                    <hr />
+
                                     <?php foreach ($subscriptions as $subscription) : ?>
                                         <div class="mb-3">
                                             <label class="form-check form-check-custom form-check-solid">

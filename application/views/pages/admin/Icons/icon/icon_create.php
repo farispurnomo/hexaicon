@@ -35,13 +35,13 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-					<div class="mb-3">
-						<label class="form-check form-check-custom form-check-solid">
-							<input class="form-check-input" type="checkbox" value="1" name="guest_access">
-							<span class="form-check-label text-gray-600"><em>Guest</em></span>
-						</label>
-					</div>
-					<hr/>
+                    <div class="mb-3">
+                        <label class="form-check form-check-custom form-check-solid">
+                            <input class="form-check-input" type="checkbox" value="1" name="guest_access">
+                            <span class="form-check-label text-gray-600"><em>Guest</em></span>
+                        </label>
+                    </div>
+                    <hr />
                     <?php foreach ($subscriptions as $subscription) : ?>
                         <div class="mb-3">
                             <label class="form-check form-check-custom form-check-solid">
@@ -122,6 +122,15 @@
                         <div class="tab-content" id="nav-tabContent">
 
                             <div class="tab-pane fade show active" id="kt_project_users_card_pane" role="tabpanel" tabindex="0">
+                                <div class="mb-3">
+                                    <label class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" name="svg_guest">
+                                        <span class="form-check-label text-gray-600"><em>Guest</em></span>
+                                    </label>
+                                </div>
+
+                                <hr />
+
                                 <?php foreach ($subscriptions as $subscription) : ?>
                                     <div class="mb-3">
                                         <label class="form-check form-check-custom form-check-solid">
@@ -132,6 +141,15 @@
                                 <?php endforeach ?>
                             </div>
                             <div class="tab-pane fade" id="kt_project_users_table_pane" role="tabpanel" tabindex="0">
+                                <div class="mb-3">
+                                    <label class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" name="png_guest">
+                                        <span class="form-check-label text-gray-600"><em>Guest</em></span>
+                                    </label>
+                                </div>
+
+                                <hr />
+
                                 <?php foreach ($subscriptions as $subscription) : ?>
                                     <div class="mb-3">
                                         <label class="form-check form-check-custom form-check-solid">

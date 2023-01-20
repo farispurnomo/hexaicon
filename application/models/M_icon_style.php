@@ -166,21 +166,29 @@ class M_icon_style extends CI_Model
         $this->db->set('number_of_downloads', 'number_of_downloads+1', false);
         $this->db->update('mst_icons');
 
-        $total = 0;
+        $total = 1;
         $log = $this->db->from('log_downloads')
             ->where('DATE(date)', date('Y-m-d'))
             ->get()
             ->row();
 
         if ($log) {
-            $total = $log->total;
-        }
+            $total = $log->total + 1;
 
-        $this->db->where('DATE(date)', date('Y-m-d'))
-            ->update('log_downloads', [
+            $this->db
+                ->where('DATE(date)', date('Y-m-d'))
+                ->update('log_downloads', [
+                    'total'         => $total,
+                    'updated_at'    => date('Y-m-d H:i:s')
+                ]);
+        } else {
+            $this->db->insert('log_downloads', [
+                'date'          => date('Y-m-d'),
                 'total'         => $total,
                 'updated_at'    => date('Y-m-d H:i:s')
             ]);
+        }
+
 
         return $this->db->affected_rows();
     }
