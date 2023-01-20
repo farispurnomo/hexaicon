@@ -3,9 +3,9 @@
     <section class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="text-center px-5 py-3 p-lg-5">
+                <div class="text-center py-3">
                     <div class="p-lg-3">
-                        <img class="img-fluid img-thumbnail rounded-circle" draggable="false" src="<?= $client->url_image ?>" alt="">
+                        <img class="img-fluid img-thumbnail rounded-circle" draggable="false" src="<?= $client->url_image ?>" alt="" style="height: 250px; width: 250px">
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                                     </div>
                                 <?php endforeach ?>
                             <?php else : ?>
-                                <div class="text-center m-auto">
+                                <div class="text-center">
                                     <div>
                                         <lottie-player class="m-auto" src="<?= base_url('public/images/25943-nodata.json') ?>" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay />
                                     </div>
