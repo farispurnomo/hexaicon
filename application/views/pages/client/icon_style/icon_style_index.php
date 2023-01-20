@@ -6,7 +6,7 @@
                 <div class="col-12 py-5">
                     <div class="row">
                         <div class="col-12">
-                            <div class="text-center pt-5 pb-4">
+                            <div class="text-center pt-2 pb-2">
                                 <div class="h1 fw-bold">Icon Styling</div>
                                 <div>Styling your icon and download it</div>
                             </div>
@@ -23,7 +23,7 @@
 
     <section>
         <div class="container-fluid" id="suggestion-icons">
-
+        
         </div>
     </section>
 

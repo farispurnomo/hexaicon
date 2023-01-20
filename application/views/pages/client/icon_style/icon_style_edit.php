@@ -1,80 +1,115 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div class="mb-3">
-                <h4><strong><?= $icon->name ?></strong></h4>
+            <div class="mb-5">
+                <h3><strong><?= ucfirst($icon->name) ?></strong></h3>
             </div>
-            <div class="mb-3">
+            <div class="mb-5">
                 <label class="form-label">Icon size</label>
-                <div class="row">
-                    <div class="col-10">
-                        <input class="form-range" type="range" name="size" min="64" max="256">
+                <div class="btn-group" role="group" aria-label=" radio toggle button group">
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-24" value="24" autocomplete="off" checked>
+                    <label class="btn btn-outline-danger" for="btn-24">24px</label>
+
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-32" value="32" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="btn-32">32px</label>
+
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-48" value="48" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="btn-48">48px</label>
+
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-64" value="64" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="btn-64">64px</label>
+
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-72" value="72" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="btn-72">72px</label>
+
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-96" value="96" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="btn-96">96px</label>
+
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-128" value="128" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="btn-128">128px</label>
+
+                    <input type="radio" class="btn-check" name="btn-size" id="btn-256" value="256" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="btn-256">256px</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="mb-5">
+                        <label class="form-label">Flip / Mirror</label>
+                        <div>
+                            <div class="btn-group" role="group" id="button-flip">
+                                <button type="button" class="btn btn-outline-danger" id="flip_original">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="24" height="24" transform="matrix(1, 0, 0, 1, 0, 0)">
+                                        <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger" id="flip_horizonal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="24" height="24" transform="matrix(-1, 0, 0, 1, 0, 0)">
+                                        <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger" id="flip_vertical">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="24" height="24" transform="matrix(1, 0, 0, -1, 0, 0)">
+                                        <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger" id="flip_horizontal_vertical">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="24" height="24" transform="matrix(-1, 0, 0, -1, 0, 0)">
+                                        <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <span id="size-info"></span>
+                </div>
+                <div class="col-md-7">
+                    <div class="mb-3">
+                        <label>Rotation</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input class="form-range" type="range" name="rotate" min="0" max="360" value="0">
+                            </div>
+                            <div class="col-md-2">
+                                <span id="rotate-info"></span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Flip / Mirror</label>
-                <div>
-                    <div class="btn-group" role="group" id="button-flip">
-                        <button type="button" class="btn btn-light" id="flip_original">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="16" height="16" transform="matrix(1, 0, 0, 1, 0, 0)">
-                                <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
-                            </svg>
-                        </button>
-                        <button type="button" class="btn btn-light" id="flip_horizonal">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="16" height="16" transform="matrix(-1, 0, 0, 1, 0, 0)">
-                                <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
-                            </svg>
-                        </button>
-                        <button type="button" class="btn btn-light" id="flip_vertical">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="16" height="16" transform="matrix(1, 0, 0, -1, 0, 0)">
-                                <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
-                            </svg>
-                        </button>
-                        <button type="button" class="btn btn-light" id="flip_horizontal_vertical">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#555" width="16" height="16" transform="matrix(-1, 0, 0, -1, 0, 0)">
-                                <path d="M 8 1 L 8 13 L 14 13 L 8 1 z M 7 1.0058594 L 1.0078125 13 L 7 13 L 7 1.0058594 z M 6 5.2441406 L 6 12 L 2.6230469 12 L 6 5.2441406 z"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label>Rotation</label>
-                <div class="row">
-                    <div class="col-md-10">
-                        <input class="form-range" type="range" name="rotate" min="0" max="360" value="0">
-                    </div>
-                    <div class="col-md-2">
-                        <span id="rotate-info"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label>Oultine</label>
+            <H5>Border</H5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-5">
+                    <label>Oultine</label>
                 <input class="form-range" id="thickness" type="range" min="0" max="10" value="0" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-5">
+                        <label class="form-label">Line Color</label>
+                        <input class="form-control form-control-color" id="linecolor" type="color" value="#000000" />
+                    </div>
+                </div>
+
             </div>
 
-            <div class="mb-3">
-                <label>Outine Color</label>
-                <input class="form-control" id="linecolor" type="color" value="#000000" />
-            </div>
+
         </div>
         <div class="col-md-6">
-            <div class="mb-3" id="vector">
-                <?= $icon->vector ?>
+            <div id="vector">
+                <?=
+                $icon->vector ?>
             </div>
+            <div class="row mt-5">
+                <H5>Colors</H5>
+                <div class="d-flex flex-row bd-highlight mb-4" id="colors">
 
-            <div class="row" id="colors">
-
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 text-center">
@@ -119,12 +154,14 @@
     </div>
 </div>
 
+
+
 <canvas class="d-none" id="canvas"></canvas>
 
 <script defer>
     const svgHandle = function() {
         const initSizeControl = function() {
-            $(document).on('input', 'input[name="size"]', function() {
+            $(document).on('input', 'input[name="btn-size"]', function() {
                 const size = $(this).val();
                 $('#vector svg').attr('width', size + 'px')
                     .attr('height', size + 'px');
@@ -337,12 +374,13 @@
 
             fill_colors.forEach(function(value, index) {
                 const html = `
-                    <div class="col-md-6 m-auto">
-                        <div class="p-2">
-                            <input class="form-control" type="color" name="color" data-index="${index}" value="${value.color}"/>
-                        </div>
-                    </div>
-                `;
+        
+            <div class="p-2 bd-highlight">
+                <div class="mb-3">
+                    <label  class="form-label">Color ${index+1} </label>
+					<input type="color" class="form-control form-control-color" name="color" data-index="${index}" value="${value.color}"/>
+				</div>
+            </div>`
                 $('#colors').append(html);
             });
 
