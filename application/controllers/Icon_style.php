@@ -19,6 +19,7 @@ class Icon_style extends CI_Controller
     public function index($id = null)
     {
         try {
+            $subscription_id   = $this->client ? $this->client->subscription_plan_id : null;
             if (!$id) throw new Exception();
 
             $data['extend_view']    = $this->extend_view;
@@ -27,7 +28,7 @@ class Icon_style extends CI_Controller
             $data['is_favorite']    = false;
             $data['client']         = $this->client;
             $data['namespace']      = $this->namespace;
-            $data['icon']           = $this->M_icon_style->doGetIconById($id);
+            $data['icon']           = $this->M_icon_style->doGetIconById($id, $subscription_id);
 
             if ($this->client) {
                 $data['is_favorite']    = $this->M_icon_style->doCheckIsFavorite($id, $this->client->id);
@@ -39,7 +40,7 @@ class Icon_style extends CI_Controller
         }
     }
 
-    public function get_icon($id = null)
+    public function get_suggestion($id)
     {
         try {
             if (!$id) throw new Exception('Ikon tidak ditemukan', 201);
@@ -48,14 +49,11 @@ class Icon_style extends CI_Controller
             $icon              = $this->M_icon_style->doGetDetaiIcon($id, $subscription_id);
             if (!$icon) throw new Exception('Ikon tidak ditemukan', 201);
 
-            $suggestions        = $this->M_icon_style->doGetIconLikeId($id);
+            $suggestions        = $this->M_icon_style->doGetIconLikeId($id, $subscription_id);
 
             $datarow['status'] = 200;
             $datarow['msg']    = 'sukses';
-            $datarow['data']   = array(
-                'icon'          => $icon,
-                'suggestions'   => $suggestions
-            );
+            $datarow['data']   = $suggestions;
         } catch (Throwable $e) {
             $datarow['status'] = $e->getCode();
             $datarow['msg']    = $e->getMessage();
@@ -71,9 +69,11 @@ class Icon_style extends CI_Controller
         try {
             $page = $this->input->get('page', true);
 
+            $subscription_id   = $this->client ? $this->client->subscription_plan_id : null;
+
             $datarow['status'] = 200;
             $datarow['msg']    = 'sukses';
-            $datarow['data']   = $this->M_icon_style->doGetMoreCategoryWithIcons($page);
+            $datarow['data']   = $this->M_icon_style->doGetMoreCategoryWithIcons($subscription_id, $page);
         } catch (Throwable $e) {
             $datarow['status'] = $e->getCode();
             $datarow['msg']    = $e->getMessage();
@@ -108,10 +108,4 @@ class Icon_style extends CI_Controller
             redirect('icon_style/index/' . $icon_id);
         }
     }
-
-    // public function edit($id)
-    // {
-    //     $data['icon']       = $this->M_icon_style->doGetIconById($id);
-    //     $this->load->view($this->namespace . 'edit', $data);
-    // }
 }

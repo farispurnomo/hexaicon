@@ -134,16 +134,23 @@ class Landing extends CI_Controller
     //     //     return $subscription_ids;
     //     // };
 
-    //     $insert_icon_format = function ($icon_id, $format_name, $max_plan_id) use ($generate_rand_subscriptions) {
+    //     $insert_icon_format = function ($icon_id, $format_name, $min_plan_id) use ($generate_rand_subscriptions) {
+    //         $guest_access = '0';
+    //         if ($min_plan_id === 1) {
+    //             $guest_access = '1';
+    //         }
+
     //         $icon_formats               = array(
     //             'icon_id'                   => $icon_id,
     //             'name'                      => $format_name,
+    //             'guest_access'              => $guest_access,
     //             'created_at'                => date('Y-m-d H:i:s')
     //         );
+
     //         $this->db->insert('mst_icon_formats', $icon_formats);
     //         $insert_id                  = $this->db->insert_id();
 
-    //         $subscription_ids           = $generate_rand_subscriptions($max_plan_id, 3);
+    //         $subscription_ids           = $generate_rand_subscriptions($min_plan_id, 3);
     //         $format_subscriptions       = [];
     //         foreach ($subscription_ids as  $subscription_id) {
     //             $format_subscriptions[] = array(

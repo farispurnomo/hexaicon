@@ -59,7 +59,7 @@
         <div class="row g-0">
             <div class="col-12">
                 <div class="bg-white h-100 big-radius">
-                    <div class="mb-5">
+                    <div class="mb-5 d-none">
                         <div class="d-md-flex justify-content-between">
                             <div class="fw-bold h3">Favorite Icon Set</div>
                             <div>
@@ -100,6 +100,7 @@
                             <?php endif ?>
                         </div>
                     </div>
+
                     <div>
                         <div class="d-md-flex justify-content-between">
                             <div class="fw-bold h3">Favorite icon</div>

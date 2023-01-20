@@ -139,30 +139,6 @@ const menuIconStyle = function () {
         });
     };
 
-    const renderSizes = function () {
-        let html = '';
-
-        if (data_icon.resolutions.length) {
-            data_icon.resolutions.forEach(resolution => {
-                html += `
-                    <div class="col-6 col-sm-3 p-2 text-center">
-                        <div class="custom-hi-radio-primary">
-                            <input id="size-${resolution.id}" type="radio" name="icon_size_id" value="${resolution.id}">
-                            <label for="size-${resolution.id}" class="rounded-pill w-100 py-2">${resolution.name}</label>
-                        </div>
-                    </div>
-                `;
-            });
-            $('#icon-sizes').html(html);
-            $('#icon-sizes input:first').click();
-            return;
-        }
-
-        html = '<div class="text-center">No data Available</div>';
-        $('#icon-sizes').html(html);
-        renderFormats();
-    };
-
     const renderFormats = function () {
         let html = '<div class="text-center">No data Available</div>';
 
@@ -186,19 +162,53 @@ const menuIconStyle = function () {
             let html = '';
             icons.forEach(icon => {
                 const url = helper.getBaseUrl() + 'icon_style/index/' + icon.id;
-                html += `
-                    <div class="col-auto">
-                        <div class="style-item-card h-100 p-3">
-                            <a href="${url}" class="text-decoration-none text-black">
-                                <div class="text-center">
-                                    <img loading="lazy" width="96" draggable="false" class="img-fluid" src="${icon.url_image}"/>
-                                    <!--<img draggable="false" class="img-fluid" src="http://localhost/ap2/public/images/icons8-heart-plus-100.png"/>-->
-                                    <div>${icon.name}</div>
-                                </div>
-                            </a>
+
+                if (icon.guest_access) {
+                    html += `
+                        <div class="col-auto p-4">
+                            <div class="style-item-card h-100 p-3">
+                                <a href="${url}" class="text-decoration-none text-black">
+                                    <div class="text-center">
+                                        <img loading="lazy" draggable="false" class="img-fluid" src="${icon.url_image}" style="height: 96px; width: 96px"/>
+                                        <!--<img draggable="false" class="img-fluid" src="http://localhost/ap2/public/images/icons8-heart-plus-100.png"/>-->
+                                        <div>${icon.name}</div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                } else {
+                    if (!icon.is_unlock) {
+                        html += `
+                            <div class="col-auto p-4">
+                                <div class="style-item-card locked h-100 p-3">
+                                    <a href="javascript:void(0)" class="text-decoration-none text-black" data-bs-toggle="modal" data-bs-icon="${icon.id}" data-bs-target="#restrictionModal">
+                                        <div class="text-center">
+                                            <img loading="lazy" draggable="false" class="img-fluid" src="${icon.url_image}" style="height: 96px; width: 96px"/>
+                                            <!--<img draggable="false" class="img-fluid" src="http://localhost/ap2/public/images/icons8-heart-plus-100.png"/>-->
+                                            <div>${icon.name}</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        html += `
+                            <div class="col-auto p-4">
+                                <div class="style-item-card h-100 p-3">
+                                    <a href="${url}" class="text-decoration-none text-black">
+                                        <div class="text-center">
+                                            <img loading="lazy" draggable="false" class="img-fluid" src="${icon.url_image}" style="height: 96px; width: 96px"/>
+                                            <!--<img draggable="false" class="img-fluid" src="http://localhost/ap2/public/images/icons8-heart-plus-100.png"/>-->
+                                            <div>${icon.name}</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+
             })
             return html;
         };
@@ -216,43 +226,18 @@ const menuIconStyle = function () {
         $('#suggestion-icons').append(html);
     };
 
-    const image_processor = function (src) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = src;
-            // img.src = 'http://localhost/ap2/public/images/icons8-heart-plus-100.png';
-        });
-    };
-
     const requestDataIcon = function (icon_id) {
         $.ajax({
-            url: helper.getBaseUrl() + 'icon_style/get_icon/' + icon_id,
+            url: helper.getBaseUrl() + 'icon_style/get_suggestion/' + icon_id,
             method: 'GET',
             dataType: 'JSON',
             success: async function (response) {
                 if (response.status == 200) {
-                    data_icon = response.data.icon;
-                    $('#icon-name').html(response.data.icon.name);
-
-                    try {
-                        const image = await image_processor(data_icon.url_image);
-                        canvasHandle.setIcon(image);
-                        canvasHandle.draw();
-                    } catch (error) {
-                        alert('Image temporary not available, please try again later');
-                        $('#image-detail-section').remove();
-                    }
-
-
-                    renderSizes();
                     const category = {
                         name: 'suggestions',
-                        icons: response.data.suggestions
+                        icons: response.data
                     };
                     renderCategoryWithIcons(category);
-
                     requestCategories();
                 }
 
@@ -329,25 +314,79 @@ const menuIconStyle = function () {
         })
     };
 
-    // const handleModal = function (icon_id) {
-    //     $(document).on('click', '#btn-edit-vector', function () {
-    //         $.ajax({
-    //             url: helper.getBaseUrl() + 'icon_style/edit/' + icon_id,
-    //             dataType: 'HTML',
-    //             success: function (response) {
-    //                 $('#edit-vector').html(response);
-    //             }
-    //         });
-    //     });
-    // }
+    const initRestrictionModal = function () {
+        $('#restrictionModal').on('show.bs.modal', function (e) {
+            const button = e.relatedTarget;
+            const icon_id = $(button).data('bs-icon');
+
+            const body = $(this).find('.modal-body');
+
+            $.ajax({
+                url: helper.getBaseUrl() + 'icon_discover/get_detail_icon/' + icon_id,
+                method: 'GET',
+                dataType: 'JSON',
+                beforeSend: function () {
+                    body.html('<div class="text-center p-5"><i class="fa fa-spin fa-spinner fa-2x"></i></div>')
+                },
+                success: function (response) {
+                    if (response.status == 200) {
+
+                        if (!response.is_login) { // jika belum login
+                            // if (response.data.guest_access) { // jika access gratis diberikan
+                            // suruh login
+
+                            body.html(`
+                                    <div class="text-center">
+                                        <div class="my-4">
+                                            <img loading="lazy" class="img-fluid" width="48" src="${helper.getBaseUrl() + 'public/images/min-logo-color.png'}"/>
+                                        </div>
+                                        <div class="mb-3 h4">You must login first</div>
+                                        <a class="btn btn-hi-primary px-4" href="${helper.getBaseUrl() + 'client/auth/login'}">Login</a>
+                                    </div>
+                                `);
+
+                            // }
+                        } else { // sudah login
+                            if (!response.data.is_unlock) {// jika subscription tidak sesuai
+                                // suruh bayar
+
+                                if (response.data.minimum_subscription) {
+                                    body.html(`
+                                        <div class="text-center">
+                                            <div class="my-4">
+                                                <img loading="lazy" class="img-fluid" width="48" src="${helper.getBaseUrl() + 'public/images/min-logo-color.png'}"/>
+                                            </div>
+                                            <div class="mb-3 h4">Unlock with ${response.data.minimum_subscription.name}</div>
+                                            <a class="btn btn-hi-primary px-4" href="${helper.getBaseUrl() + 'subscription/index?id=' + response.data.minimum_subscription.id}">Only ${helper.numberFormat(response.data.minimum_subscription.total_price)} <i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    `);
+                                } else {
+                                    body.html(`
+                                        <div class="text-center">
+                                            <div class="my-4">
+                                                <img loading="lazy" class="img-fluid" width="48" src="${helper.getBaseUrl() + 'public/images/min-logo-color.png'}"/>
+                                            </div>
+                                            <div class="mb-3 h4">Icon not supported anymore</div>
+                                            <div>Please <a href="${helper.getBaseUrl() + 'contact_us'}">contact us</a> if you're think this is a mistake</div>
+                                        </div>
+                                    `);
+                                }
+
+                            }
+                        }
+
+                    } else {
+                        body.html(`<div class="text-center">${response.msg}</div>`)
+                    }
+                }
+            })
+        });
+    };
 
     const init = function (icon_id) {
         handleEvents();
         requestDataIcon(icon_id);
-
-        // handleModal(icon_id);
-
-        canvasHandle.init();
+        initRestrictionModal()
     };
 
     return {

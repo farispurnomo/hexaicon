@@ -30,7 +30,6 @@ class Icon_search extends CI_Controller
     public function paginate()
     {
         try {
-            // sleep(10);
             $post                       = $this->input->raw_input_stream;
             $post                       = (array) json_decode($post);
 

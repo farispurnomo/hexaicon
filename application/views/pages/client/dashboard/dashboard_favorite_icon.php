@@ -103,7 +103,7 @@
                                 </div>
                                 <div>No Data Available</div>
                             </div>
-                        `);
+                        `).removeClass('row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xxl-6');
                     }
 
                     if (response.data.is_done) {
