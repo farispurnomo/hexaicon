@@ -56,7 +56,7 @@ class Subscription extends CI_Controller
 
             $params             = array(
                 'transaction_details'   => array(
-                    'order_id'              => rand(),
+                    'order_id'              => '#' . random_string('alnum', 4) . '-' . random_string('alnum', 4),
                     'gross_amount'          => $subscription->total_price,
                 ),
                 'callback'              => array(
@@ -89,7 +89,9 @@ class Subscription extends CI_Controller
 
             $response               = $this->input->post('response');
             $response               = json_decode($response);
+            $order_id               = '';
             if ($response) {
+                $order_id           = $response->order_id;
                 if ($response->transaction_status == 'settlement') {
                     $subscribed_at          = date('Y-m-d H:i:s');
                     $subscription_ends_at   = date('Y-m-d H:i:s', strtotime('+1 years'));
@@ -104,6 +106,7 @@ class Subscription extends CI_Controller
             }
 
             $log                    = array(
+                'order_id'                  => $order_id,
                 'client_id'                 => $this->client->id,
                 'client_email'              => $user->email,
                 'subscription_plan_id'      => $subscription->id,

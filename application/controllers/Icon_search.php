@@ -22,6 +22,7 @@ class Icon_search extends CI_Controller
         $data['styles']             = $this->M_icon_search->doGetStyles();
         $data['sets']               = $this->M_icon_search->doGetSets();
         $data['categories']         = $this->M_icon_search->doGetCategories();
+        $data['subscriptions']      = $this->M_icon_search->doGetSubscriptions();
 
         $this->template->load($this->namespace . 'index', $data);
     }

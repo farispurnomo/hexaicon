@@ -40,7 +40,6 @@ class M_client_subscription extends CI_Model
 
     public function doInsertLogSubscription($params)
     {
-        $log    = array();
         $this->db->insert('log_subscriptions', $params);
         return $this->db->affected_rows();
     }

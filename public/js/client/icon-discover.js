@@ -540,7 +540,7 @@ const menuIconDiscover = function () {
                                                 <img loading="lazy" class="img-fluid" width="48" src="${helper.getBaseUrl() + 'public/images/min-logo-color.png'}"/>
                                             </div>
                                             <div class="mb-3 h4">Unlock with ${response.data.minimum_subscription.name}</div>
-                                            <a class="btn btn-hi-primary px-4" href="${helper.getBaseUrl() + 'subscription/index?id=' + response.data.minimum_subscription.id}">Only ${response.data.minimum_subscription.total_price} <i class="fa fa-arrow-right ms-2"></i></a>
+                                            <a class="btn btn-hi-primary px-4" href="${helper.getBaseUrl() + 'subscription/index?id=' + response.data.minimum_subscription.id}">Only ${helper.numberFormat(response.data.minimum_subscription.total_price)} <i class="fa fa-arrow-right ms-2"></i></a>
                                         </div>
                                     `);
                                 } else {

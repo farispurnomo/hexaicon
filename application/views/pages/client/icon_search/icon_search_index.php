@@ -47,6 +47,12 @@
                 <div class="col-md-3 search-page">
                     <div class="px-3 py-2 py-md-5">
                         <div class="mb-3">
+                            <div><strong>Subscription</strong></div>
+                            <div class="search-checkbox" id="search-subscription">
+
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             <div><strong>Style</strong></div>
                             <div class="search-checkbox" id="search-style">
 
@@ -152,24 +158,31 @@
     const searchHandle = function() {
         const type = {
             QUERY: 'QUERY',
+            SUBSCRIPTION: 'SUBSCRIPTION',
             STYLE: 'STYLE',
             SET: 'SET',
             CATEGORY: 'CATEGORY'
         };
 
-        let styles = JSON.parse(`<?= json_encode($styles) ?>`);
+        const subscriptions = JSON.parse(`<?= json_encode($subscriptions) ?>`);
+        subscriptions.map(e => ({
+            checked: false,
+            ...e
+        }));
+
+        const styles = JSON.parse(`<?= json_encode($styles) ?>`);
         styles.map(e => ({
             checked: false,
             ...e
         }));
 
-        let sets = JSON.parse('<?= json_encode($sets) ?>');
+        const sets = JSON.parse('<?= json_encode($sets) ?>');
         sets.map(e => ({
             checked: false,
             ...e
         }))
 
-        let categories = JSON.parse('<?= json_encode($categories) ?>');
+        const categories = JSON.parse('<?= json_encode($categories) ?>');
         categories.map(e => ({
             checked: false,
             ...e
@@ -203,6 +216,29 @@
                         .hide()
                         .fadeIn(500);
 
+                    break;
+                case type.SUBSCRIPTION:
+                    const subscription = subscriptions.find(x => x.id == id);
+
+                    if (!subscription) return;
+                    subscription.checked = !subscription.checked;
+
+                    const el_subscription = $('#search-params').find(`div#search-subscription_${subscription.id}`);
+                    $('#search-subscription').find(`#subscription_${subscription.id}`).prop('checked', subscription.checked);
+
+                    if (el_subscription.length) {
+                        el_subscription.fadeOut(200, function() {
+                            $(this).remove();
+                        });
+                    } else {
+                        $('#search-params').append(`
+                            <div role="button" class="badge px-4 py-2 mb-3 rounded-pill search-item" id="search-subscription_${subscription.id}" data-type="${s_type}" data-value="${subscription.id}">
+                                <span class="me-4">${subscription.name}</span> <i class="fa fa-times"></i>
+                            </div>
+                        `).children(':last')
+                            .hide()
+                            .fadeIn(500);
+                    }
                     break;
                 case type.STYLE:
                     const style = styles.find(x => x.id == id);
@@ -290,6 +326,7 @@
                     style_ids: styles.filter(x => x.checked === true).map(x => x.id),
                     set_ids: sets.filter(x => x.checked === true).map(x => x.id),
                     category_ids: categories.filter(x => x.checked === true).map(x => x.id),
+                    subscription_ids: subscriptions.filter(x => x.checked === true).map(x => x.id),
                     queries: params_queries.map(x => x.text)
                 }
             };
@@ -328,10 +365,11 @@
                     if (response.data.items.length) {
                         html = '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 mb-4">';
                         response.data.items.forEach(icon => {
+                            const url = '<?= base_url('icon_style/index/') ?>' + icon.id;
                             if (icon.guest_access) {
                                 html += `
                                     <div class="col p-2 p-md-3">
-                                        <a href="" class="text-decoration-none text-black icon-item">
+                                        <a href="${url}" class="text-decoration-none text-black icon-item">
                                             <div class="text-center p-2">
                                                 <img draggable="false" class="img-fluid" loading="lazy" src="${icon.url_image}"/>
                                                 <div>${icon.name}</div>
@@ -354,7 +392,7 @@
                                 } else {
                                     html += `
                                         <div class="col p-2 p-md-3">
-                                            <a href="" class="text-decoration-none text-black icon-item">
+                                            <a href="${url}" class="text-decoration-none text-black icon-item">
                                                 <div class="text-center p-2">
                                                     <img draggable="false" class="img-fluid" loading="lazy" src="${icon.url_image}"/>
                                                     <div>${icon.name}</div>
@@ -399,7 +437,7 @@
         };
 
         const initEvents = function() {
-            $(document).on('change', 'input[name="style_id"], input[name="set_id"], input[name="category_id"]', function(e) {
+            $(document).on('change', 'input[name="subscription_id"], input[name="style_id"], input[name="set_id"], input[name="category_id"]', function(e) {
                 // const checked = $(this).is(':checked');
                 const type = $(this).data('type');
                 const value = this.value;
@@ -458,12 +496,25 @@
         const initializeDataSearch = function() {
             let html = '';
 
+            subscriptions.forEach(subscription => {
+                html += `
+                    <div>
+                        <input type="checkbox" id="subscription_${subscription.id}" name="subscription_id" value="${subscription.id}" data-type="${type.SUBSCRIPTION}">
+                        <label for="subscription_${subscription.id}">
+                            <span class="pe-3">${subscription.name}</span><span>${numberFormat(subscription.total_icons || 0)}</span>
+                        </label>
+                    </div>
+                `;
+            });
+            $('#search-subscription').html(html)
+
+            html = '';
             styles.forEach(style => {
                 html += `
                     <div>
                         <input type="checkbox" id="style_${style.id}" name="style_id" value="${style.id}" data-type="${type.STYLE}">
                         <label for="style_${style.id}">
-                            <span class="pe-3">${style.name}</span><span>${style.total_icons || ''}</span>
+                            <span class="pe-3">${style.name}</span><span>${numberFormat(style.total_icons || 0)}</span>
                         </label>
                     </div>
                 `;
@@ -476,7 +527,7 @@
                     <div>
                         <input type="checkbox" id="set_${set.id}" name="set_id" value="${set.id}" data-type="${type.SET}">
                         <label for="set_${set.id}">
-                            <span class="pe-3">${set.name}</span><span>${set.total_icons || ''}</span>
+                            <span class="pe-3">${set.name}</span><span>${numberFormat(set.total_icons || 0)}</span>
                         </label>
                     </div>
                 `;
@@ -489,7 +540,7 @@
                     <div>
                         <input type="checkbox" id="category_${category.id}" name="category_id" value="${category.id}" data-type="${type.CATEGORY}">
                         <label for="category_${category.id}">
-                            <span class="pe-3">${category.name}</span><span>${category.total_icons || ''}</span>
+                            <span class="pe-3">${category.name}</span><span>${numberFormat(category.total_icons || 0)}</span>
                         </label>
                     </div>
                 `;
@@ -540,7 +591,7 @@
                                                     <img loading="lazy" class="img-fluid" width="48" src="<?= base_url('public/images/min-logo-color.png') ?>"/>
                                                 </div>
                                                 <div class="mb-3 h4">Unlock with ${response.data.minimum_subscription.name}</div>
-                                                <a class="btn btn-hi-primary px-4" href="${'<?= base_url('subscription/index?id=') ?>' + response.data.minimum_subscription.id}">Only ${response.data.minimum_subscription.total_price} <i class="fa fa-arrow-right ms-2"></i></a>
+                                                <a class="btn btn-hi-primary px-4" href="${'<?= base_url('subscription/index?id=') ?>' + response.data.minimum_subscription.id}">Only ${numberFormat(response.data.minimum_subscription.total_price)} <i class="fa fa-arrow-right ms-2"></i></a>
                                             </div>
                                         `);
                                     } else {
@@ -578,7 +629,7 @@
             }
 
             if (searchParams.has('category_id')) {
-                toggleParams(type.STYLE, searchParams.get('category_id'));
+                toggleParams(type.CATEGORY, searchParams.get('category_id'));
             }
 
             loadMore();

@@ -44,9 +44,29 @@ class M_icon_search extends CI_Model
             ->result();
     }
 
+    public function doGetSubscriptions()
+    {
+        return $this->db
+            ->select('
+                *,
+                (SELECT COUNT(*) FROM mst_icon_subscriptions WHERE mst_icon_subscriptions.subscription_plan_id=mst_subscription_plans.id) AS total_icons
+            ')
+            ->from('mst_subscription_plans')
+            ->order_by('name')
+            ->limit(10)
+            ->get()
+            ->result();
+    }
+
     private function doGenerateQueryIconPaginate($data)
     {
         $this->db->from('mst_icons');
+
+        if (isset($data->subscription_ids) && !empty($data->subscription_ids)) {
+            $in = implode(',', $data->subscription_ids);
+            $this->db->where('EXISTS (SELECT icon_id FROM mst_icon_subscriptions WHERE mst_icon_subscriptions.icon_id = mst_icons.id AND subscription_plan_id IN (' . $in . '))', NULL, FALSE);
+            // $this->db->where_in('subscription_id', $data->subscription_ids);
+        }
 
         if (isset($data->category_ids) && !empty($data->category_ids)) {
             $this->db->where_in('category_id', $data->category_ids);
