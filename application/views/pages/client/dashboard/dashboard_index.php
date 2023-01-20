@@ -107,27 +107,29 @@
                                 <a href="<?= base_url($route . '/favorite_icon') ?>" class="text-decoration-none text-black">See all >></a>
                             </div>
                         </div>
-                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-6 py-3">
+                        <div>
                             <?php if (!empty($favorite_icons)) : ?>
-                                <?php foreach ($favorite_icons as $icon) : ?>
-                                    <div class="col p-1 p-md-3">
-                                        <?php if ($icon->is_unlock) : ?>
-                                            <a href="<?= base_url('icon_style/index/' . $icon->id) ?>" class="text-decoration-none text-black icon-item">
-                                                <div class="text-center">
-                                                    <img draggable="false" loading="lazy" width="96" class="img-fluid" src="<?= $icon->url_image ?>" />
-                                                    <div><?= $icon->name ?></div>
-                                                </div>
-                                            </a>
-                                        <?php else : ?>
-                                            <a href="javascript:void(0)" class="text-decoration-none text-black icon-item locked" data-bs-toggle="modal" data-bs-icon="<?= $icon->id ?>" data-bs-target="#restrictionModal">
-                                                <div class="text-center">
-                                                    <img draggable="false" loading="lazy" width="96" class="img-fluid" src="<?= $icon->url_image ?>" />
-                                                    <div><?= $icon->name ?></div>
-                                                </div>
-                                            </a>
-                                        <?php endif ?>
-                                    </div>
-                                <?php endforeach ?>
+                                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-6 py-3">
+                                    <?php foreach ($favorite_icons as $icon) : ?>
+                                        <div class="col p-1 p-md-3">
+                                            <?php if ($icon->is_unlock) : ?>
+                                                <a href="<?= base_url('icon_style/index/' . $icon->id) ?>" class="text-decoration-none text-black icon-item">
+                                                    <div class="text-center">
+                                                        <img draggable="false" loading="lazy" width="96" class="img-fluid" src="<?= $icon->url_image ?>" />
+                                                        <div><?= $icon->name ?></div>
+                                                    </div>
+                                                </a>
+                                            <?php else : ?>
+                                                <a href="javascript:void(0)" class="text-decoration-none text-black icon-item locked" data-bs-toggle="modal" data-bs-icon="<?= $icon->id ?>" data-bs-target="#restrictionModal">
+                                                    <div class="text-center">
+                                                        <img draggable="false" loading="lazy" width="96" class="img-fluid" src="<?= $icon->url_image ?>" />
+                                                        <div><?= $icon->name ?></div>
+                                                    </div>
+                                                </a>
+                                            <?php endif ?>
+                                        </div>
+                                    <?php endforeach ?>
+                                </div>
                             <?php else : ?>
                                 <div class="text-center">
                                     <div>

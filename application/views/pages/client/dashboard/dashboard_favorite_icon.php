@@ -96,16 +96,12 @@
                     $('#icon-list').append(html);
 
                     if (response.data.total_data == 0) {
-                        $('#icon-set-list').html(`
+                        $('#icon-list').html(`
                             <div class="col-12 text-center">
                                 <div>
                                     <lottie-player class="m-auto" src="<?= base_url('public/images/25943-nodata.json') ?>" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay />
                                 </div>
                                 <div>No Data Available</div>
-
-                                <!--<div>
-                                    Find your first favorite icon sets. <a href=""></a>
-                                </div>-->
                             </div>
                         `);
                     }
