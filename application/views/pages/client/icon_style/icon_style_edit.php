@@ -364,6 +364,12 @@
         };
 
         const initDownloadControl = function() {
+            const insertLogDownload = function() {
+                $.ajax({
+                    url: '<?= base_url('icon_style/download/' . $icon->id) ?>',
+                    method: 'GET'
+                })
+            };
 
             const saveAsSSVG = function() {
                 let triggerDownload = (imgURI) => {
@@ -449,9 +455,13 @@
                 switch (s_type) {
                     case type.PNG:
                         saveAsPNG();
+
+                        insertLogDownload();
                         break;
                     case type.SVG:
-                        saveAsSSVG()
+                        saveAsSSVG();
+
+                        insertLogDownload();
                         break;
 
                     default:

@@ -84,19 +84,15 @@ class Icon_style extends CI_Controller
         }
     }
 
-    public function download($format_id = null)
+    public function download($icon_id = null)
     {
-        try {
-            if (!$format_id) throw new Exception();
-
-            $format_icon = $this->M_icon_style->doGetFormatIconById($format_id);
-            if (!$format_icon || !$format_icon->image) throw new Exception();
-            $this->M_icon_style->updateDownloadIcon($format_icon->icon_id);
-
-            // force_download(FCPATH . '/' . $format_icon->image, NULL);
-        } catch (Throwable $e) {
-            show_404();
+        if ($icon_id) {
+            $this->M_icon_style->updateDownloadIcon($icon_id);
         }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output('ok');
     }
 
     public function add_to_favorite($icon_id)
